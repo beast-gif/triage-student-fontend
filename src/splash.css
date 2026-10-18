@@ -1,0 +1,235 @@
+/* ------------------------------------------------------------------
+   The intro animation.
+
+   One idea, held for two seconds: the campus skyline draws itself in,
+   the wordmark settles out of wide tracking, a rule closes underneath,
+   and the whole thing lifts away. No spinners, no logo bounce, nothing
+   that would read as a loading screen — it is a title card, not a wait.
+   ------------------------------------------------------------------ */
+
+.sp {
+  --sp-bg: #130f16;
+  --sp-ink: #e8799c;
+  --sp-text: #f3eef1;
+  --sp-dim: #8e8290;
+
+  /* Set from the component. Every duration below multiplies by it. */
+  --sp-speed: 1;
+
+  position: fixed;
+  inset: 0;
+  z-index: 2147483600;      /* above the portal's own fixed chrome */
+  display: grid;
+  place-items: center;
+  background: var(--sp-bg);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow: hidden;
+  animation: sp-in calc(0.5s * var(--sp-speed)) ease both;
+}
+
+.sp * { box-sizing: border-box; }
+
+@keyframes sp-in { from { opacity: 0; } }
+
+/* The exit: the card lifts and clears, revealing the portal under it. */
+.sp.is-leaving {
+  animation: sp-out calc(0.78s * var(--sp-speed)) cubic-bezier(0.33, 0, 0.25, 1) both;
+  pointer-events: none;
+}
+
+@keyframes sp-out {
+  to { opacity: 0; transform: scale(1.06); filter: blur(5px); }
+}
+
+/* -------------------------------------------------- the skyline
+
+   Wiped in left to right with clip-path rather than faded, so it reads
+   as being drawn. The art itself is the portal's own mask PNG. */
+
+.sp-art {
+  position: absolute;
+  left: 50%;
+  bottom: -2vh;
+  translate: -50% 0;
+  width: min(1700px, 150vw);
+  aspect-ratio: 3582 / 1184;
+
+  background-color: var(--sp-ink);
+  opacity: 0.3;
+
+  -webkit-mask-image:
+    url("/campus-lines.png"),
+    linear-gradient(to top, #000 30%, transparent 92%);
+  -webkit-mask-size: contain, 100% 100%;
+  -webkit-mask-position: center bottom, center;
+  -webkit-mask-repeat: no-repeat, no-repeat;
+  -webkit-mask-composite: source-in;
+
+  mask-image:
+    url("/campus-lines.png"),
+    linear-gradient(to top, #000 30%, transparent 92%);
+  mask-size: contain, 100% 100%;
+  mask-position: center bottom, center;
+  mask-repeat: no-repeat, no-repeat;
+  mask-composite: intersect;
+
+  clip-path: inset(0 100% 0 0);
+  scale: 1.07;
+  animation: sp-draw calc(2.15s * var(--sp-speed)) cubic-bezier(0.16, 1, 0.3, 1)
+             calc(0.18s * var(--sp-speed)) both;
+}
+
+@keyframes sp-draw {
+  to { clip-path: inset(0 0 0 0); scale: 1; }
+}
+
+/* -------------------------------------------------- the mark
+
+   It arrives first and alone, holds for a beat, and the name assembles
+   underneath it. Scaling up from slightly small reads as approaching
+   rather than appearing. */
+
+.sp-mark {
+  display: block;
+  width: auto;
+  height: clamp(54px, 11vw, 96px);
+  margin-bottom: clamp(18px, 3vw, 30px);
+  opacity: 0;
+  scale: 0.82;
+  animation: sp-mark calc(1.35s * var(--sp-speed)) cubic-bezier(0.16, 1, 0.3, 1)
+             calc(0.3s * var(--sp-speed)) both;
+}
+
+@keyframes sp-mark {
+  to { opacity: 1; scale: 1; }
+}
+
+/* -------------------------------------------------- wordmark */
+
+.sp-centre {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0;
+  padding-bottom: 6vh;
+}
+
+.sp-word {
+  position: relative;
+  margin: 0;
+  display: inline-flex;
+  align-items: flex-start;
+  font-size: clamp(2.4rem, 8.5vw, 4.6rem);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--sp-text);
+
+  /* Settling from wide tracking is the whole move: the name assembles
+     rather than appearing. */
+  letter-spacing: 0.62em;
+  margin-right: -0.62em;
+  opacity: 0;
+  animation: sp-settle calc(1.75s * var(--sp-speed)) cubic-bezier(0.16, 1, 0.3, 1)
+             calc(1.05s * var(--sp-speed)) both;
+}
+
+@keyframes sp-settle {
+  from { letter-spacing: 0.62em; margin-right: -0.62em; opacity: 0; }
+  60%  { opacity: 1; }
+  to   { letter-spacing: 0.17em; margin-right: -0.17em; opacity: 1; }
+}
+
+/* The mark's one accent, landing after the letters have stopped. */
+.sp-dot {
+  width: 0.14em;
+  height: 0.14em;
+  margin-top: 0.1em;
+  border-radius: 50%;
+  background: var(--sp-ink);
+  transform: scale(0);
+  animation: sp-pop calc(0.5s * var(--sp-speed)) cubic-bezier(0.34, 1.56, 0.64, 1)
+             calc(2.4s * var(--sp-speed)) both;
+}
+
+@keyframes sp-pop { to { transform: scale(1); } }
+
+.sp-rule {
+  width: 0;
+  height: 1px;
+  margin: 1.1rem 0 0.95rem;
+  background: linear-gradient(90deg, transparent, var(--sp-ink), transparent);
+  animation: sp-rule calc(1.05s * var(--sp-speed)) cubic-bezier(0.16, 1, 0.3, 1)
+             calc(2.15s * var(--sp-speed)) both;
+}
+
+@keyframes sp-rule { to { width: clamp(150px, 34vw, 300px); } }
+
+.sp-tag {
+  margin: 0;
+  font-size: clamp(0.66rem, 1.5vw, 0.78rem);
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  margin-right: -0.34em;
+  text-transform: uppercase;
+  color: var(--sp-dim);
+  opacity: 0;
+  animation: sp-fade calc(0.8s * var(--sp-speed)) ease calc(2.5s * var(--sp-speed)) both;
+}
+
+@keyframes sp-fade { to { opacity: 1; } }
+
+/* -------------------------------------------------- skip */
+
+.sp-skip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 26px;
+  margin: 0;
+  text-align: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(142, 130, 144, 0.75);
+  opacity: 0;
+  animation: sp-fade calc(0.65s * var(--sp-speed)) ease calc(2.35s * var(--sp-speed)) both;
+}
+
+/* -------------------------------------------------- light theme
+
+   The portal is dark by default and opts into light with
+   [data-theme="light"], so this follows the same convention. Written the
+   other way round — :not([data-theme="dark"]) — the card comes up light
+   in front of a dark portal, because the portal sets no attribute at all
+   until someone touches the toggle. */
+
+[data-theme="light"] .sp {
+  --sp-bg: #f7f5f2;
+  --sp-ink: #8b1538;
+  --sp-text: #1f1a1c;
+  --sp-dim: #8a8084;
+}
+
+[data-theme="light"] .sp-art { opacity: 0.22; }
+
+/* -------------------------------------------------- motion off
+
+   Belt and braces: the component does not mount at all under reduced
+   motion, but if it ever does, nothing moves. */
+
+@media (prefers-reduced-motion: reduce) {
+  .sp,
+  .sp-art,
+  .sp-mark,
+  .sp-word,
+  .sp-dot,
+  .sp-rule,
+  .sp-tag,
+  .sp-skip { animation: none; opacity: 1; }
+
+  .sp-art { clip-path: none; scale: 1; }
+  .sp-mark { scale: 1; }
+  .sp-word { letter-spacing: 0.17em; margin-right: -0.17em; }
+  .sp-rule { width: clamp(150px, 34vw, 300px); }
+  .sp.is-leaving { display: none; }
+}
