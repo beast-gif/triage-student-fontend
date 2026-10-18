@@ -1,0 +1,115 @@
+/* ------------------------------------------------------------------
+   Student reschedule page — step 8.
+   Imported by ReschedulePage.jsx alongside respond.css, which supplies
+   the page shell, cards, buttons and final states. Only what is specific
+   to comparing two times lives here.
+   ------------------------------------------------------------------ */
+
+.rs-headline {
+  margin: 0 0 20px;
+  font-size: 1.18rem;
+  font-weight: 600;
+  line-height: 1.32;
+  letter-spacing: -0.012em;
+}
+
+/* -------------------------------------------------- the two times
+
+   Stacked with an arrow between them rather than side by side: the
+   relationship is "this became that", which reads down a phone screen.
+   Side by side at any width invites reading them as two options. */
+
+.rs-compare {
+  padding: 16px 18px;
+  border: 1px solid var(--rp-line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.rs-label {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rp-dim);
+}
+
+.rs-was s {
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--rp-dim);
+  text-decoration-color: color-mix(in srgb, var(--rp-dim) 55%, transparent);
+  text-decoration-thickness: 1.5px;
+}
+
+.rs-arrow {
+  display: block;
+  margin: 9px 0 10px;
+  font-size: 1.05rem;
+  line-height: 1;
+  color: color-mix(in srgb, var(--rp-accent) 70%, transparent);
+}
+
+.rs-now strong {
+  display: block;
+  font-size: 1.16rem;
+  font-weight: 700;
+  line-height: 1.32;
+  letter-spacing: -0.012em;
+  color: var(--rp-accent);
+  overflow-wrap: break-word;
+}
+
+.rs-len {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.84rem;
+  color: var(--rp-dim);
+}
+
+.rs-note { margin-top: 16px; }
+.rs-error { margin: 16px 0 0; }
+
+/* -------------------------------------------------- actions
+
+   Accept is first in the DOM and visually dominant; Decline is a real
+   button, not a link, because declining is a legitimate answer rather
+   than a way out of the page. */
+
+.rs-actions {
+  display: grid;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.rs-accept { width: 100%; }
+
+.rs-decline {
+  width: 100%;
+  border-color: var(--rp-line);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--rp-text);
+  font-weight: 500;
+}
+
+.rs-decline:not(:disabled):hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+@media (min-width: 560px) {
+  .rs-actions { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+}
+
+/* -------------------------------------------------- light */
+
+@media (prefers-color-scheme: light) {
+  .rp-page:not([data-theme="dark"]) .rs-compare { background: rgba(20, 16, 24, 0.028); }
+  .rp-page:not([data-theme="dark"]) .rs-decline { background: rgba(20, 16, 24, 0.04); }
+  .rp-page:not([data-theme="dark"]) .rs-decline:not(:disabled):hover {
+    background: rgba(20, 16, 24, 0.08);
+    border-color: rgba(20, 16, 24, 0.2);
+  }
+}

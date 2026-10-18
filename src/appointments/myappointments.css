@@ -1,0 +1,532 @@
+/* ------------------------------------------------------------------
+   My appointments — the panel, the cards, and the cancel dialog.
+   Imported by MyAppointments.jsx and CancelDialog.jsx.
+   ------------------------------------------------------------------ */
+
+.ma-scrim {
+  --ma-accent: var(--desk-accent, #e8799c);
+  --ma-panel: var(--desk-panel, #17131c);
+  --ma-card: rgba(255, 255, 255, 0.032);
+  --ma-line: var(--desk-line, rgba(255, 255, 255, 0.1));
+  --ma-text: var(--desk-text, #f0ecf2);
+  --ma-dim: var(--desk-dim, #a79daf);
+  --ma-danger: #e0736f;
+
+  position: fixed;
+  inset: 0;
+  /* Deliberately at the ceiling rather than at some number chosen to beat
+     today's header. The component portals into <body>, so it competes with
+     the app's own fixed chrome as a sibling; anything lower is a guess that
+     breaks the next time a footer's z-index goes up. A modal overlay is
+     either above everything or it is broken. */
+  z-index: 2147483000;
+  display: flex;
+  /* Lighter than a usual modal scrim, and blurred rather than darkened:
+     the point is to keep the desk behind legible as texture while still
+     pushing it back. */
+  background: rgba(8, 6, 11, 0.42);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  animation: ma-fade 0.16s ease;
+}
+
+.ma-scrim * { box-sizing: border-box; }
+
+@keyframes ma-fade { from { opacity: 0; } }
+
+/* The panel slides from the right on a desktop and fills a phone, which is
+   the only arrangement that leaves the list readable at both sizes. */
+.ma-scrim-panel { justify-content: flex-end; }
+
+.ma-panel {
+  display: flex;
+  flex-direction: column;
+  width: min(460px, 100%);
+  max-height: 100%;
+  /* Frosted, not solid. backdrop-filter is what keeps the text readable
+     over whatever happens to be behind it — without the blur, a 78%
+     panel over busy line art is a mess. */
+  background: color-mix(in srgb, var(--ma-panel) 78%, transparent);
+  backdrop-filter: blur(22px) saturate(135%);
+  -webkit-backdrop-filter: blur(22px) saturate(135%);
+  border-left: 1px solid var(--ma-line);
+  color: var(--ma-text);
+  animation: ma-slide 0.2s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+@keyframes ma-slide { from { transform: translateX(18px); opacity: 0; } }
+
+.ma-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex: none;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--ma-line);
+}
+
+.ma-head h2 {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.ma-close {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--ma-line);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--ma-dim);
+  font-size: 0.86rem;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.ma-close:hover { background: rgba(255, 255, 255, 0.1); color: var(--ma-text); }
+.ma-close:focus-visible { outline: 2px solid var(--ma-accent); outline-offset: 2px; }
+
+.ma-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 14px 16px 26px;
+}
+
+/* -------------------------------------------------- cards */
+
+.ma-card {
+  --ma-tone: var(--ma-dim);
+  margin-bottom: 12px;
+  padding: 14px 15px;
+  border: 1px solid var(--ma-line);
+  border-left: 3px solid var(--ma-tone);
+  border-radius: 13px;
+  /* The cards lift slightly off the frosted panel rather than dissolving
+     into it. */
+  background: color-mix(in srgb, var(--ma-panel) 62%, transparent);
+  box-shadow: 0 10px 26px -22px rgba(0, 0, 0, 0.9);
+}
+
+.ma-card.tone-wait { --ma-tone: #d9a441; }
+.ma-card.tone-good { --ma-tone: #5bbf84; }
+.ma-card.tone-bad  { --ma-tone: #e0736f; }
+.ma-card.tone-info { --ma-tone: #6ea8e8; }
+.ma-card.tone-mute { --ma-tone: #7d7686; }
+
+/* Done and gone: still readable, no longer competing for attention. */
+.ma-card.is-past { opacity: 0.72; }
+
+.ma-card-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.ma-badge {
+  padding: 3px 9px;
+  border: 1px solid color-mix(in srgb, var(--ma-tone) 42%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ma-tone) 13%, transparent);
+  color: var(--ma-tone);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.ma-past {
+  color: var(--ma-dim);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ma-faculty {
+  margin: 0 0 2px;
+  font-size: 0.97rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.ma-when {
+  margin: 0 0 8px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--ma-text);
+}
+
+.ma-when s {
+  color: var(--ma-dim);
+  text-decoration-color: color-mix(in srgb, var(--ma-dim) 55%, transparent);
+}
+
+/* The new time goes on its own line so it is not read as part of the old. */
+.ma-new {
+  display: block;
+  margin-top: 2px;
+  color: var(--ma-tone);
+  font-weight: 600;
+}
+
+.ma-len { color: var(--ma-dim); }
+
+.ma-purpose {
+  margin: 0 0 8px;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--ma-dim);
+  overflow-wrap: break-word;
+}
+
+.ma-quote {
+  margin: 0 0 8px;
+  padding: 9px 12px;
+  border-left: 2px solid color-mix(in srgb, var(--ma-tone) 50%, transparent);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  overflow-wrap: break-word;
+}
+
+.ma-quote-mute { border-left-color: var(--ma-line); }
+
+.ma-quote-who {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--ma-dim);
+  font-size: 0.73rem;
+}
+
+.ma-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 11px;
+}
+
+/* -------------------------------------------------- buttons */
+
+.ma-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid var(--ma-line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--ma-text);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.ma-btn:not(:disabled):hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.ma-btn:disabled { opacity: 0.5; cursor: default; }
+.ma-btn:focus-visible { outline: 2px solid var(--ma-accent); outline-offset: 2px; }
+
+.ma-btn-primary {
+  border-color: transparent;
+  background: var(--ma-accent);
+  color: #26121a;
+  font-weight: 600;
+}
+
+.ma-btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--ma-accent) 86%, #fff);
+}
+
+.ma-btn-quiet { color: var(--ma-dim); }
+
+.ma-btn-danger {
+  border-color: transparent;
+  background: var(--ma-danger);
+  color: #2a1111;
+  font-weight: 600;
+}
+
+.ma-btn-danger:not(:disabled):hover {
+  background: color-mix(in srgb, var(--ma-danger) 86%, #fff);
+}
+
+/* -------------------------------------------------- states */
+
+.ma-note,
+.ma-empty {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 14px 4px;
+  color: var(--ma-dim);
+  font-size: 0.88rem;
+}
+
+.ma-empty {
+  display: block;
+  padding: 34px 14px;
+  text-align: center;
+}
+
+.ma-empty p { margin: 0; font-size: 0.95rem; color: var(--ma-text); }
+.ma-empty-sub { margin-top: 5px !important; font-size: 0.86rem !important; color: var(--ma-dim) !important; }
+
+.ma-error {
+  margin: 0 0 12px;
+  padding: 10px 13px;
+  border: 1px solid rgba(240, 141, 141, 0.32);
+  border-radius: 10px;
+  background: rgba(240, 141, 141, 0.1);
+  color: #f3a6a6;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.ma-error-row { margin: 8px 0 0; }
+
+.ma-link {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.ma-spinner {
+  flex: none;
+  width: 13px;
+  height: 13px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: ma-spin 0.7s linear infinite;
+}
+
+.ma-btn-danger .ma-spinner {
+  border-color: rgba(42, 17, 17, 0.3);
+  border-top-color: #2a1111;
+}
+
+@keyframes ma-spin { to { transform: rotate(360deg); } }
+
+/* -------------------------------------------------- dialog */
+
+.ma-scrim:not(.ma-scrim-panel) {
+  align-items: center;
+  justify-content: center;
+  z-index: 2147483001;   /* over the panel that opened it */
+  padding: 18px;
+}
+
+.ma-dialog {
+  width: min(430px, 100%);
+  padding: 20px;
+  border: 1px solid var(--ma-line);
+  border-radius: 16px;
+  /* Deliberately opaque. The dialog asks a question with consequences;
+     a see-through one competes with the list it is asking about. */
+  background: var(--ma-panel);
+  color: var(--ma-text);
+  box-shadow: 0 30px 70px -32px rgba(0, 0, 0, 0.95);
+  animation: ma-pop 0.16s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+@keyframes ma-pop { from { transform: translateY(8px) scale(0.985); opacity: 0; } }
+
+.ma-dialog-title {
+  margin: 0 0 12px;
+  font-size: 1.04rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.ma-dialog-body {
+  margin: 0 0 16px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--ma-dim);
+}
+
+.ma-dialog-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 7px;
+  font-size: 0.86rem;
+  font-weight: 500;
+}
+
+.ma-dialog-hint { color: var(--ma-dim); font-size: 0.78rem; font-weight: 400; }
+
+.ma-dialog-input {
+  width: 100%;
+  min-height: 84px;
+  padding: 11px 13px;
+  border: 1px solid var(--ma-line);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--ma-text);
+  font: inherit;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  resize: vertical;
+}
+
+.ma-dialog-input:focus-visible {
+  outline: none;
+  border-color: color-mix(in srgb, var(--ma-accent) 55%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ma-accent) 16%, transparent);
+}
+
+.ma-dialog-meter {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 6px 2px 0;
+  font-size: 0.75rem;
+  color: var(--ma-dim);
+}
+
+.ma-dialog-warn { color: #e8a87c; }
+
+.ma-dialog-error {
+  margin: 12px 0 0;
+  padding: 10px 13px;
+  border: 1px solid rgba(240, 141, 141, 0.32);
+  border-radius: 10px;
+  background: rgba(240, 141, 141, 0.1);
+  color: #f3a6a6;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.ma-dialog-actions {
+  display: flex;
+  gap: 9px;
+  margin-top: 18px;
+}
+
+.ma-dialog-actions .ma-btn { flex: 1 1 auto; min-height: 44px; }
+
+/* -------------------------------------------------- light */
+
+[data-theme="light"] .ma-scrim {
+  --ma-panel: #ffffff;
+  --ma-card: rgba(20, 16, 24, 0.028);
+  --ma-line: rgba(20, 16, 24, 0.13);
+  --ma-text: #1d1a22;
+  --ma-dim: #6a6274;
+  --ma-danger: #c04a46;
+  background: rgba(60, 44, 70, 0.22);
+}
+
+/* The :not() pair matters. Without it this rule out-specifies
+   .ma-btn-danger's own background and paints the destructive button the
+   same grey as the others — with white text on it, which is unreadable. */
+[data-theme="light"] .ma-close,
+[data-theme="light"] .ma-btn:not(.ma-btn-primary):not(.ma-btn-danger),
+[data-theme="light"] .ma-dialog-input,
+[data-theme="light"] .ma-quote { background: rgba(20, 16, 24, 0.04); }
+
+[data-theme="light"] .ma-btn:not(.ma-btn-primary):not(.ma-btn-danger):not(:disabled):hover,
+[data-theme="light"] .ma-close:hover {
+  background: rgba(20, 16, 24, 0.08);
+  border-color: rgba(20, 16, 24, 0.2);
+}
+
+[data-theme="light"] .ma-btn-primary { background: #c2426b; color: #fff; }
+[data-theme="light"] .ma-btn-primary:not(:disabled):hover { background: #ad3a5f; }
+[data-theme="light"] .ma-btn-danger { background: #c04a46; color: #fff; }
+[data-theme="light"] .ma-btn-danger:not(:disabled):hover { background: #a93f3c; }
+
+[data-theme="light"] .ma-error,
+[data-theme="light"] .ma-dialog-error {
+  background: rgba(200, 50, 50, 0.07);
+  border-color: rgba(200, 50, 50, 0.28);
+  color: #a52c2c;
+}
+
+/* -------------------------------------------------- phone */
+
+@media (max-width: 560px) {
+  .ma-panel { width: 100%; border-left: 0; }
+  .ma-body { padding: 12px 13px 24px; }
+  .ma-actions { flex-direction: column; }
+  .ma-actions .ma-btn { width: 100%; min-height: 42px; }
+  .ma-dialog-actions { flex-direction: column-reverse; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ma-scrim, .ma-panel, .ma-dialog { animation: none; }
+  .ma-spinner { animation-duration: 2.4s; }
+  .ma-btn, .ma-close { transition: none; }
+}
+
+/* ------------------------------------------------------------------
+   The button that opens the panel, in the desk's own toolbar.
+   ------------------------------------------------------------------ */
+
+.desk-bar {
+  display: flex;
+  justify-content: flex-end;
+  /* Both of these, deliberately: if .desk centres its children the bar
+     would otherwise shrink to the button's width and sit wherever that
+     centring put it, instead of against the right edge. */
+  width: 100%;
+  align-self: stretch;
+  padding: 0 0 12px;
+}
+
+.desk-mine {
+  margin-left: auto;          /* holds the corner even outside a flex row */
+  min-height: 40px;
+  padding: 0 17px;
+  border: 1px solid var(--desk-line, rgba(255, 255, 255, 0.12));
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.055);
+  color: var(--desk-text, #f0ecf2);
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.desk-mine:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
+.desk-mine:active { transform: translateY(1px); }
+
+.desk-mine:focus-visible {
+  outline: 2px solid var(--desk-accent, #e8799c);
+  outline-offset: 2px;
+}
+
+[data-theme="light"] .desk-mine {
+  background: rgba(20, 16, 24, 0.045);
+  color: #1d1a22;
+  border-color: rgba(20, 16, 24, 0.14);
+}
+
+[data-theme="light"] .desk-mine:hover {
+  background: rgba(20, 16, 24, 0.085);
+  border-color: rgba(20, 16, 24, 0.22);
+}

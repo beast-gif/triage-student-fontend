@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <!-- Paste these into <head> of index.html, replacing any existing
+     viewport tag. viewport-fit=cover is what lets the CSS use
+     env(safe-area-inset-*) around the notch and home indicator. -->
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+<!-- Updated at runtime by App.jsx when the theme changes -->
+<meta name="theme-color" content="#f7f5f2" />
+
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Triage" />
+
+    <meta charset="UTF-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <!-- Amrita circular emblem -->
+    <link
+      rel="icon"
+      type="image/png"
+      href="/amrita-emblem-favicon.png"
+    />
+
+    <title>amrita-chatbot</title>
+
+  </head>
+
+  <body>
+
+    <div id="root"></div>
+
+    <script
+      type="module"
+      src="/src/main.jsx"
+    ></script>
+
+  </body>
+
+</html>

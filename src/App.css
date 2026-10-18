@@ -1,0 +1,7710 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap");
+
+/* =========================================================
+   COLORS
+========================================================= */
+
+:root {
+  --maroon: #8b1538;
+  --maroon-dark: #70112e;
+
+  --background: #faf9f7;
+  --white: #ffffff;
+
+  --text: #151515;
+  --muted: #707070;
+
+  --border: #e5e2de;
+
+  --soft-maroon: #f8eef1;
+
+  /* Campus line art — change these two to tune the background */
+  --campus-line: #3a3438;
+  --campus-strength: 0.4;
+}
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--background);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--background);
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header {
+  position: relative;
+  z-index: 30;
+  width: 100%;
+  height: 72px;
+  padding: 0 7.2%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(250, 249, 247, 0.98);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.055);
+}
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.amrita-logo {
+  width: 88px;
+  height: 50px;
+  object-fit: contain;
+  display: block;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1;
+}
+
+.brand-name {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #171717;
+}
+
+.brand-campus {
+  margin-top: 6px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  color: var(--maroon);
+}
+
+.header-right {
+  font-size: 13px;
+  color: #707070;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main {
+  position: relative;
+  width: 100%;
+  max-width: 1260px;
+  min-height: 700px;
+  margin: 0 auto;
+  padding: 48px 24px 15px;
+}
+
+/* =========================================================
+   CAMPUS BACKGROUND
+========================================================= */
+
+.campus-background {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 175px;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 465px;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* =========================================================
+   CAMPUS ART
+
+   Needs public/campus-lines.png (transparent PNG, lines only).
+   The PNG is used as a mask; background-color paints the lines.
+   The second mask layer fades the art out behind the headline.
+========================================================= */
+
+.campus-art {
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  transform: translateX(-50%);
+  width: 1550px;
+  aspect-ratio: 3582 / 1184;
+
+  background-color: var(--campus-line);
+  opacity: var(--campus-strength);
+
+  -webkit-mask-image:
+    url("/campus-lines.png"),
+    linear-gradient(to bottom, transparent 8%, #000 55%);
+  -webkit-mask-size: contain, 100% 100%;
+  -webkit-mask-position: center, center;
+  -webkit-mask-repeat: no-repeat, no-repeat;
+  -webkit-mask-composite: source-in;
+
+  mask-image:
+    url("/campus-lines.png"),
+    linear-gradient(to bottom, transparent 8%, #000 55%);
+  mask-size: contain, 100% 100%;
+  mask-position: center, center;
+  mask-repeat: no-repeat, no-repeat;
+  mask-composite: intersect;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid #dedbd7;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #606060;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.badge-dot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #3b9c63;
+}
+
+.hero h1 {
+  position: relative;
+  z-index: 6;
+  margin: 27px 0 12px;
+  font-size: clamp(46px, 5vw, 62px);
+  line-height: 1.04;
+  letter-spacing: -3px;
+  font-weight: 600;
+  color: #151515;
+}
+
+.hero h1 span {
+  color: var(--maroon);
+}
+
+.hero-subtitle {
+  position: relative;
+  z-index: 6;
+  max-width: 650px;
+  margin: 0;
+  color: #707070;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search-wrapper {
+  position: relative;
+  z-index: 8;
+  width: 100%;
+  max-width: 760px;
+  margin-top: 31px;
+}
+
+.search-box {
+  position: relative;
+  z-index: 8;
+  width: 100%;
+  height: 70px;
+  padding: 7px 8px 7px 20px;
+  display: flex;
+  align-items: center;
+  background: var(--white);
+  border: 1px solid #dedbd7;
+  border-radius: 18px;
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.065),
+    0 2px 7px rgba(0, 0, 0, 0.025);
+}
+
+.search-box:focus-within {
+  border-color: rgba(139, 21, 56, 0.5);
+  box-shadow:
+    0 12px 35px rgba(139, 21, 56, 0.1),
+    0 0 0 4px rgba(139, 21, 56, 0.045);
+}
+
+.search-icon {
+  flex-shrink: 0;
+  color: #858585;
+}
+
+.search-box input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0 15px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 15px;
+}
+
+.search-box input::placeholder {
+  color: #999;
+}
+
+.search-button {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--maroon);
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.search-button:disabled {
+  background: #c9a9b3;
+  cursor: default;
+  transform: none;
+}
+
+.search-button:not(:disabled):hover {
+  background: var(--maroon-dark);
+  transform: translateY(-1px);
+}
+
+.search-hint {
+  position: relative;
+  z-index: 7;
+  align-self: center;
+  width: fit-content;
+  margin: 11px auto 0;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: var(--background);
+  font-size: 12px;
+  color: #8d8d8d;
+}
+
+.search-hint span {
+  color: #676767;
+}
+
+.suggestions {
+  position: relative;
+  z-index: 7;
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.suggestions-label {
+  font-size: 12px;
+  color: #8d8d8d;
+  margin-right: 2px;
+}
+
+.suggestion {
+  padding: 7px 13px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--white);
+  color: #4a4a4a;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.suggestion:hover:not(:disabled) {
+  border-color: rgba(139, 21, 56, 0.35);
+  color: var(--maroon);
+}
+
+.suggestion:focus-visible,
+.feature-card:focus-visible,
+.search-button:focus-visible,
+.icon-button:focus-visible {
+  outline: 2px solid var(--maroon);
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   QUICK ACCESS
+========================================================= */
+
+.quick-section {
+  position: relative;
+  z-index: 12;
+  margin-top: 82px;
+}
+
+.section-heading {
+  margin: 0 0 17px;
+  padding-left: 1px;
+  text-align: left;
+}
+
+.section-heading span {
+  display: inline-block;
+  padding: 3px 8px 3px 0;
+  background: var(--background);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+  color: #777;
+}
+
+.feature-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 13px;
+}
+
+.feature-card {
+  width: 100%;
+  min-height: 104px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-align: left;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.025);
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.feature-card:hover .feature-icon {
+  background: var(--maroon);
+  color: var(--white);
+}
+
+.feature-card:focus-visible,
+.search-button:focus-visible,
+.icon-button:focus-visible {
+  outline: 2px solid var(--maroon);
+  outline-offset: 2px;
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(139, 21, 56, 0.28);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+}
+
+.feature-icon {
+  transition: background 0.2s ease, color 0.2s ease;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: var(--soft-maroon);
+  color: var(--maroon);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.feature-content {
+  min-width: 0;
+}
+
+.feature-content h3 {
+  margin: 0 0 5px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #151515;
+}
+
+.feature-content p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #7a7a7a;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+  position: relative;
+  z-index: 20;
+  width: 100%;
+  padding: 5px 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  color: #999;
+  font-size: 10px;
+}
+
+.footer-dot {
+  color: #aaa;
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  background: #fff;
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  padding: 18px 14px;
+  gap: 12px;
+  transform: translateX(-100%);
+  transition: transform 0.22s ease;
+  z-index: 60;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.28);
+  z-index: 50;
+}
+
+.sidebar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #666;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #555;
+  display: inline-flex;
+}
+
+.icon-button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-toggle {
+  position: absolute;
+  left: 24px;
+}
+
+.brand {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.header {
+  justify-content: flex-end;
+}
+
+.new-chat {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.new-chat:hover {
+  background: #fafafa;
+}
+
+.conversation-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 4px;
+}
+
+.sidebar-empty,
+.sidebar-note {
+  font-size: 0.78rem;
+  color: #999;
+  padding: 6px 4px;
+  margin: 0;
+}
+
+.conversation-item {
+  position: relative;
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: 9px;
+  padding: 9px 30px 9px 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.conversation-item:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.conversation-item.active {
+  background: rgba(168, 30, 42, 0.07);
+}
+
+.conversation-preview {
+  font-size: 0.87rem;
+  color: #222;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.conversation-meta {
+  font-size: 0.72rem;
+  color: #999;
+}
+
+.conversation-delete {
+  position: absolute;
+  right: 8px;
+  top: 10px;
+  color: #bbb;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.conversation-item:hover .conversation-delete {
+  opacity: 1;
+}
+
+.conversation-delete:hover {
+  color: #b42318;
+}
+
+/* =========================================================
+   CHAT
+========================================================= */
+
+.main.chatting {
+  padding-bottom: 120px;
+}
+
+.chat {
+  width: min(760px, 92vw);
+  margin: 28px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bubble {
+  border-radius: 14px;
+  padding: 13px 16px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.bubble.user {
+  align-self: flex-end;
+  max-width: 78%;
+  background: #f1f1f1;
+  color: #111;
+}
+
+.bubble.assistant {
+  align-self: flex-start;
+  width: 100%;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.bubble.thinking {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.spin {
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.answer {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.chat-error {
+  align-self: center;
+  font-size: 0.85rem;
+  color: #b42318;
+  background: rgba(180, 35, 24, 0.07);
+  padding: 8px 14px;
+  border-radius: 9px;
+}
+
+/* Fade now matches the page colour — no white band behind the input */
+.chat-input {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16px 0 22px;
+  background: linear-gradient(
+    to top,
+    var(--background) 68%,
+    rgba(250, 249, 247, 0)
+  );
+  display: flex;
+  justify-content: center;
+  z-index: 20;
+}
+
+.chat-input .search-wrapper {
+  width: min(760px, 92vw);
+  margin-top: 0;
+}
+
+/* ---------- photos ---------- */
+
+.photo-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 13px;
+}
+
+.photo {
+  margin: 0;
+  width: 180px;
+}
+
+.photo img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+.photo figcaption {
+  margin-top: 5px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #444;
+  line-height: 1.3;
+}
+
+/* ---------- sources & badge ---------- */
+
+.sources {
+  margin-top: 12px;
+  font-size: 0.83rem;
+}
+
+.sources-label {
+  font-weight: 600;
+  color: #555;
+}
+
+.sources ul {
+  margin: 5px 0 0;
+  padding-left: 17px;
+}
+
+.sources a {
+  color: #666;
+  text-decoration: none;
+}
+
+.sources a:hover {
+  text-decoration: underline;
+}
+
+.badge-row {
+  margin-top: 11px;
+  padding-top: 9px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  font-size: 0.78rem;
+  color: #888;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.badge-sep {
+  color: #ccc;
+}
+
+.band {
+  font-weight: 600;
+}
+
+.band.high {
+  color: #1a7f37;
+}
+
+.band.medium {
+  color: #9a6700;
+}
+
+.band.low {
+  color: #b42318;
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+  .header {
+    padding: 0 25px;
+  }
+
+  .header-right {
+    font-size: 12px;
+  }
+
+  .main {
+    max-width: 100%;
+    min-height: auto;
+    padding: 55px 25px 35px;
+  }
+
+  .hero h1 {
+    font-size: 54px;
+    letter-spacing: -2.5px;
+  }
+
+  .campus-background {
+    top: 190px;
+    height: 430px;
+  }
+
+  .campus-art {
+    width: 1250px;
+  }
+
+  .quick-section {
+    margin-top: 78px;
+  }
+
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 640px) {
+  .sidebar {
+    width: 84vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    height: 68px;
+    padding: 0 18px;
+  }
+
+  .amrita-logo {
+    width: 78px;
+    height: 48px;
+  }
+
+  .brand-text,
+  .header-right {
+    display: none;
+  }
+
+  .main {
+    min-height: auto;
+    padding: 48px 18px 30px;
+  }
+
+  .campus-background {
+    top: 205px;
+    height: 390px;
+  }
+
+  .campus-art {
+    width: 850px;
+  }
+
+  .hero h1 {
+    margin-top: 24px;
+    font-size: 40px;
+    letter-spacing: -2px;
+  }
+
+  .hero-subtitle {
+    max-width: 390px;
+    font-size: 14px;
+  }
+
+  .search-wrapper {
+    margin-top: 29px;
+  }
+
+  .search-box {
+    height: 62px;
+    border-radius: 15px;
+    padding-left: 15px;
+  }
+
+  .search-box input {
+    padding: 0 10px;
+    font-size: 14px;
+  }
+
+  .search-button {
+    width: 47px;
+    height: 47px;
+    border-radius: 13px;
+  }
+
+  .search-hint {
+    font-size: 11px;
+  }
+
+  .quick-section {
+    margin-top: 60px;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+    gap: 11px;
+  }
+
+  .feature-card {
+    min-height: 94px;
+    padding: 17px;
+  }
+
+  .footer {
+    padding-top: 10px;
+    padding-bottom: 25px;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+  .hero h1 {
+    font-size: 35px;
+  }
+
+  .hero-subtitle {
+    font-size: 13px;
+  }
+
+  .campus-art {
+    width: 720px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .spin {
+    animation-duration: 2.5s;
+  }
+
+  .feature-card,
+  .search-button,
+  .sidebar {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   FOCUS
+========================================================= */
+
+.feature-card:focus-visible,
+.search-button:focus-visible,
+.icon-button:focus-visible,
+.new-chat:focus-visible,
+.conversation-item:focus-visible {
+  outline: 2px solid var(--maroon);
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   STYLE PASS — glow, borders, fuller page
+========================================================= */
+
+@property --glow-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* Soft maroon light behind the hero */
+.hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 60px;
+  left: 50%;
+  width: min(900px, 90vw);
+  height: 380px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(139, 21, 56, 0.09),
+    rgba(139, 21, 56, 0) 65%
+  );
+  pointer-events: none;
+}
+
+/* Animated glowing border around the search box */
+.search-glow {
+  position: relative;
+  border-radius: 20px;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--glow-angle),
+    rgba(139, 21, 56, 0.15),
+    #8b1538,
+    #d4577a,
+    rgba(139, 21, 56, 0.15) 40%,
+    rgba(139, 21, 56, 0.15) 60%,
+    #c9a24b,
+    rgba(139, 21, 56, 0.15)
+  );
+  animation: glow-spin 5s linear infinite;
+}
+
+.search-glow::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  z-index: -1;
+  border-radius: 20px;
+  background: inherit;
+  filter: blur(18px);
+  opacity: 0.45;
+  transition: opacity 0.3s ease;
+}
+
+.search-glow:focus-within::after {
+  opacity: 0.8;
+}
+
+.search-glow.busy {
+  animation-duration: 1.4s;
+}
+
+@keyframes glow-spin {
+  to {
+    --glow-angle: 360deg;
+  }
+}
+
+.search-glow .search-box {
+  border: none;
+  border-radius: 18px;
+  background: var(--white);
+}
+
+.search-glow .search-box:focus-within {
+  box-shadow: 0 12px 35px rgba(139, 21, 56, 0.12);
+}
+
+/* Heading with a maroon rule */
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.section-heading h2 {
+  font-size: 17px;
+  padding-right: 0;
+  background: none;
+}
+
+.section-heading::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(139, 21, 56, 0.35),
+    rgba(139, 21, 56, 0)
+  );
+}
+
+/* Cards: clear border, maroon accent bar, arrow */
+.feature-card {
+  position: relative;
+  overflow: hidden;
+  border: 1.5px solid #dcd6d0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+.feature-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--maroon);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.25s ease;
+}
+
+.feature-card:hover {
+  border-color: rgba(139, 21, 56, 0.45);
+  box-shadow: 0 14px 30px rgba(139, 21, 56, 0.1);
+}
+
+.feature-card:hover::before {
+  transform: scaleY(1);
+}
+
+.feature-content {
+  flex: 1;
+}
+
+.feature-arrow {
+  flex-shrink: 0;
+  color: #b9b2ac;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.feature-card:hover .feature-arrow {
+  color: var(--maroon);
+  transform: translate(2px, -2px);
+}
+
+.suggestion {
+  border-width: 1.5px;
+}
+
+/* Trust strip under the cards */
+.trust-strip {
+  margin-top: 26px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1.5px solid #dcd6d0;
+  border-radius: 16px;
+  background: var(--white);
+  overflow: hidden;
+}
+
+.trust-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 18px 20px;
+  color: var(--maroon);
+}
+
+.trust-item + .trust-item {
+  border-left: 1px solid var(--border);
+}
+
+.trust-item div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.trust-item strong {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1f1f1f;
+}
+
+.trust-item span {
+  font-size: 12px;
+  color: #7a7a7a;
+  line-height: 1.45;
+}
+
+.footer {
+  padding-top: 22px;
+  font-size: 11px;
+}
+
+@media (max-width: 900px) {
+  .trust-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .trust-item + .trust-item {
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .search-glow {
+    animation: none;
+  }
+
+  .feature-card::before,
+  .feature-arrow {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   TIGHTER SPACING + UNIFIED COLOUR
+========================================================= */
+
+:root {
+  --background: #f7f5f2;
+  --border: #e3ded8;
+  --campus-line: #6b4a55;
+  --campus-strength: 0.24;
+}
+
+/* Art tucked under the search area, shorter so the gap can close */
+.campus-background {
+  top: 150px;
+  height: 400px;
+}
+
+.campus-art {
+  width: 1400px;
+}
+
+/* Gap between suggestions and topics */
+.quick-section {
+  margin-top: 44px;
+}
+
+.section-heading {
+  margin-bottom: 14px;
+}
+
+/* One colour family for the glow: maroon only, no gold/pink */
+.search-glow {
+  background: conic-gradient(
+    from var(--glow-angle),
+    rgba(139, 21, 56, 0.12),
+    rgba(139, 21, 56, 0.9),
+    rgba(139, 21, 56, 0.12) 30%,
+    rgba(139, 21, 56, 0.12) 70%,
+    rgba(139, 21, 56, 0.6),
+    rgba(139, 21, 56, 0.12)
+  );
+}
+
+.search-glow::after {
+  opacity: 0.22;
+  filter: blur(22px);
+}
+
+.search-glow:focus-within::after {
+  opacity: 0.4;
+}
+
+.search-button {
+  background: var(--maroon);
+}
+
+.search-button:disabled {
+  opacity: 1;
+  background: #d9cfd2;
+}
+
+.hero::before {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(139, 21, 56, 0.05),
+    rgba(139, 21, 56, 0) 65%
+  );
+}
+
+/* Neutral rule instead of the pink line */
+.section-heading::after {
+  background: linear-gradient(
+    to right,
+    #d6cfc8,
+    rgba(214, 207, 200, 0)
+  );
+}
+
+.section-heading h2 {
+  color: #1f1a1c;
+}
+
+/* Chips and label readable over the art */
+.suggestions-label {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: var(--background);
+  color: #857c7f;
+}
+
+.suggestion {
+  border: 1px solid var(--border);
+  color: #4a4245;
+  box-shadow: 0 1px 2px rgba(60, 20, 30, 0.04);
+}
+
+/* Warm-tinted neutrals everywhere instead of cold greys */
+.hero-subtitle,
+.header-right {
+  color: #6f6669;
+}
+
+.feature-card,
+.trust-strip {
+  border-color: #e0d9d3;
+}
+
+.feature-content p,
+.trust-item span {
+  color: #7d7477;
+}
+
+.feature-arrow {
+  color: #c4b9bc;
+}
+
+.header {
+  background: rgba(247, 245, 242, 0.96);
+}
+
+.chat-input {
+  background: linear-gradient(
+    to top,
+    var(--background) 68%,
+    rgba(247, 245, 242, 0)
+  );
+}
+
+@media (max-width: 600px) {
+  .campus-background {
+    top: 185px;
+    height: 360px;
+  }
+
+  .campus-art {
+    width: 820px;
+  }
+
+  .quick-section {
+    margin-top: 36px;
+  }
+}
+
+/* =========================================================
+   PER-CARD COLOURS
+========================================================= */
+
+.feature-card {
+  --accent: var(--maroon);
+  --tint: var(--white);
+  background: linear-gradient(
+    135deg,
+    var(--tint) 0%,
+    var(--white) 70%
+  );
+  border-color: color-mix(
+    in srgb,
+    var(--accent) 18%,
+    #e0d9d3
+  );
+}
+
+.feature-card::before {
+  background: var(--accent);
+}
+
+.feature-icon {
+  background: color-mix(in srgb, var(--accent) 12%, white);
+  color: var(--accent);
+}
+
+.feature-card:hover {
+  border-color: color-mix(in srgb, var(--accent) 50%, white);
+  box-shadow: 0 14px 30px color-mix(
+    in srgb,
+    var(--accent) 14%,
+    transparent
+  );
+}
+
+.feature-card:hover .feature-icon {
+  background: var(--accent);
+  color: var(--white);
+}
+
+.feature-card:hover .feature-arrow {
+  color: var(--accent);
+}
+
+.feature-card:focus-visible {
+  outline-color: var(--accent);
+}
+
+/* =========================================================
+   HEADER UPGRADE
+========================================================= */
+
+/* Thin moving brand stripe above the header */
+.top-accent {
+  position: sticky;
+  top: 0;
+  z-index: 41;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    #8b1538,
+    #c2446a,
+    #8b1538 40%,
+    #5a0e25 60%,
+    #8b1538
+  );
+  background-size: 200% 100%;
+  animation: accent-slide 8s linear infinite;
+}
+
+@keyframes accent-slide {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* Frosted, sticky header with a 3-column layout so the logo stays centred */
+.header {
+  position: sticky;
+  top: 3px;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  padding: 0 32px;
+  background: rgba(247, 245, 242, 0.78);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border-bottom: 1px solid rgba(90, 40, 55, 0.08);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand {
+  justify-self: center;
+  transition: transform 0.2s ease;
+}
+
+.brand:hover {
+  transform: translateY(-1px);
+}
+
+.history-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--white);
+  color: #4a4245;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.history-button:hover {
+  border-color: rgba(139, 21, 56, 0.35);
+  color: var(--maroon);
+}
+
+.live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: #6f6669;
+}
+
+.live-dot {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3b9c63;
+}
+
+.live-dot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid #3b9c63;
+  opacity: 0;
+  animation: live-ping 2s ease-out infinite;
+}
+
+@keyframes live-ping {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.header-actions {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.header-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: #6f6669;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.header-link:hover {
+  color: var(--maroon);
+}
+
+.header-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 10px;
+  background: var(--maroon);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(139, 21, 56, 0.22);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.header-cta:hover {
+  background: var(--maroon-dark);
+  transform: translateY(-1px);
+}
+
+.history-button:focus-visible,
+.header-cta:focus-visible,
+.header-link:focus-visible {
+  outline: 2px solid var(--maroon);
+  outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+  .live-pill,
+  .header-link {
+    display: none;
+  }
+
+  .header {
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .history-button span,
+  .header-cta span {
+    display: none;
+  }
+
+  .header-cta {
+    padding: 0 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .top-accent,
+  .live-dot::after {
+    animation: none;
+  }
+}
+
+/* =========================================================
+   HEADER LAYOUT FIX
+========================================================= */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  grid-template-columns: none;
+}
+
+.header-left,
+.header-actions {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+}
+
+.header-actions {
+  margin-left: auto;
+  justify-self: auto;
+}
+
+.brand {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  justify-self: auto;
+}
+
+.brand:hover {
+  transform: translate(-50%, calc(-50% - 1px));
+}
+
+/* Keep the side groups from running under the logo on mid-size screens */
+@media (max-width: 1100px) {
+  .live-pill,
+  .header-link {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .brand {
+    position: static;
+    transform: none;
+  }
+
+  .brand:hover {
+    transform: none;
+  }
+}
+
+/* =========================================================
+   TRIAGE WORDMARK
+========================================================= */
+
+.header-divider {
+  width: 1px;
+  height: 28px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    #d6cfc8,
+    transparent
+  );
+}
+
+.triage-mark {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1;
+  user-select: none;
+}
+
+.triage-word {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  margin-right: -0.22em;
+  background: linear-gradient(
+    100deg,
+    #5a0e25 0%,
+    #8b1538 30%,
+    #d4577a 50%,
+    #8b1538 70%,
+    #5a0e25 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: triage-shine 6s ease-in-out infinite;
+}
+
+.triage-tag {
+  margin-top: 5px;
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #9a8f92;
+}
+
+@keyframes triage-shine {
+  0%,
+  100% {
+    background-position: 100% 0;
+  }
+
+  50% {
+    background-position: 0% 0;
+  }
+}
+
+@media (max-width: 1100px) {
+  .triage-tag {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .header-divider,
+  .triage-mark {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .triage-word {
+    animation: none;
+    background-position: 50% 0;
+  }
+}
+
+/* TRIAGE wordmark — larger */
+.triage-word {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  margin-right: -0.18em;
+}
+
+.triage-tag {
+  margin-top: 6px;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+}
+
+.header-divider {
+  height: 38px;
+}
+
+@media (max-width: 1100px) {
+  .triage-word {
+    font-size: 22px;
+  }
+}
+
+/* =========================================================
+   FULL SCREEN CHAT LAYOUT
+========================================================= */
+
+.main.chatting {
+  width: 100%;
+  max-width: none;
+  height: calc(100vh - 72px);
+  min-height: 0;
+  margin: 0;
+  padding: 30px 24px 155px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Wide conversation area */
+.chat {
+  width: min(1120px, calc(100vw - 48px));
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 0 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* =========================================================
+   USER MESSAGE
+========================================================= */
+
+.chat > .bubble.user {
+  align-self: flex-end;
+  width: fit-content;
+  max-width: min(72%, 760px);
+
+  padding: 13px 18px;
+
+  border-radius: 18px;
+
+  background: #eeeae8;
+  color: #151515;
+
+  line-height: 1.55;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.035);
+
+  animation: userMessageIn 0.45s ease both;
+}
+
+/* =========================================================
+   AI RESPONSE
+========================================================= */
+
+.chat > .bubble.assistant {
+  align-self: stretch;
+
+  width: 100%;
+  max-width: none;
+
+  padding: 20px 24px;
+
+  background: #ffffff;
+
+  border: 1px solid #e0d9d3;
+  border-radius: 18px;
+
+  color: var(--text);
+
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.035),
+    0 1px 3px rgba(0, 0, 0, 0.02);
+
+  animation: assistantMessageIn 0.45s ease both;
+}
+
+/* AI answer */
+.chat .answer {
+  width: 100%;
+  max-width: 1050px;
+
+  margin: 0;
+
+  font-size: 0.98rem;
+  line-height: 1.72;
+
+  white-space: pre-wrap;
+}
+
+/* =========================================================
+   THINKING / LOADING
+========================================================= */
+
+.chat > .bubble.thinking {
+  align-self: flex-start;
+
+  width: auto;
+  max-width: 360px;
+
+  padding: 12px 16px;
+
+  border-radius: 14px;
+
+  background: #ffffff;
+  border: 1px solid var(--border);
+
+  color: #777;
+}
+
+/* =========================================================
+   SOURCES
+========================================================= */
+
+.chat .sources {
+  width: 100%;
+  max-width: 1050px;
+
+  margin-top: 18px;
+  padding-top: 14px;
+
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+/* =========================================================
+   CONFIDENCE / META INFORMATION
+========================================================= */
+
+.chat .badge-row {
+  width: 100%;
+  max-width: 1050px;
+
+  margin-top: 13px;
+}
+
+/* =========================================================
+   BOTTOM INPUT
+========================================================= */
+
+.chat-input {
+  position: fixed;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  width: 100%;
+
+  padding: 18px 24px 24px;
+
+  background: linear-gradient(
+    to top,
+    var(--background) 58%,
+    rgba(247, 245, 242, 0.92) 78%,
+    rgba(247, 245, 242, 0)
+  );
+
+  display: flex;
+  justify-content: center;
+
+  z-index: 40;
+}
+
+.chat-input .search-wrapper {
+  width: min(1100px, calc(100vw - 48px));
+  max-width: 1100px;
+
+  margin-top: 0;
+}
+
+.chat-input .search-box {
+  height: 68px;
+  border-radius: 18px;
+}
+
+.chat-input .search-box input {
+  font-size: 15px;
+}
+
+/* =========================================================
+   USER MESSAGE ANIMATION
+========================================================= */
+
+@keyframes userMessageIn {
+  from {
+    opacity: 0;
+    transform: translateX(22px) translateY(6px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1);
+  }
+}
+
+/* =========================================================
+   AI MESSAGE ANIMATION
+========================================================= */
+
+@keyframes assistantMessageIn {
+  from {
+    opacity: 0;
+    transform: translateX(-18px) translateY(8px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1);
+  }
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .main.chatting {
+    height: calc(100vh - 72px);
+
+    padding: 26px 20px 150px;
+  }
+
+  .chat {
+    width: 100%;
+    max-width: 900px;
+  }
+
+  .chat > .bubble.user {
+    max-width: 78%;
+  }
+
+  .chat-input {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .chat-input .search-wrapper {
+    width: 100%;
+    max-width: 900px;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .main.chatting {
+    height: calc(100vh - 68px);
+
+    padding: 20px 16px 138px;
+  }
+
+  .chat {
+    width: 100%;
+
+    padding-bottom: 20px;
+
+    gap: 18px;
+  }
+
+  .chat > .bubble.user {
+    max-width: 88%;
+
+    padding: 12px 15px;
+
+    border-radius: 16px;
+
+    font-size: 0.92rem;
+  }
+
+  .chat > .bubble.assistant {
+    padding: 20px 16px;
+  }
+
+  .chat .answer {
+    font-size: 0.94rem;
+
+    line-height: 1.65;
+  }
+
+  .chat .sources {
+    font-size: 0.78rem;
+  }
+
+  .chat-input {
+    padding: 10px 12px 15px;
+  }
+
+  .chat-input .search-wrapper {
+    width: 100%;
+  }
+
+  .chat-input .search-box {
+    height: 60px;
+
+    border-radius: 15px;
+  }
+
+  .chat-input .search-box input {
+    font-size: 14px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .main.chatting {
+    scroll-behavior: auto;
+  }
+
+  .chat > .bubble.user,
+  .chat > .bubble.assistant {
+    animation: none;
+  }
+}
+/* =========================================================
+   CHAT BACKGROUND
+   Pinned campus line art + soft maroon washes.
+   Both layers are fixed, so messages scroll over them.
+   Append this to the END of App.css.
+========================================================= */
+
+/* Campus art, bottom-right, very faint */
+.main.chatting::before {
+  content: "";
+  position: fixed;
+  right: -60px;
+  bottom: -40px;
+  z-index: 0;
+
+  width: min(1100px, 82vw);
+  aspect-ratio: 3582 / 1184;
+
+  background-color: var(--campus-line);
+  opacity: 0.13;
+  pointer-events: none;
+
+  -webkit-mask-image:
+    url("/campus-lines.png"),
+    linear-gradient(to top, #000 30%, transparent 92%);
+  -webkit-mask-size: contain, 100% 100%;
+  -webkit-mask-position: right bottom, center;
+  -webkit-mask-repeat: no-repeat, no-repeat;
+  -webkit-mask-composite: source-in;
+
+  mask-image:
+    url("/campus-lines.png"),
+    linear-gradient(to top, #000 30%, transparent 92%);
+  mask-size: contain, 100% 100%;
+  mask-position: right bottom, center;
+  mask-repeat: no-repeat, no-repeat;
+  mask-composite: intersect;
+}
+
+/* Maroon wash falling from the header and rising from the input */
+.main.chatting::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      1100px 380px at 50% -140px,
+      rgba(139, 21, 56, 0.07),
+      rgba(139, 21, 56, 0) 70%
+    ),
+    radial-gradient(
+      900px 320px at 50% calc(100% + 120px),
+      rgba(139, 21, 56, 0.06),
+      rgba(139, 21, 56, 0) 70%
+    );
+}
+
+/* Messages ride above both layers */
+.main.chatting > .chat {
+  position: relative;
+  z-index: 1;
+}
+
+/* Cards lift off the tinted surface */
+.chat > .bubble.assistant {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.chat > .bubble.user {
+  background: rgba(238, 234, 232, 0.94);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.chat > .bubble.thinking {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* ---------------------------------------------------------
+   FIX 1 — input bar no longer sits on the last answer
+--------------------------------------------------------- */
+
+.main.chatting {
+  padding-bottom: 190px;
+}
+
+.chat-input {
+  padding-top: 40px;
+  background: linear-gradient(
+    to top,
+    var(--background) 45%,
+    rgba(247, 245, 242, 0.96) 70%,
+    rgba(247, 245, 242, 0.75) 85%,
+    rgba(247, 245, 242, 0)
+  );
+}
+
+/* ---------------------------------------------------------
+   FIX 2 — calm input in chat; the glow stays on the landing page
+--------------------------------------------------------- */
+
+.chat-input .search-glow {
+  padding: 0;
+  background: none;
+  animation: none;
+  border-radius: 18px;
+}
+
+.chat-input .search-glow::after {
+  display: none;
+}
+
+.chat-input .search-box {
+  border: 1.5px solid #e0d9d3;
+  box-shadow: 0 6px 22px rgba(60, 20, 30, 0.07);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.chat-input .search-box:focus-within {
+  border-color: rgba(139, 21, 56, 0.45);
+  box-shadow: 0 8px 28px rgba(139, 21, 56, 0.13);
+}
+
+/* ---------------------------------------------------------
+   RESPONSIVE
+--------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .main.chatting {
+    padding-bottom: 175px;
+  }
+
+  .main.chatting::before {
+    width: 92vw;
+    opacity: 0.1;
+  }
+}
+
+@media (max-width: 600px) {
+  .main.chatting {
+    padding-bottom: 160px;
+  }
+
+  .main.chatting::before {
+    right: -30px;
+    bottom: -20px;
+    width: 120vw;
+    opacity: 0.09;
+  }
+
+  .chat-input {
+    padding-top: 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat > .bubble.assistant,
+  .chat > .bubble.user,
+  .chat > .bubble.thinking {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* =========================================================
+   CHAT BACKGROUND — STRONGER
+   Same layers, turned up so they actually read.
+========================================================= */
+
+/* Art: darker, bigger, anchored to the bottom-right corner */
+.main.chatting::before {
+  right: -40px;
+  bottom: -30px;
+  width: min(1300px, 95vw);
+  opacity: 0.3;
+  background-color: #7a4a58;
+
+  -webkit-mask-image:
+    url("/campus-lines.png"),
+    linear-gradient(to top, #000 45%, transparent 98%);
+  mask-image:
+    url("/campus-lines.png"),
+    linear-gradient(to top, #000 45%, transparent 98%);
+}
+
+/* Washes: deeper, plus a warm tint across the whole surface */
+.main.chatting::after {
+  background:
+    radial-gradient(
+      1200px 420px at 50% -150px,
+      rgba(139, 21, 56, 0.13),
+      rgba(139, 21, 56, 0) 72%
+    ),
+    radial-gradient(
+      1000px 360px at 50% calc(100% + 110px),
+      rgba(139, 21, 56, 0.11),
+      rgba(139, 21, 56, 0) 72%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(120, 70, 85, 0.05),
+      rgba(120, 70, 85, 0.02)
+    );
+}
+
+/* Fine dot grid so the surface has some tooth */
+.main.chatting > .chat::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(
+    rgba(90, 45, 60, 0.13) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(
+    ellipse 80% 70% at 50% 40%,
+    #000,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 80% 70% at 50% 40%,
+    #000,
+    transparent 100%
+  );
+}
+
+/* Cards read as clearly raised against the tinted surface */
+.chat > .bubble.assistant {
+  background: rgba(255, 255, 255, 0.97);
+  border-color: #ded5d7;
+  box-shadow:
+    0 10px 30px rgba(70, 30, 45, 0.09),
+    0 2px 6px rgba(70, 30, 45, 0.05);
+}
+
+.chat > .bubble.user {
+  background: rgba(247, 241, 243, 0.97);
+  box-shadow: 0 3px 12px rgba(70, 30, 45, 0.07);
+}
+
+@media (max-width: 600px) {
+  .main.chatting::before {
+    right: -20px;
+    width: 135vw;
+    opacity: 0.2;
+  }
+
+  .main.chatting > .chat::before {
+    background-size: 18px 18px;
+  }
+}
+
+/* =========================================================
+   CHAT BACKGROUND — FULL WIDTH BAND
+   The art spans the whole page instead of sitting in a corner.
+========================================================= */
+
+.main.chatting::before {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: auto;
+  aspect-ratio: 3582 / 1184;
+  opacity: 0.26;
+
+  -webkit-mask-image:
+    url("/campus-lines.png"),
+    linear-gradient(to top, #000 55%, transparent 100%);
+  -webkit-mask-size: 100% 100%, 100% 100%;
+  -webkit-mask-position: bottom center, center;
+
+  mask-image:
+    url("/campus-lines.png"),
+    linear-gradient(to top, #000 55%, transparent 100%);
+  mask-size: 100% 100%, 100% 100%;
+  mask-position: bottom center, center;
+}
+
+/* Dots cover the whole surface, fading only at the very edges */
+.main.chatting > .chat::before {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 12%,
+    #000 88%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 12%,
+    #000 88%,
+    transparent 100%
+  );
+}
+
+@media (max-width: 600px) {
+  .main.chatting::before {
+    left: -20vw;
+    width: 140vw;
+    opacity: 0.2;
+  }
+}
+
+/* =========================================================
+   CHAT — NEW PATTERN + GLOWING INPUT
+   Retires the campus art in the chat view and replaces it
+   with a geometric weave. Overrides everything above.
+========================================================= */
+
+/* Campus art off in the chat view */
+.main.chatting::before {
+  display: none;
+}
+
+/* Diagonal weave + maroon light, fixed behind the messages */
+.main.chatting::after {
+  background:
+    radial-gradient(
+      1200px 420px at 50% -160px,
+      rgba(139, 21, 56, 0.1),
+      rgba(139, 21, 56, 0) 72%
+    ),
+    radial-gradient(
+      1000px 380px at 50% calc(100% + 100px),
+      rgba(139, 21, 56, 0.09),
+      rgba(139, 21, 56, 0) 72%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(110, 50, 70, 0.055) 0 1px,
+      transparent 1px 16px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(110, 50, 70, 0.055) 0 1px,
+      transparent 1px 16px
+    );
+}
+
+/* Dot layer becomes the accent knots where the weave crosses */
+.main.chatting > .chat::before {
+  background-image: radial-gradient(
+    rgba(139, 21, 56, 0.16) 1.4px,
+    transparent 1.5px
+  );
+  background-size: 32px 32px;
+  background-position: 16px 16px;
+
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 10%,
+    #000 90%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 10%,
+    #000 90%,
+    transparent 100%
+  );
+}
+
+/* ---------------------------------------------------------
+   GLOWING INPUT IN CHAT
+--------------------------------------------------------- */
+
+.chat-input .search-glow {
+  position: relative;
+  padding: 2px;
+  border-radius: 20px;
+  background: conic-gradient(
+    from var(--glow-angle),
+    rgba(139, 21, 56, 0.1),
+    rgba(139, 21, 56, 0.85),
+    rgba(212, 87, 122, 0.75) 22%,
+    rgba(139, 21, 56, 0.1) 42%,
+    rgba(139, 21, 56, 0.1) 62%,
+    rgba(139, 21, 56, 0.55),
+    rgba(139, 21, 56, 0.1)
+  );
+  animation: glow-spin 6s linear infinite;
+}
+
+.chat-input .search-glow::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 4px;
+  z-index: -1;
+  border-radius: 20px;
+  background: inherit;
+  filter: blur(20px);
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+}
+
+.chat-input .search-glow:focus-within::after {
+  opacity: 0.55;
+}
+
+.chat-input .search-glow.busy {
+  animation-duration: 1.4s;
+}
+
+.chat-input .search-glow.busy::after {
+  opacity: 0.6;
+}
+
+.chat-input .search-box {
+  border: none;
+  box-shadow: 0 8px 26px rgba(70, 30, 45, 0.1);
+}
+
+.chat-input .search-box:focus-within {
+  box-shadow: 0 10px 32px rgba(139, 21, 56, 0.16);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-input .search-glow {
+    animation: none;
+  }
+}
+
+/* =========================================================
+   CHAT — PARTICLE FIELD + CENTRED TRIAGE WATERMARK
+   Replaces the weave. Original CSS particle waves, drifting
+   slowly, with the wordmark sitting behind the messages.
+========================================================= */
+
+/* --- particle layer 1: fine dots, dense core --- */
+.main.chatting::before {
+  content: "";
+  display: block;
+  position: fixed;
+  inset: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: auto;
+  height: auto;
+  aspect-ratio: auto;
+  z-index: 0;
+  opacity: 1;
+  background-color: transparent;
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(rgba(139, 21, 56, 0.5) 1.3px, transparent 1.4px),
+    radial-gradient(rgba(176, 58, 96, 0.38) 1px, transparent 1.1px);
+  background-size: 26px 26px, 38px 38px;
+  background-position: 0 0, 13px 19px;
+
+  -webkit-mask-image:
+    radial-gradient(ellipse 70% 55% at 50% 42%, #000 0%, rgba(0, 0, 0, 0.55) 45%, transparent 78%);
+  mask-image:
+    radial-gradient(ellipse 70% 55% at 50% 42%, #000 0%, rgba(0, 0, 0, 0.55) 45%, transparent 78%);
+
+  animation: particle-drift-a 34s linear infinite;
+}
+
+/* --- particle layer 2: larger, softer dots drifting the other way --- */
+.main.chatting > .chat::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(rgba(139, 21, 56, 0.3) 2px, transparent 2.2px),
+    radial-gradient(rgba(212, 87, 122, 0.26) 1.6px, transparent 1.8px);
+  background-size: 64px 64px, 92px 92px;
+  background-position: 20px 8px, 55px 44px;
+  filter: blur(0.4px);
+
+  -webkit-mask-image:
+    radial-gradient(ellipse 85% 65% at 50% 55%, #000 10%, transparent 82%);
+  mask-image:
+    radial-gradient(ellipse 85% 65% at 50% 55%, #000 10%, transparent 82%);
+
+  animation: particle-drift-b 46s linear infinite;
+}
+
+@keyframes particle-drift-a {
+  to {
+    background-position: 130px -90px, 143px -71px;
+  }
+}
+
+@keyframes particle-drift-b {
+  to {
+    background-position: -112px 76px, -77px 112px;
+  }
+}
+
+/* --- ambient maroon light, no weave --- */
+.main.chatting::after {
+  background:
+    radial-gradient(
+      900px 520px at 50% 45%,
+      rgba(139, 21, 56, 0.08),
+      rgba(139, 21, 56, 0) 70%
+    ),
+    radial-gradient(
+      1200px 400px at 50% -150px,
+      rgba(139, 21, 56, 0.09),
+      rgba(139, 21, 56, 0) 72%
+    ),
+    radial-gradient(
+      1000px 360px at 50% calc(100% + 110px),
+      rgba(139, 21, 56, 0.08),
+      rgba(139, 21, 56, 0) 72%
+    );
+}
+
+/* --- TRIAGE, centred behind the conversation --- */
+.main.chatting > .chat::after {
+  content: "TRIAGE";
+  position: fixed;
+  left: 50%;
+  top: 46%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+
+  font-size: clamp(64px, 11vw, 170px);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  margin-right: -0.16em;
+  line-height: 1;
+
+  background: linear-gradient(
+    120deg,
+    rgba(90, 14, 37, 0.22) 0%,
+    rgba(139, 21, 56, 0.3) 35%,
+    rgba(212, 87, 122, 0.26) 52%,
+    rgba(139, 21, 56, 0.3) 68%,
+    rgba(90, 14, 37, 0.22) 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  animation: triage-shine 9s ease-in-out infinite;
+}
+
+/* Messages stay above every layer */
+.main.chatting > .chat {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 600px) {
+  .main.chatting > .chat::after {
+    font-size: 54px;
+    top: 42%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .main.chatting::before,
+  .main.chatting > .chat::before,
+  .main.chatting > .chat::after {
+    animation: none;
+  }
+}
+
+/* =========================================================
+   PARTICLES + WORDMARK — VISIBLE
+========================================================= */
+
+.main.chatting::before {
+  background-image:
+    radial-gradient(rgba(139, 21, 56, 0.85) 1.5px, transparent 1.6px),
+    radial-gradient(rgba(176, 58, 96, 0.65) 1.2px, transparent 1.3px);
+  background-size: 24px 24px, 34px 34px;
+
+  -webkit-mask-image:
+    radial-gradient(ellipse 72% 58% at 50% 44%, #000 0%, rgba(0, 0, 0, 0.7) 50%, transparent 82%);
+  mask-image:
+    radial-gradient(ellipse 72% 58% at 50% 44%, #000 0%, rgba(0, 0, 0, 0.7) 50%, transparent 82%);
+}
+
+.main.chatting > .chat::before {
+  background-image:
+    radial-gradient(rgba(139, 21, 56, 0.55) 2.3px, transparent 2.5px),
+    radial-gradient(rgba(212, 87, 122, 0.45) 1.8px, transparent 2px);
+  background-size: 58px 58px, 86px 86px;
+}
+
+/* TRIAGE — readable behind the conversation */
+.main.chatting > .chat::after {
+  top: 50%;
+  font-size: clamp(72px, 13vw, 210px);
+  letter-spacing: 0.14em;
+  margin-right: -0.14em;
+
+  background: linear-gradient(
+    120deg,
+    rgba(90, 14, 37, 0.5) 0%,
+    rgba(139, 21, 56, 0.62) 35%,
+    rgba(212, 87, 122, 0.55) 52%,
+    rgba(139, 21, 56, 0.62) 68%,
+    rgba(90, 14, 37, 0.5) 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (max-width: 600px) {
+  .main.chatting > .chat::after {
+    font-size: 60px;
+  }
+}
+
+/* =========================================================
+   THEME TOGGLE BUTTON
+========================================================= */
+
+.theme-toggle {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--white);
+  color: #4a4245;
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.theme-toggle:hover {
+  border-color: rgba(139, 21, 56, 0.35);
+  color: var(--maroon);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--maroon);
+  outline-offset: 2px;
+}
+
+.theme-icon {
+  position: absolute;
+  transition: transform 0.35s ease, opacity 0.25s ease;
+}
+
+/* Light theme shows the moon (what you'd switch TO) */
+.theme-icon.sun {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.6);
+}
+
+.theme-icon.moon {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+
+[data-theme="dark"] .theme-icon.sun {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+
+[data-theme="dark"] .theme-icon.moon {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-icon {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   DARK THEME
+   Every rule below is scoped to [data-theme="dark"], so the
+   light theme above is untouched.
+========================================================= */
+
+[data-theme="dark"] {
+  --maroon: #d4577a;
+  --maroon-dark: #e07a97;
+
+  --background: #16131a;
+  --surface: #1e1a24;
+  --surface-2: #262030;
+  --white: #1e1a24;
+
+  --text: #f0ebee;
+  --muted: #a99ea6;
+
+  --border: #342c3d;
+
+  --soft-maroon: #2e1f2a;
+
+  --campus-line: #d4577a;
+  --campus-strength: 0.16;
+
+  color-scheme: dark;
+}
+
+[data-theme="dark"] body,
+[data-theme="dark"] .app {
+  background: var(--background);
+  color: var(--text);
+}
+
+/* ---------- header ---------- */
+
+[data-theme="dark"] .header {
+  background: rgba(22, 19, 26, 0.8);
+  border-bottom-color: rgba(212, 87, 122, 0.14);
+}
+
+[data-theme="dark"] .top-accent {
+  background: linear-gradient(
+    90deg,
+    #8b1538,
+    #d4577a,
+    #8b1538 40%,
+    #5a0e25 60%,
+    #8b1538
+  );
+  background-size: 200% 100%;
+}
+
+[data-theme="dark"] .brand-name {
+  color: var(--text);
+}
+
+[data-theme="dark"] .history-button,
+[data-theme="dark"] .theme-toggle {
+  background: var(--surface);
+  border-color: var(--border);
+  color: #cdc3ca;
+}
+
+[data-theme="dark"] .history-button:hover,
+[data-theme="dark"] .theme-toggle:hover {
+  border-color: rgba(212, 87, 122, 0.5);
+  color: var(--maroon);
+}
+
+[data-theme="dark"] .header-cta {
+  background: #a51b45;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(165, 27, 69, 0.35);
+}
+
+[data-theme="dark"] .header-cta:hover {
+  background: #c02351;
+}
+
+[data-theme="dark"] .header-link,
+[data-theme="dark"] .live-pill,
+[data-theme="dark"] .header-right {
+  color: var(--muted);
+}
+
+[data-theme="dark"] .header-link:hover {
+  color: var(--maroon);
+}
+
+[data-theme="dark"] .header-divider {
+  background: linear-gradient(to bottom, transparent, #443a4e, transparent);
+}
+
+[data-theme="dark"] .triage-word {
+  background: linear-gradient(
+    100deg,
+    #a5265a 0%,
+    #d4577a 30%,
+    #ffa8c0 50%,
+    #d4577a 70%,
+    #a5265a 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+[data-theme="dark"] .triage-tag {
+  color: #8e8190;
+}
+
+/* ---------- hero / landing ---------- */
+
+[data-theme="dark"] .hero h1 {
+  color: var(--text);
+}
+
+[data-theme="dark"] .hero-subtitle,
+[data-theme="dark"] .search-hint {
+  color: var(--muted);
+}
+
+[data-theme="dark"] .hero-badge {
+  background: var(--surface);
+  border-color: var(--border);
+  color: #c3b8c0;
+}
+
+[data-theme="dark"] .hero::before {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(212, 87, 122, 0.12),
+    rgba(212, 87, 122, 0) 65%
+  );
+}
+
+[data-theme="dark"] .search-hint,
+[data-theme="dark"] .suggestions-label {
+  background: var(--background);
+  color: #9a8e97;
+}
+
+[data-theme="dark"] .search-box {
+  background: var(--surface);
+  border-color: var(--border);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="dark"] .search-box input {
+  color: var(--text);
+}
+
+[data-theme="dark"] .search-box input::placeholder {
+  color: #8a7e88;
+}
+
+[data-theme="dark"] .search-icon {
+  color: #9a8e97;
+}
+
+[data-theme="dark"] .search-glow .search-box {
+  background: var(--surface);
+}
+
+[data-theme="dark"] .search-button {
+  background: #a51b45;
+  color: #fff;
+}
+
+[data-theme="dark"] .search-button:disabled {
+  background: #3b3143;
+  color: #8a7e88;
+}
+
+[data-theme="dark"] .search-button:not(:disabled):hover {
+  background: #c02351;
+}
+
+[data-theme="dark"] .suggestion {
+  background: var(--surface);
+  border-color: var(--border);
+  color: #c3b8c0;
+  box-shadow: none;
+}
+
+[data-theme="dark"] .suggestion:hover:not(:disabled) {
+  border-color: rgba(212, 87, 122, 0.5);
+  color: var(--maroon);
+}
+
+/* ---------- topic cards ---------- */
+
+[data-theme="dark"] .section-heading h2 {
+  color: var(--text);
+}
+
+[data-theme="dark"] .section-heading::after {
+  background: linear-gradient(to right, #443a4e, rgba(68, 58, 78, 0));
+}
+
+[data-theme="dark"] .feature-card {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 14%, #1e1a24) 0%,
+    #1e1a24 70%
+  );
+  border-color: color-mix(in srgb, var(--accent) 30%, #342c3d);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="dark"] .feature-card:hover {
+  border-color: color-mix(in srgb, var(--accent) 65%, #342c3d);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .feature-icon {
+  background: color-mix(in srgb, var(--accent) 22%, #1e1a24);
+  color: color-mix(in srgb, var(--accent) 70%, white);
+}
+
+[data-theme="dark"] .feature-card:hover .feature-icon {
+  background: var(--accent);
+  color: #fff;
+}
+
+[data-theme="dark"] .feature-content h3 {
+  color: var(--text);
+}
+
+[data-theme="dark"] .feature-content p {
+  color: var(--muted);
+}
+
+[data-theme="dark"] .feature-arrow {
+  color: #6d6175;
+}
+
+/* ---------- trust strip / footer ---------- */
+
+[data-theme="dark"] .trust-strip {
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .trust-item {
+  color: var(--maroon);
+}
+
+[data-theme="dark"] .trust-item + .trust-item {
+  border-left-color: var(--border);
+}
+
+[data-theme="dark"] .trust-item strong {
+  color: var(--text);
+}
+
+[data-theme="dark"] .trust-item span {
+  color: var(--muted);
+}
+
+[data-theme="dark"] .footer {
+  color: #7d7183;
+}
+
+[data-theme="dark"] .footer-dot {
+  color: #5f5568;
+}
+
+/* ---------- sidebar ---------- */
+
+[data-theme="dark"] .sidebar {
+  background: var(--surface);
+  border-right-color: var(--border);
+}
+
+[data-theme="dark"] .sidebar-title {
+  color: #a99ea6;
+}
+
+[data-theme="dark"] .new-chat {
+  background: var(--surface-2);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+[data-theme="dark"] .new-chat:hover {
+  background: #2f2839;
+}
+
+[data-theme="dark"] .icon-button {
+  color: #a99ea6;
+}
+
+[data-theme="dark"] .icon-button:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+[data-theme="dark"] .conversation-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .conversation-item.active {
+  background: rgba(212, 87, 122, 0.14);
+}
+
+[data-theme="dark"] .conversation-preview {
+  color: #ded5db;
+}
+
+[data-theme="dark"] .conversation-meta,
+[data-theme="dark"] .sidebar-empty,
+[data-theme="dark"] .sidebar-note {
+  color: #8a7e88;
+}
+
+[data-theme="dark"] .sidebar-scrim {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+/* ---------- chat ---------- */
+
+[data-theme="dark"] .chat > .bubble.assistant {
+  background: rgba(30, 26, 36, 0.95);
+  border-color: var(--border);
+  color: var(--text);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.45),
+    0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .chat > .bubble.user {
+  background: rgba(46, 31, 42, 0.95);
+  color: #f2e9ee;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="dark"] .chat > .bubble.thinking {
+  background: rgba(30, 26, 36, 0.95);
+  border-color: var(--border);
+  color: #a99ea6;
+}
+
+[data-theme="dark"] .sources-label {
+  color: #c3b8c0;
+}
+
+[data-theme="dark"] .sources a {
+  color: #a99ea6;
+}
+
+[data-theme="dark"] .sources a:hover {
+  color: var(--maroon);
+}
+
+[data-theme="dark"] .chat .sources,
+[data-theme="dark"] .badge-row {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .badge-row {
+  color: #8a7e88;
+}
+
+[data-theme="dark"] .badge-sep {
+  color: #514858;
+}
+
+[data-theme="dark"] .band.high {
+  color: #55c97e;
+}
+
+[data-theme="dark"] .band.medium {
+  color: #e0a63c;
+}
+
+[data-theme="dark"] .band.low {
+  color: #f0728a;
+}
+
+[data-theme="dark"] .chat-error {
+  color: #f0728a;
+  background: rgba(240, 114, 138, 0.12);
+}
+
+[data-theme="dark"] .photo figcaption {
+  color: #c3b8c0;
+}
+
+/* ---------- chat background layers ---------- */
+
+[data-theme="dark"] .chat-input {
+  background: linear-gradient(
+    to top,
+    var(--background) 45%,
+    rgba(22, 19, 26, 0.96) 70%,
+    rgba(22, 19, 26, 0.75) 85%,
+    rgba(22, 19, 26, 0)
+  );
+}
+
+[data-theme="dark"] .chat-input .search-box {
+  background: var(--surface);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Particles glow on dark, the way the reference does */
+[data-theme="dark"] .main.chatting::before {
+  background-image:
+    radial-gradient(rgba(233, 110, 152, 0.9) 1.5px, transparent 1.6px),
+    radial-gradient(rgba(150, 90, 220, 0.6) 1.2px, transparent 1.3px);
+}
+
+[data-theme="dark"] .main.chatting > .chat::before {
+  background-image:
+    radial-gradient(rgba(233, 110, 152, 0.6) 2.3px, transparent 2.5px),
+    radial-gradient(rgba(150, 90, 220, 0.45) 1.8px, transparent 2px);
+  filter: blur(0.6px);
+}
+
+[data-theme="dark"] .main.chatting::after {
+  background:
+    radial-gradient(
+      900px 520px at 50% 45%,
+      rgba(212, 87, 122, 0.14),
+      rgba(212, 87, 122, 0) 70%
+    ),
+    radial-gradient(
+      1200px 400px at 50% -150px,
+      rgba(138, 70, 200, 0.12),
+      rgba(138, 70, 200, 0) 72%
+    ),
+    radial-gradient(
+      1000px 360px at 50% calc(100% + 110px),
+      rgba(212, 87, 122, 0.12),
+      rgba(212, 87, 122, 0) 72%
+    );
+}
+
+[data-theme="dark"] .main.chatting > .chat::after {
+  background: linear-gradient(
+    120deg,
+    rgba(212, 87, 122, 0.3) 0%,
+    rgba(233, 110, 152, 0.42) 35%,
+    rgba(196, 140, 255, 0.38) 52%,
+    rgba(233, 110, 152, 0.42) 68%,
+    rgba(212, 87, 122, 0.3) 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Landing-page campus art stays legible on dark */
+[data-theme="dark"] .campus-art {
+  background-color: #d4577a;
+  opacity: 0.2;
+}
+
+/* =========================================================
+   LIGHT THEME POLISH
+   Scoped with :not([data-theme="dark"]) so the dark theme
+   above is never touched.
+========================================================= */
+
+:root:not([data-theme="dark"]) {
+  --muted: #5f565a;
+  --border: #ddd5d0;
+}
+
+/* ---------- text contrast ---------- */
+
+:root:not([data-theme="dark"]) .hero h1 {
+  color: #14100f;
+}
+
+:root:not([data-theme="dark"]) .hero-subtitle {
+  color: #5f565a;
+}
+
+:root:not([data-theme="dark"]) .hero-badge {
+  border-color: #d8cfc9;
+  color: #4a4245;
+}
+
+:root:not([data-theme="dark"]) .feature-content h3,
+:root:not([data-theme="dark"]) .trust-item strong,
+:root:not([data-theme="dark"]) .section-heading h2 {
+  color: #191315;
+}
+
+:root:not([data-theme="dark"]) .feature-content p,
+:root:not([data-theme="dark"]) .trust-item span {
+  color: #6b6165;
+}
+
+:root:not([data-theme="dark"]) .suggestion {
+  color: #3d3538;
+  border-color: #d8cfc9;
+}
+
+:root:not([data-theme="dark"]) .suggestions-label,
+:root:not([data-theme="dark"]) .search-hint {
+  color: #6b6165;
+}
+
+:root:not([data-theme="dark"]) .header-link,
+:root:not([data-theme="dark"]) .live-pill,
+:root:not([data-theme="dark"]) .history-button,
+:root:not([data-theme="dark"]) .theme-toggle {
+  color: #443c40;
+}
+
+:root:not([data-theme="dark"]) .footer {
+  color: #837880;
+}
+
+/* ---------- cards: more colour, crisper edges ---------- */
+
+:root:not([data-theme="dark"]) .feature-card {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 11%, #fff) 0%,
+    #fff 72%
+  );
+  border-color: color-mix(in srgb, var(--accent) 30%, #ddd5d0);
+  box-shadow: 0 4px 14px rgba(60, 25, 38, 0.06);
+}
+
+:root:not([data-theme="dark"]) .feature-card:hover {
+  border-color: color-mix(in srgb, var(--accent) 62%, white);
+  box-shadow: 0 14px 30px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+:root:not([data-theme="dark"]) .feature-icon {
+  background: color-mix(in srgb, var(--accent) 16%, white);
+  color: color-mix(in srgb, var(--accent) 88%, black);
+}
+
+:root:not([data-theme="dark"]) .feature-arrow {
+  color: #b0a3a8;
+}
+
+:root:not([data-theme="dark"]) .trust-strip {
+  border-color: #ddd5d0;
+  box-shadow: 0 4px 14px rgba(60, 25, 38, 0.05);
+}
+
+:root:not([data-theme="dark"]) .section-heading::after {
+  background: linear-gradient(to right, #c9bfb9, rgba(201, 191, 185, 0));
+}
+
+/* ---------- chat surface: darker dots, readable watermark ---------- */
+
+:root:not([data-theme="dark"]) .main.chatting::before {
+  background-image:
+    radial-gradient(rgba(96, 18, 44, 0.9) 1.6px, transparent 1.7px),
+    radial-gradient(rgba(139, 21, 56, 0.72) 1.3px, transparent 1.4px);
+  background-size: 24px 24px, 34px 34px;
+}
+
+:root:not([data-theme="dark"]) .main.chatting > .chat::before {
+  background-image:
+    radial-gradient(rgba(96, 18, 44, 0.62) 2.4px, transparent 2.6px),
+    radial-gradient(rgba(139, 21, 56, 0.5) 1.9px, transparent 2.1px);
+}
+
+:root:not([data-theme="dark"]) .main.chatting::after {
+  background:
+    radial-gradient(
+      900px 520px at 50% 45%,
+      rgba(139, 21, 56, 0.1),
+      rgba(139, 21, 56, 0) 70%
+    ),
+    radial-gradient(
+      1200px 400px at 50% -150px,
+      rgba(139, 21, 56, 0.11),
+      rgba(139, 21, 56, 0) 72%
+    ),
+    radial-gradient(
+      1000px 360px at 50% calc(100% + 110px),
+      rgba(139, 21, 56, 0.1),
+      rgba(139, 21, 56, 0) 72%
+    );
+}
+
+:root:not([data-theme="dark"]) .main.chatting > .chat::after {
+  background: linear-gradient(
+    120deg,
+    rgba(74, 10, 30, 0.6) 0%,
+    rgba(139, 21, 56, 0.72) 35%,
+    rgba(186, 60, 100, 0.62) 52%,
+    rgba(139, 21, 56, 0.72) 68%,
+    rgba(74, 10, 30, 0.6) 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- chat cards sit clearly above the pattern ---------- */
+
+:root:not([data-theme="dark"]) .chat > .bubble.assistant {
+  background: #fff;
+  border-color: #ded3d6;
+  box-shadow:
+    0 12px 32px rgba(70, 28, 45, 0.1),
+    0 2px 6px rgba(70, 28, 45, 0.05);
+}
+
+:root:not([data-theme="dark"]) .chat > .bubble.user {
+  background: #f6edf0;
+  border: 1px solid #e7dade;
+  color: #1c1519;
+  box-shadow: 0 3px 10px rgba(70, 28, 45, 0.07);
+}
+
+:root:not([data-theme="dark"]) .sources-label {
+  color: #443c40;
+}
+
+:root:not([data-theme="dark"]) .sources a {
+  color: #6b6165;
+}
+
+:root:not([data-theme="dark"]) .sources a:hover {
+  color: var(--maroon);
+}
+
+:root:not([data-theme="dark"]) .badge-row {
+  color: #6b6165;
+}
+
+/* ---------- landing art a touch deeper ---------- */
+
+:root:not([data-theme="dark"]) .campus-art {
+  background-color: #5e3f4a;
+  opacity: 0.3;
+}
+
+/* =========================================================
+   DARK — HEADLINE ACCENT + VISIBLE SEARCH GLOW
+========================================================= */
+
+/* "help you?" in warm gold instead of pink */
+[data-theme="dark"] .hero h1 span {
+  color: #f2c14e;
+}
+
+/* Glow ring: bright enough to read on a dark surface */
+[data-theme="dark"] .search-glow,
+[data-theme="dark"] .chat-input .search-glow {
+  padding: 2px;
+  background: conic-gradient(
+    from var(--glow-angle),
+    rgba(240, 120, 160, 0.1),
+    rgba(255, 140, 180, 1),
+    rgba(242, 193, 78, 0.95) 20%,
+    rgba(240, 120, 160, 0.1) 42%,
+    rgba(240, 120, 160, 0.1) 62%,
+    rgba(196, 140, 255, 0.9),
+    rgba(240, 120, 160, 0.1)
+  );
+}
+
+[data-theme="dark"] .search-glow::after,
+[data-theme="dark"] .chat-input .search-glow::after {
+  inset: 2px;
+  filter: blur(26px);
+  opacity: 0.65;
+}
+
+[data-theme="dark"] .search-glow:focus-within::after,
+[data-theme="dark"] .chat-input .search-glow:focus-within::after {
+  opacity: 0.95;
+}
+
+[data-theme="dark"] .search-glow .search-box,
+[data-theme="dark"] .chat-input .search-box {
+  background: #221d29;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* =========================================================
+   DARK — CALMER (single hue, softer accent)
+========================================================= */
+
+/* Muted amber instead of neon yellow */
+[data-theme="dark"] .hero h1 span {
+  color: #dda85f;
+}
+
+/* One rose hue around the box — no gold or violet in the ring */
+[data-theme="dark"] .search-glow,
+[data-theme="dark"] .chat-input .search-glow {
+  background: conic-gradient(
+    from var(--glow-angle),
+    rgba(212, 87, 122, 0.08),
+    rgba(226, 104, 140, 0.75),
+    rgba(212, 87, 122, 0.08) 32%,
+    rgba(212, 87, 122, 0.08) 68%,
+    rgba(226, 104, 140, 0.45),
+    rgba(212, 87, 122, 0.08)
+  );
+}
+
+[data-theme="dark"] .search-glow::after,
+[data-theme="dark"] .chat-input .search-glow::after {
+  inset: 4px;
+  filter: blur(22px);
+  opacity: 0.3;
+}
+
+[data-theme="dark"] .search-glow:focus-within::after,
+[data-theme="dark"] .chat-input .search-glow:focus-within::after {
+  opacity: 0.5;
+}
+
+/* Particles: rose only, no violet */
+[data-theme="dark"] .main.chatting::before {
+  background-image:
+    radial-gradient(rgba(226, 104, 140, 0.8) 1.5px, transparent 1.6px),
+    radial-gradient(rgba(184, 74, 110, 0.55) 1.2px, transparent 1.3px);
+}
+
+[data-theme="dark"] .main.chatting > .chat::before {
+  background-image:
+    radial-gradient(rgba(226, 104, 140, 0.5) 2.3px, transparent 2.5px),
+    radial-gradient(rgba(184, 74, 110, 0.38) 1.8px, transparent 2px);
+}
+
+[data-theme="dark"] .main.chatting::after {
+  background:
+    radial-gradient(
+      900px 520px at 50% 45%,
+      rgba(212, 87, 122, 0.1),
+      rgba(212, 87, 122, 0) 70%
+    ),
+    radial-gradient(
+      1200px 400px at 50% -150px,
+      rgba(212, 87, 122, 0.1),
+      rgba(212, 87, 122, 0) 72%
+    ),
+    radial-gradient(
+      1000px 360px at 50% calc(100% + 110px),
+      rgba(212, 87, 122, 0.09),
+      rgba(212, 87, 122, 0) 72%
+    );
+}
+
+[data-theme="dark"] .main.chatting > .chat::after {
+  background: linear-gradient(
+    120deg,
+    rgba(212, 87, 122, 0.26) 0%,
+    rgba(233, 110, 152, 0.36) 50%,
+    rgba(212, 87, 122, 0.26) 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Wordmark: rose only */
+[data-theme="dark"] .triage-word {
+  background: linear-gradient(
+    100deg,
+    #a5265a 0%,
+    #d4577a 35%,
+    #e9799c 50%,
+    #d4577a 65%,
+    #a5265a 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* =========================================================
+   TRIAGE — OUTLINED TREATMENT
+   Hollow letterforms read as a watermark instead of a slab,
+   so messages stay legible over them.
+========================================================= */
+
+.main.chatting > .chat::after {
+  font-size: clamp(76px, 14vw, 230px);
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  margin-right: -0.3em;
+
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: transparent;
+
+  -webkit-text-stroke: 1.5px rgba(139, 21, 56, 0.4);
+  animation: none;
+}
+
+[data-theme="dark"] .main.chatting > .chat::after {
+  background: none;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(233, 110, 152, 0.4);
+}
+
+:root:not([data-theme="dark"]) .main.chatting > .chat::after {
+  background: none;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(139, 21, 56, 0.34);
+}
+
+@media (max-width: 600px) {
+  .main.chatting > .chat::after {
+    font-size: 52px;
+    -webkit-text-stroke-width: 1px;
+  }
+}
+
+/* ---------------------------------------------------------
+   HEADER WORDMARK — lighter, rule underneath
+--------------------------------------------------------- */
+
+.triage-mark {
+  align-items: stretch;
+}
+
+.triage-word {
+  font-size: 25px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  margin-right: -0.3em;
+  animation: none;
+  background: none;
+  color: var(--maroon);
+  -webkit-text-fill-color: currentColor;
+}
+
+[data-theme="dark"] .triage-word {
+  background: none;
+  color: #e9799c;
+  -webkit-text-fill-color: currentColor;
+}
+
+.triage-tag {
+  margin-top: 7px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+  font-size: 8.5px;
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  margin-right: -0.34em;
+  color: #9a8f92;
+  text-align: center;
+}
+
+[data-theme="dark"] .triage-tag {
+  border-top-color: #443a4e;
+  color: #8e8190;
+}
+
+/* =========================================================
+   HEADER — cleaner
+   The chat pattern was showing through the blur and cutting
+   off at the border; this makes the bar read as one surface.
+========================================================= */
+
+.header {
+  height: 66px;
+  padding: 0 28px;
+  border-bottom: none;
+  box-shadow: 0 1px 0 rgba(90, 40, 55, 0.1);
+  backdrop-filter: blur(18px) saturate(1.1);
+  -webkit-backdrop-filter: blur(18px) saturate(1.1);
+}
+
+:root:not([data-theme="dark"]) .header {
+  background: rgba(247, 245, 242, 0.94);
+}
+
+[data-theme="dark"] .header {
+  background: rgba(22, 19, 26, 0.94);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.top-accent {
+  height: 2px;
+}
+
+.header-left {
+  gap: 10px;
+}
+
+.header-actions {
+  gap: 12px;
+}
+
+.header-divider {
+  height: 34px;
+}
+
+.amrita-logo {
+  width: 80px;
+  height: 44px;
+}
+
+.brand-name {
+  font-size: 16px;
+  letter-spacing: 1.6px;
+}
+
+.brand-campus {
+  margin-top: 5px;
+  font-size: 8px;
+  letter-spacing: 2.2px;
+}
+
+.header-cta,
+.history-button,
+.theme-toggle {
+  height: 34px;
+}
+
+/* Header above the chat layers, below the sidebar (z 60) */
+.header {
+  z-index: 45;
+}
+
+.top-accent {
+  z-index: 46;
+}
+
+/* =========================================================
+   TRIAGE — RETRO DISPLAY WORDMARK (Shrikhand)
+   Bulbous 70s letterforms; tracking pulled back in since a
+   display face needs far less than a spaced-out sans.
+========================================================= */
+
+.triage-word {
+  font-family: "Shrikhand", "Inter", cursive;
+  font-size: 27px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  margin-right: 0;
+  padding-right: 2px;
+  line-height: 1.05;
+  color: var(--maroon);
+  -webkit-text-fill-color: currentColor;
+}
+
+[data-theme="dark"] .triage-word {
+  color: #e9799c;
+  -webkit-text-fill-color: currentColor;
+}
+
+.triage-tag {
+  margin-top: 6px;
+  padding-top: 5px;
+  font-family: "Inter", sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.3em;
+  margin-right: -0.3em;
+}
+
+@media (max-width: 1100px) {
+  .triage-word {
+    font-size: 22px;
+  }
+}
+
+/* --- the big watermark, same face, outlined --- */
+
+.main.chatting > .chat::after {
+  font-family: "Shrikhand", "Inter", cursive;
+  font-weight: 400;
+  font-size: clamp(80px, 16vw, 260px);
+  letter-spacing: 0.04em;
+  margin-right: -0.04em;
+}
+
+.main.chatting > .chat::after,
+:root:not([data-theme="dark"]) .main.chatting > .chat::after {
+  -webkit-text-stroke: 2px rgba(139, 21, 56, 0.3);
+}
+
+[data-theme="dark"] .main.chatting > .chat::after {
+  -webkit-text-stroke: 2px rgba(233, 110, 152, 0.34);
+}
+
+@media (max-width: 600px) {
+  .main.chatting > .chat::after {
+    font-size: 58px;
+    -webkit-text-stroke-width: 1.4px;
+  }
+}
+
+/* =========================================================
+   HEADER — TALLER
+========================================================= */
+
+.header {
+  height: 88px;
+  padding: 0 34px;
+}
+
+.top-accent {
+  height: 3px;
+}
+
+.amrita-logo {
+  width: 104px;
+  height: 58px;
+}
+
+.brand {
+  gap: 13px;
+}
+
+.brand-name {
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+.brand-campus {
+  margin-top: 6px;
+  font-size: 9.5px;
+  letter-spacing: 2.6px;
+}
+
+.header-left {
+  gap: 13px;
+}
+
+.header-actions {
+  gap: 16px;
+}
+
+.history-button,
+.theme-toggle,
+.header-cta {
+  height: 42px;
+}
+
+.history-button,
+.header-cta {
+  padding: 0 16px;
+  font-size: 14px;
+  border-radius: 12px;
+}
+
+.theme-toggle {
+  width: 42px;
+  border-radius: 12px;
+}
+
+.live-pill,
+.header-link {
+  font-size: 13.5px;
+}
+
+.header-divider {
+  height: 46px;
+}
+
+.triage-word {
+  font-size: 34px;
+}
+
+.triage-tag {
+  margin-top: 7px;
+  padding-top: 6px;
+  font-size: 9px;
+}
+
+/* The chat pane measures itself against the header */
+.main.chatting {
+  height: calc(100vh - 88px);
+}
+
+@media (max-width: 1100px) {
+  .triage-word {
+    font-size: 27px;
+  }
+}
+
+@media (max-width: 900px) {
+  .header {
+    height: 80px;
+    padding: 0 22px;
+  }
+
+  .main.chatting {
+    height: calc(100vh - 80px);
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    height: 72px;
+    padding: 0 16px;
+  }
+
+  .amrita-logo {
+    width: 84px;
+    height: 48px;
+  }
+
+  .history-button,
+  .theme-toggle,
+  .header-cta {
+    height: 38px;
+  }
+
+  .theme-toggle {
+    width: 38px;
+  }
+
+  .main.chatting {
+    height: calc(100vh - 72px);
+  }
+}
+
+/* =========================================================
+   ICONS + HEADER FIT
+========================================================= */
+
+/* Nothing in the bar may overflow the viewport */
+.header {
+  padding: 0 24px;
+  gap: 14px;
+  overflow: hidden;
+}
+
+.header-actions {
+  min-width: 0;
+  gap: 14px;
+}
+
+/* --- header buttons --- */
+
+.history-button,
+.header-cta,
+.theme-toggle {
+  position: relative;
+  transition:
+    transform 0.16s ease,
+    border-color 0.16s ease,
+    background 0.16s ease,
+    color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.history-button:hover,
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(90, 40, 55, 0.12);
+}
+
+.history-button:active,
+.header-cta:active,
+.theme-toggle:active {
+  transform: translateY(0) scale(0.97);
+}
+
+[data-theme="dark"] .history-button:hover,
+[data-theme="dark"] .theme-toggle:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+}
+
+/* Theme toggle reads as a proper control */
+.theme-toggle {
+  background: var(--white);
+}
+
+:root:not([data-theme="dark"]) .theme-toggle {
+  color: #6a5b62;
+}
+
+:root:not([data-theme="dark"]) .theme-toggle:hover {
+  color: var(--maroon);
+  background: #fdf7f9;
+}
+
+[data-theme="dark"] .theme-toggle {
+  color: #d9b45f;
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+  color: #f0c869;
+  background: #241f2c;
+}
+
+.history-button svg,
+.header-cta svg {
+  opacity: 0.9;
+}
+
+.header-cta:hover {
+  box-shadow: 0 6px 18px rgba(139, 21, 56, 0.3);
+}
+
+/* Online dot, a little larger and better aligned */
+.live-dot {
+  width: 8px;
+  height: 8px;
+}
+
+/* External-link glyph sits just above the baseline */
+.header-link svg {
+  margin-top: -1px;
+  opacity: 0.75;
+}
+
+.header-link:hover svg {
+  opacity: 1;
+}
+
+/* --- topic card icons --- */
+
+.feature-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+}
+
+.feature-card {
+  gap: 16px;
+}
+
+.feature-card:hover .feature-icon {
+  transform: scale(1.05);
+}
+
+.feature-icon {
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+/* --- trust strip icons --- */
+
+.trust-item svg {
+  margin-top: 1px;
+}
+
+/* --- search --- */
+
+.search-button {
+  width: 54px;
+  height: 54px;
+  border-radius: 15px;
+}
+
+@media (max-width: 1100px) {
+  .header {
+    padding: 0 18px;
+    gap: 10px;
+  }
+
+  .header-actions {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .feature-icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .search-button {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .history-button,
+  .header-cta,
+  .theme-toggle,
+  .feature-icon {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   TRIAGE — FILLED, SPACE GROTESK
+   One face for both the header mark and the watermark, and
+   the watermark now shows faintly through the answer cards.
+========================================================= */
+
+.triage-word {
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  letter-spacing: 0.13em;
+  margin-right: -0.13em;
+  padding-right: 0;
+}
+
+.triage-tag {
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 9px;
+  letter-spacing: 0.32em;
+  margin-right: -0.32em;
+}
+
+@media (max-width: 1100px) {
+  .triage-word {
+    font-size: 26px;
+  }
+}
+
+/* --- watermark: filled, no outline --- */
+
+.main.chatting > .chat::after {
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  font-weight: 700;
+  font-size: clamp(84px, 15vw, 250px);
+  letter-spacing: 0.12em;
+  margin-right: -0.12em;
+  -webkit-text-stroke: 0;
+}
+
+:root:not([data-theme="dark"]) .main.chatting > .chat::after {
+  -webkit-text-stroke: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(110, 16, 44, 0.3) 0%,
+    rgba(139, 21, 56, 0.4) 50%,
+    rgba(110, 16, 44, 0.3) 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+[data-theme="dark"] .main.chatting > .chat::after {
+  -webkit-text-stroke: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(212, 87, 122, 0.4) 0%,
+    rgba(240, 130, 170, 0.52) 50%,
+    rgba(212, 87, 122, 0.4) 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* --- answer cards let the watermark ghost through --- */
+
+:root:not([data-theme="dark"]) .chat > .bubble.assistant {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(10px) saturate(1.05);
+  -webkit-backdrop-filter: blur(10px) saturate(1.05);
+}
+
+:root:not([data-theme="dark"]) .chat > .bubble.user {
+  background: rgba(246, 237, 240, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+[data-theme="dark"] .chat > .bubble.assistant {
+  background: rgba(30, 26, 36, 0.78);
+  backdrop-filter: blur(12px) saturate(1.1);
+  -webkit-backdrop-filter: blur(12px) saturate(1.1);
+}
+
+[data-theme="dark"] .chat > .bubble.user {
+  background: rgba(46, 31, 42, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+@media (max-width: 600px) {
+  .main.chatting > .chat::after {
+    font-size: 56px;
+  }
+}
+
+/* =========================================================
+   BRAND LOCKUP — BIGGER
+========================================================= */
+
+.amrita-logo {
+  width: 132px;
+  height: 72px;
+}
+
+.brand {
+  gap: 16px;
+}
+
+.brand-name {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 2.6px;
+}
+
+.brand-campus {
+  margin-top: 8px;
+  font-size: 11px;
+  letter-spacing: 3.2px;
+}
+
+/* Room for the larger lockup */
+.header {
+  height: 98px;
+}
+
+.main.chatting {
+  height: calc(100vh - 98px);
+}
+
+@media (max-width: 1100px) {
+  .amrita-logo {
+    width: 112px;
+    height: 62px;
+  }
+
+  .brand-name {
+    font-size: 22px;
+  }
+
+  .brand-campus {
+    font-size: 10px;
+    letter-spacing: 2.8px;
+  }
+}
+
+@media (max-width: 900px) {
+  .header {
+    height: 88px;
+  }
+
+  .main.chatting {
+    height: calc(100vh - 88px);
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    height: 76px;
+  }
+
+  .amrita-logo {
+    width: 94px;
+    height: 54px;
+  }
+
+  .main.chatting {
+    height: calc(100vh - 76px);
+  }
+}
+
+/* =========================================================
+   MARKDOWN ANSWERS
+   The model returns Markdown; these style the rendered output.
+========================================================= */
+
+.markdown {
+  font-size: 0.98rem;
+  line-height: 1.72;
+}
+
+.md-p {
+  margin: 0 0 0.85em;
+  white-space: pre-wrap;
+}
+
+.md-p:last-child {
+  margin-bottom: 0;
+}
+
+.md-heading {
+  margin: 1.25em 0 0.5em;
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.md-heading:first-child {
+  margin-top: 0;
+}
+
+.md-list {
+  margin: 0 0 0.9em;
+  padding-left: 1.35em;
+}
+
+.md-list:last-child {
+  margin-bottom: 0;
+}
+
+.md-list li {
+  margin-bottom: 0.35em;
+  padding-left: 0.2em;
+}
+
+.md-list li::marker {
+  color: var(--maroon);
+  font-weight: 600;
+}
+
+.markdown strong {
+  font-weight: 650;
+}
+
+.markdown code {
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(139, 21, 56, 0.08);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 0.88em;
+}
+
+[data-theme="dark"] .markdown code {
+  background: rgba(233, 110, 152, 0.16);
+}
+
+.markdown a {
+  color: var(--maroon);
+  text-underline-offset: 2px;
+}
+
+/* =========================================================
+   COPY BUTTON
+========================================================= */
+
+.chat > .bubble.assistant {
+  position: relative;
+}
+
+.copy-button {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--white);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity 0.18s ease,
+    color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.bubble.assistant:hover .copy-button,
+.copy-button:focus-visible {
+  opacity: 1;
+}
+
+.copy-button:hover {
+  color: var(--maroon);
+  border-color: rgba(139, 21, 56, 0.4);
+  transform: translateY(-1px);
+}
+
+.copy-button.copied {
+  opacity: 1;
+  color: #1a7f37;
+  border-color: rgba(26, 127, 55, 0.45);
+}
+
+[data-theme="dark"] .copy-button {
+  background: var(--surface-2);
+  color: #a99ea6;
+}
+
+[data-theme="dark"] .copy-button:hover {
+  color: var(--maroon);
+  border-color: rgba(212, 87, 122, 0.5);
+}
+
+[data-theme="dark"] .copy-button.copied {
+  color: #55c97e;
+  border-color: rgba(85, 201, 126, 0.45);
+}
+
+.copy-button:focus-visible {
+  outline: 2px solid var(--maroon);
+  outline-offset: 2px;
+}
+
+/* Keep the button clear of the answer text */
+.chat > .bubble.assistant .markdown,
+.chat > .bubble.assistant .photo-strip {
+  padding-right: 86px;
+}
+
+@media (max-width: 600px) {
+  .copy-button span {
+    display: none;
+  }
+
+  .copy-button {
+    padding: 0 8px;
+  }
+
+  .chat > .bubble.assistant .markdown,
+  .chat > .bubble.assistant .photo-strip {
+    padding-right: 46px;
+  }
+}
+
+/* =========================================================
+   FOLLOW-UP CHIPS
+========================================================= */
+
+.follow-ups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: -6px;
+  animation: assistantMessageIn 0.4s ease both;
+}
+
+.follow-up {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--white);
+  color: #4a4245;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.follow-up svg {
+  opacity: 0.55;
+}
+
+.follow-up:hover {
+  border-color: rgba(139, 21, 56, 0.4);
+  color: var(--maroon);
+  transform: translateY(-1px);
+}
+
+.follow-up:focus-visible {
+  outline: 2px solid var(--maroon);
+  outline-offset: 2px;
+}
+
+[data-theme="dark"] .follow-up {
+  background: rgba(30, 26, 36, 0.9);
+  color: #c3b8c0;
+}
+
+[data-theme="dark"] .follow-up:hover {
+  border-color: rgba(212, 87, 122, 0.5);
+  color: var(--maroon);
+}
+
+/* =========================================================
+   OFFLINE STATUS
+========================================================= */
+
+.live-pill.offline {
+  color: #b42318;
+}
+
+.live-pill.offline .live-dot {
+  background: #b42318;
+}
+
+.live-pill.offline .live-dot::after {
+  border-color: #b42318;
+  animation: none;
+}
+
+[data-theme="dark"] .live-pill.offline {
+  color: #f0728a;
+}
+
+[data-theme="dark"] .live-pill.offline .live-dot {
+  background: #f0728a;
+}
+
+/* =========================================================
+   EMPTY SIDEBAR
+========================================================= */
+
+.sidebar-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 28px 8px;
+  padding: 24px 16px;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  text-align: center;
+  color: #a99ea6;
+}
+
+.sidebar-empty svg {
+  margin-bottom: 2px;
+  color: var(--maroon);
+  opacity: 0.55;
+}
+
+.sidebar-empty strong {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.sidebar-empty span {
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* =========================================================
+   ERROR + RETRY
+========================================================= */
+
+.chat-error {
+  align-self: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  max-width: 560px;
+  padding: 12px 16px;
+  border: 1px solid rgba(180, 35, 24, 0.28);
+  border-radius: 12px;
+  background: rgba(180, 35, 24, 0.07);
+  color: #b42318;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.retry-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  border: 1px solid rgba(180, 35, 24, 0.4);
+  border-radius: 9px;
+  background: transparent;
+  color: #b42318;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.retry-button:hover {
+  background: rgba(180, 35, 24, 0.12);
+  transform: translateY(-1px);
+}
+
+.retry-button:focus-visible {
+  outline: 2px solid #b42318;
+  outline-offset: 2px;
+}
+
+[data-theme="dark"] .chat-error {
+  border-color: rgba(240, 114, 138, 0.3);
+  background: rgba(240, 114, 138, 0.12);
+  color: #f0728a;
+}
+
+[data-theme="dark"] .retry-button {
+  border-color: rgba(240, 114, 138, 0.45);
+  color: #f0728a;
+}
+
+[data-theme="dark"] .retry-button:hover {
+  background: rgba(240, 114, 138, 0.16);
+}
+
+/* =========================================================
+   ⌘K HINT
+========================================================= */
+
+.shortcut-hint {
+  flex-shrink: 0;
+  margin-right: 10px;
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: transparent;
+  color: #9a8e97;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  white-space: nowrap;
+  transition: opacity 0.15s ease;
+}
+
+.search-box:focus-within .shortcut-hint {
+  opacity: 0;
+}
+
+@media (max-width: 720px) {
+  .shortcut-hint {
+    display: none;
+  }
+}
+
+/* =========================================================
+   CONTRAST
+   The meta row and source links were below WCAG AA on both
+   themes; these lift them over 4.5:1 on their backgrounds.
+========================================================= */
+
+:root:not([data-theme="dark"]) .badge-row,
+:root:not([data-theme="dark"]) .sources a,
+:root:not([data-theme="dark"]) .conversation-meta,
+:root:not([data-theme="dark"]) .photo figcaption {
+  color: #5c5256;
+}
+
+:root:not([data-theme="dark"]) .band.medium {
+  color: #8a5a00;
+}
+
+:root:not([data-theme="dark"]) .band.high {
+  color: #10682c;
+}
+
+:root:not([data-theme="dark"]) .footer {
+  color: #6e646a;
+}
+
+[data-theme="dark"] .badge-row,
+[data-theme="dark"] .sources a,
+[data-theme="dark"] .conversation-meta {
+  color: #b6aab2;
+}
+
+[data-theme="dark"] .footer {
+  color: #9b8fa0;
+}
+
+/* The answer surface is opaque enough for body text to hold up */
+:root:not([data-theme="dark"]) .chat > .bubble.assistant {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+[data-theme="dark"] .chat > .bubble.assistant {
+  background: rgba(30, 26, 36, 0.88);
+}
+
+/* =========================================================
+   TRIAGE LOGO (image mark)
+   public/triage-logo.svg       — dark ink, for the light theme
+   public/triage-logo-dark.svg  — light ink, for the dark theme
+========================================================= */
+
+.triage-mark {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.triage-logo {
+  height: 46px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.triage-logo.dark {
+  display: none;
+}
+
+[data-theme="dark"] .triage-logo.light {
+  display: none;
+}
+
+[data-theme="dark"] .triage-logo.dark {
+  display: block;
+}
+
+@media (max-width: 1100px) {
+  .triage-logo {
+    height: 38px;
+  }
+}
+
+@media (max-width: 600px) {
+  .triage-mark,
+  .header-divider {
+    display: none;
+  }
+}
+
+/* =========================================================
+   TRIAGE LOCKUP — refined
+   Image carries the mark + wordmark; the tagline is text,
+   so it stays sharp and can be tracked properly.
+========================================================= */
+
+.triage-mark {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding-left: 4px;
+}
+
+.triage-logo {
+  height: 36px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.triage-tag {
+  margin: 7px 0 0;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+  font-family: "Inter", sans-serif;
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 0.23em;
+  margin-right: -0.23em;
+  line-height: 1;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
+  color: #9a8f92;
+}
+
+[data-theme="dark"] .triage-tag {
+  border-top-color: #443a4e;
+  color: #9d8fa0;
+}
+
+.triage-mark:hover .triage-logo {
+  transform: translateY(-1px);
+}
+
+.triage-logo {
+  transition: transform 0.18s ease;
+}
+
+@media (max-width: 1240px) {
+  .triage-tag {
+    display: none;
+  }
+
+  .triage-logo {
+    height: 40px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .triage-logo {
+    height: 34px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .triage-logo {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   CHAT WATERMARK — LOGO INSTEAD OF TEXT
+   Same fixed layer, now the mark itself.
+========================================================= */
+
+.main.chatting > .chat::after {
+  content: "";
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  pointer-events: none;
+
+  width: min(820px, 72vw);
+  aspect-ratio: 892 / 232;
+  height: auto;
+
+  background-image: url("/triage-logo.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+
+  font-size: 0;
+  -webkit-text-stroke: 0;
+  animation: none;
+  opacity: 0.12;
+}
+
+[data-theme="dark"] .main.chatting > .chat::after {
+  background-image: url("/triage-logo-dark.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-stroke: 0;
+  opacity: 0.16;
+}
+
+:root:not([data-theme="dark"]) .main.chatting > .chat::after {
+  background-image: url("/triage-logo.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-stroke: 0;
+  opacity: 0.12;
+}
+
+@media (max-width: 600px) {
+  .main.chatting > .chat::after {
+    width: 84vw;
+  }
+}
+
+/* =========================================================
+   WATERMARK THROUGH THE CARDS
+   Heavy backdrop blur was averaging the logo into a flat
+   wash; less blur + more transparency lets it read.
+========================================================= */
+
+.main.chatting > .chat::after,
+:root:not([data-theme="dark"]) .main.chatting > .chat::after {
+  opacity: 0.3;
+}
+
+[data-theme="dark"] .main.chatting > .chat::after {
+  opacity: 0.34;
+}
+
+:root:not([data-theme="dark"]) .chat > .bubble.assistant {
+  background: rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(3px) saturate(1.03);
+  -webkit-backdrop-filter: blur(3px) saturate(1.03);
+}
+
+[data-theme="dark"] .chat > .bubble.assistant {
+  background: rgba(30, 26, 36, 0.68);
+  backdrop-filter: blur(3px) saturate(1.05);
+  -webkit-backdrop-filter: blur(3px) saturate(1.05);
+}
+
+:root:not([data-theme="dark"]) .chat > .bubble.user {
+  background: rgba(246, 237, 240, 0.82);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+[data-theme="dark"] .chat > .bubble.user {
+  background: rgba(46, 31, 42, 0.76);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+/* Text gets a faint halo so it stays crisp over the mark */
+[data-theme="dark"] .chat > .bubble.assistant .markdown {
+  text-shadow: 0 1px 10px rgba(22, 19, 26, 0.9);
+}
+
+:root:not([data-theme="dark"]) .chat > .bubble.assistant .markdown {
+  text-shadow: 0 1px 10px rgba(255, 255, 255, 0.9);
+}
+
+/* Watermark dialled back */
+.main.chatting > .chat::after,
+:root:not([data-theme="dark"]) .main.chatting > .chat::after {
+  opacity: 0.18;
+}
+
+[data-theme="dark"] .main.chatting > .chat::after {
+  opacity: 0.2;
+}
+
+/* Light theme: dark ink reads much stronger on a pale card, so it
+   needs a lower value than dark mode to feel equally quiet. */
+:root:not([data-theme="dark"]) .main.chatting > .chat::after {
+  opacity: 0.08;
+}
+
+/* =========================================================
+   LIGHT WATERMARK — DEEPER INK
+   A higher opacity on near-black ink turns the mark into a
+   grey smudge. Tinting it maroon first keeps it quiet while
+   reading as a deliberate mark rather than a smear.
+========================================================= */
+
+:root:not([data-theme="dark"]) .main.chatting > .chat::after {
+  opacity: 0.16;
+  filter: sepia(1) saturate(4) hue-rotate(-38deg) brightness(0.62);
+}
+
+[data-theme="dark"] .main.chatting > .chat::after {
+  filter: none;
+}
+
+/* =========================================================
+   HERO MARK
+   The T on its own, sitting behind the top of the landing
+   page. public/triage-mark.png + triage-mark-dark.png
+========================================================= */
+
+.hero-mark {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: -40px;
+  transform: translateX(-50%);
+
+  width: min(420px, 46vw);
+  aspect-ratio: 253 / 232;
+
+  background-image: url("/triage-mark.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  opacity: 0.07;
+  filter: sepia(1) saturate(4) hue-rotate(-38deg) brightness(0.62);
+  pointer-events: none;
+
+  -webkit-mask-image: linear-gradient(to bottom, #000 45%, transparent 92%);
+  mask-image: linear-gradient(to bottom, #000 45%, transparent 92%);
+}
+
+[data-theme="dark"] .hero-mark {
+  background-image: url("/triage-mark-dark.png");
+  opacity: 0.09;
+  filter: none;
+}
+
+/* Hero content stays above it */
+.hero {
+  z-index: 5;
+}
+
+@media (max-width: 900px) {
+  .hero-mark {
+    width: 58vw;
+    top: -24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-mark {
+    width: 72vw;
+    top: -12px;
+    opacity: 0.06;
+  }
+}
+
+/* =========================================================
+   ==========  MOBILE  ====================================
+   Last block in the file on purpose: several desktop values
+   were appended after the earlier media queries, so they
+   were winning on phones. Everything phone-related lives
+   here now.
+========================================================= */
+
+/* ---------------------------------------------------------
+   Page-level: no sideways scroll, no rubber-banding, no
+   grey flash on tap.
+--------------------------------------------------------- */
+
+html,
+body {
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+  -webkit-text-size-adjust: 100%;
+}
+
+button,
+a,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* dvh tracks the browser chrome as it hides and shows, so the
+   input bar no longer sits under the address bar. */
+@supports (height: 100dvh) {
+  .app {
+    min-height: 100dvh;
+  }
+}
+
+/* =========================================================
+   TABLET AND BELOW
+========================================================= */
+
+@media (max-width: 1024px) {
+  .live-pill,
+  .header-link {
+    display: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .triage-mark,
+  .header-divider {
+    display: none;
+  }
+}
+
+/* =========================================================
+   PHONE
+========================================================= */
+
+@media (max-width: 640px) {
+
+  /* ---------- header ---------- */
+
+  .top-accent {
+    height: 2px;
+  }
+
+  .header {
+    height: 60px;
+    padding: 0 12px;
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
+    gap: 8px;
+  }
+
+  /* Centred absolutely on desktop; on a phone it shares the row */
+  .brand {
+    position: static;
+    transform: none;
+    gap: 8px;
+    margin: 0 auto;
+    min-width: 0;
+  }
+
+  .brand:hover {
+    transform: none;
+  }
+
+  .amrita-logo {
+    width: 68px;
+    height: 38px;
+  }
+
+  .brand-text {
+    display: none;
+  }
+
+  .header-left {
+    gap: 6px;
+  }
+
+  .header-actions {
+    gap: 6px;
+  }
+
+  /* Icon-only, but still a 40px touch target */
+  .history-button,
+  .theme-toggle,
+  .header-cta {
+    height: 40px;
+    min-width: 40px;
+    padding: 0 10px;
+    border-radius: 11px;
+  }
+
+  .history-button span,
+  .header-cta span {
+    display: none;
+  }
+
+  .history-button,
+  .theme-toggle {
+    width: 40px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .history-button:hover,
+  .theme-toggle:hover,
+  .header-cta:hover,
+  .feature-card:hover,
+  .suggestion:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* ---------- landing ---------- */
+
+  .main {
+    padding: 28px 16px 24px;
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+
+  .hero h1 {
+    margin: 18px 0 10px;
+    font-size: 33px;
+    letter-spacing: -1.2px;
+    line-height: 1.1;
+  }
+
+  .hero-subtitle {
+    max-width: 320px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .hero-badge {
+    padding: 7px 12px;
+    font-size: 11.5px;
+  }
+
+  .hero-mark {
+    width: 74vw;
+    top: -6px;
+    opacity: 0.06;
+  }
+
+  .campus-background {
+    top: 180px;
+    height: 300px;
+  }
+
+  .campus-art {
+    width: 165vw;
+  }
+
+  /* ---------- search ---------- */
+
+  .search-wrapper {
+    margin-top: 22px;
+  }
+
+  .search-box {
+    height: 58px;
+    padding: 6px 6px 6px 14px;
+    border-radius: 16px;
+  }
+
+  /* 16px keeps iOS Safari from zooming in on focus */
+  .search-box input {
+    padding: 0 10px;
+    font-size: 16px;
+  }
+
+  .search-button {
+    width: 46px;
+    height: 46px;
+    border-radius: 13px;
+  }
+
+  .shortcut-hint {
+    display: none;
+  }
+
+  /* The spinning conic gradient is expensive on phones */
+  .search-glow {
+    animation: none;
+    padding: 1.5px;
+  }
+
+  .search-glow::after {
+    display: none;
+  }
+
+  /* ---------- suggestion chips: one scrolling row ---------- */
+
+  .suggestions {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 7px;
+    margin: 14px -16px 0;
+    padding: 2px 16px 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .suggestions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .suggestions-label {
+    display: none;
+  }
+
+  .suggestion {
+    flex: 0 0 auto;
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+
+  /* ---------- topic cards ---------- */
+
+  .quick-section {
+    margin-top: 34px;
+  }
+
+  .section-heading h2 {
+    font-size: 15px;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .feature-card {
+    min-height: 0;
+    padding: 14px 15px;
+    gap: 13px;
+    border-radius: 14px;
+  }
+
+  .feature-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+  }
+
+  .feature-content h3 {
+    margin-bottom: 3px;
+    font-size: 14px;
+  }
+
+  .feature-content p {
+    font-size: 12px;
+  }
+
+  .feature-arrow {
+    display: none;
+  }
+
+  .trust-strip {
+    margin-top: 18px;
+    border-radius: 14px;
+  }
+
+  .trust-item {
+    padding: 14px 15px;
+    gap: 11px;
+  }
+
+  .footer {
+    padding-bottom: max(22px, env(safe-area-inset-bottom));
+    font-size: 10px;
+  }
+
+  /* ---------- chat ---------- */
+
+  .main.chatting {
+    height: calc(100vh - 60px);
+    padding: 16px 12px 128px;
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
+    overscroll-behavior: contain;
+  }
+
+  .chat {
+    width: 100%;
+    max-width: none;
+    gap: 14px;
+    padding-bottom: 8px;
+  }
+
+  .chat > .bubble.user {
+    max-width: 86%;
+    padding: 11px 14px;
+    border-radius: 15px;
+    font-size: 0.93rem;
+  }
+
+  .chat > .bubble.assistant {
+    padding: 16px 15px;
+    border-radius: 15px;
+  }
+
+  .chat .answer,
+  .markdown {
+    font-size: 0.94rem;
+    line-height: 1.66;
+  }
+
+  .md-list {
+    padding-left: 1.1em;
+  }
+
+  /* Touch has no hover, so the copy button lives in the flow
+     under the answer instead of floating over it. */
+  .copy-button {
+    position: static;
+    opacity: 1;
+    margin-top: 12px;
+    height: 34px;
+    padding: 0 12px;
+  }
+
+  .copy-button span {
+    display: inline;
+  }
+
+  .chat > .bubble.assistant .markdown,
+  .chat > .bubble.assistant .photo-strip {
+    padding-right: 0;
+  }
+
+  .photo,
+  .photo img {
+    width: 140px;
+  }
+
+  .photo img {
+    height: 140px;
+  }
+
+  .sources {
+    font-size: 0.8rem;
+    word-break: break-word;
+  }
+
+  .badge-row {
+    font-size: 0.74rem;
+    gap: 5px;
+  }
+
+  /* ---------- chat input ---------- */
+
+  .chat-input {
+    padding: 14px 12px max(14px, env(safe-area-inset-bottom));
+    padding-top: 26px;
+  }
+
+  .chat-input .search-wrapper {
+    width: 100%;
+    max-width: none;
+  }
+
+  .chat-input .search-box {
+    height: 56px;
+    border-radius: 16px;
+  }
+
+  .chat-input .search-box input {
+    font-size: 16px;
+  }
+
+  /* ---------- background layers: lighter on mobile ---------- */
+
+  .main.chatting::before,
+  .main.chatting > .chat::before {
+    animation: none;
+  }
+
+  .main.chatting > .chat::after {
+    width: 86vw;
+  }
+
+  .chat > .bubble.assistant,
+  .chat > .bubble.user {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  :root:not([data-theme="dark"]) .chat > .bubble.assistant {
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  [data-theme="dark"] .chat > .bubble.assistant {
+    background: rgba(30, 26, 36, 0.9);
+  }
+
+  /* ---------- sidebar ---------- */
+
+  .sidebar {
+    width: min(86vw, 330px);
+    padding: 16px 12px;
+    padding-top: max(16px, env(safe-area-inset-top));
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+
+  .conversation-item {
+    padding: 12px 34px 12px 11px;
+  }
+
+  .conversation-delete {
+    top: 13px;
+    opacity: 1;
+  }
+
+  .new-chat {
+    padding: 12px;
+  }
+}
+
+@supports (height: 100dvh) {
+  @media (max-width: 640px) {
+    .main.chatting {
+      height: calc(100dvh - 60px);
+    }
+  }
+}
+
+/* =========================================================
+   SMALL PHONE
+========================================================= */
+
+@media (max-width: 380px) {
+  .hero h1 {
+    font-size: 29px;
+  }
+
+  .hero-subtitle {
+    font-size: 13px;
+  }
+
+  .amrita-logo {
+    width: 58px;
+    height: 32px;
+  }
+
+  .header {
+    padding: 0 8px;
+    gap: 6px;
+  }
+
+  .header-cta {
+    min-width: 40px;
+    padding: 0 8px;
+  }
+
+  .feature-content p {
+    font-size: 11.5px;
+  }
+}
+
+/* =========================================================
+   PHONE IN LANDSCAPE
+   Short viewport — the hero would otherwise push the search
+   box off screen.
+========================================================= */
+
+@media (max-height: 460px) and (orientation: landscape) {
+  .hero h1 {
+    margin: 12px 0 6px;
+    font-size: 28px;
+  }
+
+  .hero-subtitle {
+    display: none;
+  }
+
+  .hero-mark,
+  .campus-background {
+    display: none;
+  }
+
+  .search-wrapper {
+    margin-top: 14px;
+  }
+
+  .main {
+    padding-top: 18px;
+  }
+}
+
+/* =========================================================
+   TOUCH DEVICES (any size)
+   Hover states never fire, so anything hidden until hover
+   has to be visible by default.
+========================================================= */
+
+@media (hover: none) {
+  .copy-button,
+  .conversation-delete {
+    opacity: 1;
+  }
+
+  .feature-card:active {
+    transform: scale(0.99);
+  }
+
+  .search-button:active,
+  .header-cta:active {
+    transform: scale(0.96);
+  }
+}
+
+/* =========================================================
+   SCROLL FIX
+   .app had `overflow: hidden`, which was only there to stop
+   the wide campus art causing sideways scroll. On iOS Safari
+   and some Android browsers that turns the wrapper into a
+   scroll container with scrolling switched off, so the page
+   can't be dragged at all. `overflow-x: clip` clips the same
+   way WITHOUT creating a scroll container, leaving the
+   vertical axis free.
+========================================================= */
+
+.app {
+  overflow: visible;
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+/* Older engines that don't know `clip` keep the old behaviour
+   on desktop, where it was never a problem. */
+@supports not (overflow: clip) {
+  .app {
+    overflow: hidden;
+  }
+
+  @media (max-width: 1024px) {
+    .app {
+      overflow: visible;
+    }
+  }
+}
+
+html,
+body {
+  overflow-x: hidden;
+  overscroll-behavior-y: auto;
+}
+
+#root {
+  overflow-x: clip;
+}
+
+/* The chat pane is its own scroller — let touch drive it */
+.main.chatting {
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
+
+.chat,
+.chat > .bubble {
+  touch-action: auto;
+}
+
+/* Nothing painted behind the content should swallow a drag */
+.campus-background,
+.campus-art,
+.hero::before {
+  pointer-events: none;
+}
+
+/* =========================================================
+   GLOW ON MOBILE
+   It was switched off for performance, but a single conic
+   gradient is fine on any phone from the last few years.
+   Kept a touch slower and tighter than on desktop.
+========================================================= */
+
+@media (max-width: 640px) {
+  .search-glow,
+  .chat-input .search-glow {
+    padding: 2px;
+    animation: glow-spin 7s linear infinite;
+  }
+
+  .search-glow::after,
+  .chat-input .search-glow::after {
+    content: "";
+    display: block;
+    position: absolute;
+    inset: 4px;
+    z-index: -1;
+    border-radius: 18px;
+    background: inherit;
+    filter: blur(16px);
+    opacity: 0.34;
+  }
+
+  .search-glow:focus-within::after,
+  .chat-input .search-glow:focus-within::after {
+    opacity: 0.5;
+  }
+
+  .search-glow.busy,
+  .chat-input .search-glow.busy {
+    animation-duration: 1.6s;
+  }
+
+  .search-glow .search-box,
+  .chat-input .search-box {
+    border: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .search-glow,
+  .chat-input .search-glow {
+    animation: none;
+  }
+}
+
+/* =========================================================
+   THINKING BAR
+   Indeterminate sweep under "Searching the admissions pages…"
+========================================================= */
+
+.chat > .bubble.thinking {
+  display: block;
+  width: auto;
+  max-width: 340px;
+  padding: 13px 16px 14px;
+}
+
+.thinking-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.9rem;
+}
+
+.thinking-bar {
+  position: relative;
+  height: 3px;
+  margin-top: 11px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(139, 21, 56, 0.12);
+}
+
+.thinking-bar span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 42%;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(139, 21, 56, 0),
+    var(--maroon),
+    rgba(139, 21, 56, 0)
+  );
+  animation: thinking-sweep 1.15s ease-in-out infinite;
+}
+
+@keyframes thinking-sweep {
+  0% {
+    transform: translateX(-105%);
+  }
+  100% {
+    transform: translateX(240%);
+  }
+}
+
+[data-theme="dark"] .thinking-bar {
+  background: rgba(233, 110, 152, 0.16);
+}
+
+[data-theme="dark"] .thinking-bar span {
+  background: linear-gradient(
+    90deg,
+    rgba(233, 110, 152, 0),
+    #e9799c,
+    rgba(233, 110, 152, 0)
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thinking-bar span {
+    animation-duration: 2.4s;
+  }
+}
+
+@media (max-width: 640px) {
+  .chat > .bubble.thinking {
+    max-width: 100%;
+  }
+}
+/* ============================================================
+   PROGRESS BAR — append to the END of App.css
+
+   Additive only. Nothing existing needs editing.
+
+   The bubble keeps its `thinking` class, so it already inherits
+   everything App.css gives `.chat > .bubble.thinking` in both
+   themes: surface colour and blur (line ~2212 light, ~3168
+   dark), border, and the muted text colour. All this file does
+   is re-stack that bubble into a column and draw the bar.
+
+   Colours come from your own variables, so dark mode is
+   automatic: --maroon flips to #d4577a and --border to #342c3d
+   under [data-theme="dark"].
+   ============================================================ */
+
+/* Three class names, so this beats the two-class `.chat >
+   .bubble.thinking` rules on specificity wherever it lands in
+   the file. */
+.chat > .bubble.thinking.progress-bubble {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  /* A touch wider than the 360px `.thinking` cap — the label,
+     the step counter and a bar that reads as a bar need it. */
+  width: 100%;
+  max-width: 420px;
+}
+
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.progress-label {
+  flex: 1;
+}
+
+.progress-step {
+  font-size: 0.78rem;
+  color: var(--muted);
+  /* Stops the width jittering as the counter changes. */
+  font-variant-numeric: tabular-nums;
+}
+
+.progress-track {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--border);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--maroon);
+  /* The width is recomputed every 100ms by the easing tick.
+     Transitioning a little longer than that interval turns
+     those steps into continuous motion, and smooths the jump
+     when a real stage event lands. */
+  transition: width 0.18s linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-fill {
+    transition: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .chat > .bubble.thinking.progress-bubble {
+    max-width: 100%;
+  }
+}
+
+/* =========================================================
+   PROGRESS BAR — RECONCILIATION
+   The indeterminate `.thinking-bar` added earlier is gone from
+   the markup, and the rule that came with it set the thinking
+   bubble to `display: block` — which would leave the column
+   layout below inert. These put it back to flex and restore
+   the widths the progress bubble needs.
+========================================================= */
+
+.chat > .bubble.thinking.progress-bubble {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  width: 100%;
+  max-width: 420px;
+  padding: 14px 16px 15px;
+}
+
+.progress-row {
+  font-size: 0.9rem;
+}
+
+.progress-label {
+  line-height: 1.4;
+}
+
+/* Track and fill in the themed colours, matching the rest of
+   the chat rather than the raw variables alone. */
+:root:not([data-theme="dark"]) .progress-track {
+  background: rgba(139, 21, 56, 0.14);
+}
+
+:root:not([data-theme="dark"]) .progress-fill {
+  background: linear-gradient(90deg, #a51b45, var(--maroon));
+}
+
+[data-theme="dark"] .progress-track {
+  background: rgba(233, 110, 152, 0.18);
+}
+
+[data-theme="dark"] .progress-fill {
+  background: linear-gradient(90deg, #d4577a, #e9799c);
+}
+
+@media (max-width: 640px) {
+  .chat > .bubble.thinking.progress-bubble {
+    max-width: 100%;
+  }
+
+  .progress-row {
+    font-size: 0.87rem;
+  }
+}
+
+/* The old indeterminate bar's markup no longer exists; these
+   keep the stylesheet honest if anything still references it. */
+.thinking-bar {
+  display: none;
+}
+
+/* =========================================================
+   CHAT AURORA
+   Three soft lights drifting behind the conversation on long,
+   offset loops, so the background never repeats visibly.
+   Transform-only animation, so it stays on the GPU.
+========================================================= */
+
+.chat-aurora {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  overflow: hidden;
+  contain: paint;
+}
+
+.chat-aurora span {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  filter: blur(70px);
+  will-change: transform;
+}
+
+/* --- light theme: warm maroon bloom --- */
+
+:root:not([data-theme="dark"]) .chat-aurora span:nth-child(1) {
+  width: 46vmax;
+  height: 46vmax;
+  top: -12%;
+  left: -6%;
+  background: radial-gradient(circle, rgba(139, 21, 56, 0.16), transparent 68%);
+  animation: aurora-a 46s ease-in-out infinite alternate;
+}
+
+:root:not([data-theme="dark"]) .chat-aurora span:nth-child(2) {
+  width: 40vmax;
+  height: 40vmax;
+  bottom: -14%;
+  right: -8%;
+  background: radial-gradient(circle, rgba(186, 60, 100, 0.14), transparent 68%);
+  animation: aurora-b 58s ease-in-out infinite alternate;
+}
+
+:root:not([data-theme="dark"]) .chat-aurora span:nth-child(3) {
+  width: 34vmax;
+  height: 34vmax;
+  top: 32%;
+  left: 46%;
+  background: radial-gradient(circle, rgba(212, 130, 90, 0.1), transparent 70%);
+  animation: aurora-c 72s ease-in-out infinite alternate;
+}
+
+/* --- dark theme: rose and violet, stronger --- */
+
+[data-theme="dark"] .chat-aurora span:nth-child(1) {
+  width: 48vmax;
+  height: 48vmax;
+  top: -14%;
+  left: -8%;
+  background: radial-gradient(circle, rgba(212, 87, 122, 0.3), transparent 68%);
+  animation: aurora-a 46s ease-in-out infinite alternate;
+}
+
+[data-theme="dark"] .chat-aurora span:nth-child(2) {
+  width: 42vmax;
+  height: 42vmax;
+  bottom: -16%;
+  right: -10%;
+  background: radial-gradient(circle, rgba(150, 82, 200, 0.24), transparent 68%);
+  animation: aurora-b 58s ease-in-out infinite alternate;
+}
+
+[data-theme="dark"] .chat-aurora span:nth-child(3) {
+  width: 36vmax;
+  height: 36vmax;
+  top: 34%;
+  left: 44%;
+  background: radial-gradient(circle, rgba(233, 110, 152, 0.18), transparent 70%);
+  animation: aurora-c 72s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-a {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(14vw, 8vh, 0) scale(1.18);
+  }
+  100% {
+    transform: translate3d(6vw, 18vh, 0) scale(0.94);
+  }
+}
+
+@keyframes aurora-b {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1.05);
+  }
+  50% {
+    transform: translate3d(-16vw, -10vh, 0) scale(0.9);
+  }
+  100% {
+    transform: translate3d(-4vw, -20vh, 0) scale(1.2);
+  }
+}
+
+@keyframes aurora-c {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.95);
+  }
+  50% {
+    transform: translate3d(-18vw, 12vh, 0) scale(1.15);
+  }
+  100% {
+    transform: translate3d(10vw, -8vh, 0) scale(1);
+  }
+}
+
+/* The particle layers get a slow breath so the field feels alive
+   rather than merely sliding. */
+.main.chatting::before {
+  animation:
+    particle-drift-a 34s linear infinite,
+    particle-breathe 14s ease-in-out infinite;
+}
+
+.main.chatting > .chat::before {
+  animation:
+    particle-drift-b 46s linear infinite,
+    particle-breathe 19s ease-in-out infinite reverse;
+}
+
+@keyframes particle-breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+/* The mark behind the chat breathes with it, very slightly. */
+.main.chatting > .chat::after {
+  animation: watermark-breathe 16s ease-in-out infinite;
+}
+
+@keyframes watermark-breathe {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.035);
+  }
+}
+
+/* ---------------------------------------------------------
+   Cheaper on phones: one light, smaller blur, no breathing.
+--------------------------------------------------------- */
+
+@media (max-width: 640px) {
+  .chat-aurora span {
+    filter: blur(48px);
+  }
+
+  .chat-aurora span:nth-child(2),
+  .chat-aurora span:nth-child(3) {
+    display: none;
+  }
+
+  .main.chatting::before,
+  .main.chatting > .chat::before,
+  .main.chatting > .chat::after {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-aurora span,
+  .main.chatting::before,
+  .main.chatting > .chat::before,
+  .main.chatting > .chat::after {
+    animation: none;
+  }
+}
+
+/* =========================================================
+   AURORA REMOVED
+   The blurred lights read as a smudge behind the cards.
+========================================================= */
+
+.chat-aurora {
+  display: none;
+}
+
+/* =========================================================
+   PARTICLE FIELD — FULL PAGE
+   The layers were masked to an ellipse around the middle, so
+   they died out at the edges and behind the input bar. Now
+   they cover the whole viewport, including around the search
+   box, with only a hairline fade at the very top and bottom.
+========================================================= */
+
+.main.chatting::before {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 4%,
+    #000 97%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 4%,
+    #000 97%,
+    transparent 100%
+  );
+}
+
+.main.chatting > .chat::before {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+/* ---------------------------------------------------------
+   The input bar sat on an opaque gradient, which cut the
+   field off in a straight line. It's glass now, so the dots
+   carry on behind and around the search box.
+--------------------------------------------------------- */
+
+.chat-input {
+  background: none;
+  backdrop-filter: blur(14px) saturate(1.05);
+  -webkit-backdrop-filter: blur(14px) saturate(1.05);
+
+  -webkit-mask-image: linear-gradient(to top, #000 78%, transparent 100%);
+  mask-image: linear-gradient(to top, #000 78%, transparent 100%);
+}
+
+:root:not([data-theme="dark"]) .chat-input {
+  background: linear-gradient(
+    to top,
+    rgba(247, 245, 242, 0.92) 40%,
+    rgba(247, 245, 242, 0.55) 75%,
+    rgba(247, 245, 242, 0)
+  );
+}
+
+[data-theme="dark"] .chat-input {
+  background: linear-gradient(
+    to top,
+    rgba(22, 19, 26, 0.92) 40%,
+    rgba(22, 19, 26, 0.55) 75%,
+    rgba(22, 19, 26, 0)
+  );
+}
+
+/* Safari ignores backdrop-filter behind a masked box; the
+   gradient above carries it there. */
+@supports not (backdrop-filter: blur(1px)) {
+  .chat-input {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+/* =========================================================
+   BOTTOM STRIP — LET THE FIELD THROUGH
+   The dots stopped in a straight line above the input because
+   the bar painted a near-opaque veil over them. The search box
+   itself is solid, so the bar behind it can be mostly clear.
+========================================================= */
+
+/* Particles run edge to edge, no bottom fade */
+.main.chatting::before,
+.main.chatting > .chat::before {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+/* A light veil only — enough to separate the bar from the
+   transcript scrolling behind it, not enough to hide the field. */
+.chat-input {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+:root:not([data-theme="dark"]) .chat-input {
+  background: linear-gradient(
+    to top,
+    rgba(247, 245, 242, 0.62) 0%,
+    rgba(247, 245, 242, 0.38) 55%,
+    rgba(247, 245, 242, 0) 100%
+  );
+}
+
+[data-theme="dark"] .chat-input {
+  background: linear-gradient(
+    to top,
+    rgba(22, 19, 26, 0.62) 0%,
+    rgba(22, 19, 26, 0.34) 55%,
+    rgba(22, 19, 26, 0) 100%
+  );
+}
+
+/* The box stays fully opaque so the field never sits under
+   the text you are typing. */
+:root:not([data-theme="dark"]) .chat-input .search-box {
+  background: #fff;
+}
+
+[data-theme="dark"] .chat-input .search-box {
+  background: #221d29;
+}
+
+/* A third, slower layer of larger dots, drifting the other way.
+   Gives the bottom strip visible motion of its own instead of
+   just the tail of the two layers above. */
+.main.chatting > .chat-input::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  /* 0, not -1: a negative index would put it behind the bar's own
+     veil gradient and it would never be seen. */
+  z-index: 0;
+  pointer-events: none;
+
+  background-image: radial-gradient(
+    rgba(139, 21, 56, 0.4) 2.6px,
+    transparent 2.8px
+  );
+  background-size: 120px 120px;
+  background-position: 40px 20px;
+
+  animation: particle-drift-c 64s linear infinite;
+}
+
+[data-theme="dark"] .main.chatting > .chat-input::before {
+  background-image: radial-gradient(
+    rgba(233, 110, 152, 0.34) 2.6px,
+    transparent 2.8px
+  );
+}
+
+@keyframes particle-drift-c {
+  to {
+    background-position: 160px -100px;
+  }
+}
+
+@media (max-width: 640px) {
+  .main.chatting > .chat-input::before {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .main.chatting > .chat-input::before {
+    animation: none;
+  }
+}
+
+/* The box and its glow sit above that layer */
+.chat-input .search-wrapper {
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================================================
+   EVENTS BOARD
+   Poster rail on the landing page, fed by public/events.json
+========================================================= */
+
+.events-section {
+  position: relative;
+  z-index: 12;
+  margin-top: 46px;
+}
+
+.events-section .section-heading {
+  justify-content: space-between;
+}
+
+/* The heading rule is decorative; with the arrows beside it the
+   row needs the space more than the line. */
+.events-section .section-heading::after {
+  margin-right: 4px;
+}
+
+.events-nav {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.events-nav button {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--white);
+  color: var(--muted);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.events-nav button:hover {
+  border-color: rgba(139, 21, 56, 0.4);
+  color: var(--maroon);
+}
+
+.events-nav button:focus-visible {
+  outline: 2px solid var(--maroon);
+  outline-offset: 2px;
+}
+
+/* --- the rail --- */
+
+.events-rail {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  /* Room for the hover lift and shadow, cancelled by the margin */
+  padding: 4px 4px 10px;
+  margin: -4px -4px -10px;
+}
+
+.events-rail::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- card --- */
+
+.event-card {
+  flex: 0 0 236px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  background: var(--white);
+  color: inherit;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(60, 25, 38, 0.06);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+a.event-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(139, 21, 56, 0.42);
+  box-shadow: 0 14px 30px rgba(139, 21, 56, 0.14);
+}
+
+.event-card:focus-visible {
+  outline: 2px solid var(--maroon);
+  outline-offset: 2px;
+}
+
+/* Posters are portrait by convention; the box keeps its shape
+   whatever is dropped in, so the rail never goes ragged. */
+.event-poster {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+  background: var(--soft-maroon);
+}
+
+.event-poster.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9;
+  color: var(--maroon);
+  opacity: 0.6;
+}
+
+.event-body {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 13px 14px 15px;
+}
+
+.event-tag {
+  align-self: flex-start;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--soft-maroon);
+  color: var(--maroon);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.event-body h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text);
+}
+
+.event-meta {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.event-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 3px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--maroon);
+}
+
+/* --- dark --- */
+
+[data-theme="dark"] .events-nav button {
+  background: var(--surface);
+  color: #a99ea6;
+}
+
+[data-theme="dark"] .events-nav button:hover {
+  border-color: rgba(212, 87, 122, 0.5);
+  color: var(--maroon);
+}
+
+[data-theme="dark"] .event-card {
+  background: var(--surface);
+  border-color: var(--border);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] a.event-card:hover {
+  border-color: rgba(212, 87, 122, 0.5);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.55);
+}
+
+[data-theme="dark"] .event-tag {
+  background: rgba(212, 87, 122, 0.16);
+  color: #e9799c;
+}
+
+[data-theme="dark"] .event-poster {
+  background: #2a2333;
+}
+
+/* --- responsive --- */
+
+@media (max-width: 640px) {
+  .events-section {
+    margin-top: 32px;
+  }
+
+  /* Full-bleed rail so cards can run off the screen edge */
+  .events-rail {
+    gap: 12px;
+    padding: 4px 16px 10px;
+    margin: -4px -16px -10px;
+    scroll-padding-left: 16px;
+  }
+
+  .event-card {
+    flex-basis: 200px;
+  }
+
+  a.event-card:hover {
+    transform: none;
+    box-shadow: 0 4px 14px rgba(60, 25, 38, 0.06);
+  }
+
+  /* Swipe instead */
+  .events-nav {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .event-card {
+    transition: none;
+  }
+
+  .events-rail {
+    scroll-behavior: auto;
+  }
+}
+
+/* =========================================================
+   LANDING: TOPICS + EVENTS SIDE BY SIDE
+   Topic cards take the width they need; events sit in a slim
+   column on the right, so the poster reads as a notice board
+   rather than the main event.
+========================================================= */
+
+.landing-columns {
+  position: relative;
+  z-index: 12;
+  margin-top: 44px;
+}
+
+.landing-columns.with-events {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 248px;
+  gap: 30px;
+  align-items: start;
+}
+
+.landing-columns .quick-section,
+.landing-columns .events-section {
+  margin-top: 0;
+}
+
+/* Two across instead of three — the left column is narrower now */
+.landing-columns.with-events .feature-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* ---------- the events column ---------- */
+
+/* Stacked, not a scrolling rail: in a narrow column there is
+   nothing to scroll sideways through. */
+.landing-columns.with-events .events-rail {
+  flex-direction: column;
+  gap: 12px;
+  overflow: visible;
+  padding: 0;
+  margin: 0;
+  scroll-snap-type: none;
+}
+
+.landing-columns.with-events .events-nav {
+  display: none;
+}
+
+.landing-columns.with-events .event-card {
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+/* Landscape crop: a 3:4 portrait poster at full column width was
+   taller than everything beside it. */
+.landing-columns.with-events .event-poster {
+  aspect-ratio: 16 / 11;
+}
+
+.landing-columns.with-events .event-poster.placeholder {
+  aspect-ratio: 16 / 7;
+}
+
+.landing-columns.with-events .event-body {
+  gap: 4px;
+  padding: 11px 12px 13px;
+}
+
+.landing-columns.with-events .event-body h3 {
+  font-size: 13.5px;
+}
+
+.landing-columns.with-events .event-meta,
+.landing-columns.with-events .event-link {
+  font-size: 11.5px;
+}
+
+.landing-columns.with-events .event-tag {
+  font-size: 9.5px;
+  padding: 2px 7px;
+}
+
+/* The heading rule has no room beside a 248px column */
+.landing-columns.with-events .events-section .section-heading::after {
+  display: none;
+}
+
+.landing-columns.with-events .events-section .section-heading h2 {
+  font-size: 15px;
+}
+
+/* Trust strip spans the full width below both columns */
+.trust-strip {
+  position: relative;
+  z-index: 12;
+}
+
+/* ---------- narrower screens ---------- */
+
+@media (max-width: 1040px) {
+  /* Back to one column, with events as a scrolling rail again */
+  .landing-columns.with-events {
+    display: block;
+  }
+
+  .landing-columns.with-events .feature-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .landing-columns.with-events .events-section {
+    margin-top: 34px;
+  }
+
+  .landing-columns.with-events .events-rail {
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 4px 4px 10px;
+    margin: -4px -4px -10px;
+  }
+
+  .landing-columns.with-events .event-card {
+    flex: 0 0 210px;
+  }
+
+  .landing-columns.with-events .event-poster {
+    aspect-ratio: 3 / 4;
+  }
+
+  .landing-columns.with-events .events-nav {
+    display: flex;
+  }
+
+  .landing-columns.with-events .events-section .section-heading::after {
+    display: block;
+  }
+}
+
+@media (max-width: 900px) {
+  .landing-columns.with-events .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .landing-columns {
+    margin-top: 34px;
+  }
+
+  .landing-columns.with-events .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-columns.with-events .events-rail {
+    padding: 4px 16px 10px;
+    margin: -4px -16px -10px;
+  }
+
+  .landing-columns.with-events .event-card {
+    flex-basis: 190px;
+  }
+
+  .landing-columns.with-events .events-nav {
+    display: none;
+  }
+}
+
+/* =========================================================
+   EVENTS PANEL — carousel beside the search box
+   Sits in the open space to the right of the centred hero,
+   just under the TRIAGE mark in the header.
+========================================================= */
+
+.landing-columns.with-events .feature-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.events-panel {
+  position: absolute;
+  z-index: 14;
+  top: 8px;
+  right: 24px;
+  width: 340px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  background: var(--white);
+  box-shadow: 0 18px 44px rgba(60, 25, 38, 0.1);
+
+  animation: panel-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* A soft maroon halo, so the panel reads as lit rather than
+   pasted on top of the art behind it. */
+.events-panel::before {
+  content: "";
+  position: absolute;
+  inset: -1.5px;
+  z-index: -1;
+  border-radius: 20px;
+  background: linear-gradient(
+    140deg,
+    rgba(139, 21, 56, 0.5),
+    rgba(212, 87, 122, 0.18) 40%,
+    rgba(139, 21, 56, 0) 70%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.events-panel::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  z-index: -2;
+  border-radius: 20px;
+  background: rgba(139, 21, 56, 0.35);
+  filter: blur(26px);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.events-panel:hover::before,
+.events-panel:focus-within::before {
+  opacity: 1;
+}
+
+.events-panel:hover::after,
+.events-panel:focus-within::after {
+  opacity: 0.35;
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-14px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- head ---------- */
+
+.events-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.events-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--maroon);
+}
+
+.events-controls {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.events-controls button {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.events-controls button:hover {
+  background: var(--soft-maroon);
+  color: var(--maroon);
+}
+
+.events-controls button:focus-visible,
+.events-dots .dot:focus-visible {
+  outline: 2px solid var(--maroon);
+  outline-offset: 2px;
+}
+
+.events-count {
+  min-width: 30px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- card ---------- */
+
+.events-stage {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+/* Replays on every slide because React remounts the node (keyed on
+   the event id), so no transition bookkeeping is needed. */
+.events-panel .event-card {
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  background: var(--sunk, #faf7f5);
+  box-shadow: none;
+  overflow: hidden;
+  animation: slide-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.events-panel .event-poster {
+  aspect-ratio: 16 / 10;
+  border-radius: 12px;
+  transition: transform 0.5s ease;
+}
+
+.events-panel a.event-card:hover .event-poster {
+  transform: scale(1.04);
+}
+
+.events-panel a.event-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.events-panel .event-body {
+  gap: 5px;
+  padding: 11px 3px 2px;
+}
+
+.events-panel .event-body h3 {
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+.events-panel .event-meta {
+  font-size: 12px;
+}
+
+.events-panel .event-link {
+  font-size: 12px;
+}
+
+/* ---------- dots, doubling as a progress bar ---------- */
+
+.events-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.events-dots .dot {
+  position: relative;
+  flex: 1;
+  height: 4px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: var(--border);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.events-dots .dot.active {
+  background: rgba(139, 21, 56, 0.2);
+}
+
+.dot-fill {
+  position: absolute;
+  inset: 0;
+  transform-origin: left;
+  border-radius: 999px;
+  background: var(--maroon);
+  transform: scaleX(0);
+}
+
+.dot.active .dot-fill {
+  animation-name: dot-progress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes dot-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Paused: hold the bar full rather than snapping it back */
+.events-panel:hover .dot.active .dot-fill,
+.events-panel:focus-within .dot.active .dot-fill {
+  animation: none;
+  transform: scaleX(1);
+}
+
+/* ---------- dark ---------- */
+
+[data-theme="dark"] .events-panel {
+  background: rgba(30, 26, 36, 0.92);
+  border-color: var(--border);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+[data-theme="dark"] .events-panel::after {
+  background: rgba(212, 87, 122, 0.4);
+}
+
+[data-theme="dark"] .events-panel .event-card {
+  background: #2a2333;
+}
+
+[data-theme="dark"] .events-dots .dot {
+  background: #3b3143;
+}
+
+[data-theme="dark"] .events-dots .dot.active {
+  background: rgba(233, 110, 152, 0.25);
+}
+
+/* ---------- responsive ---------- */
+
+/* Below this the hero has no room beside it, so the panel comes
+   back into the flow, centred under the search box. */
+@media (max-width: 1280px) {
+  .events-panel {
+    position: static;
+    width: min(420px, 100%);
+    margin: 30px auto 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .events-panel {
+    width: 100%;
+    margin-top: 24px;
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  .events-panel .event-body h3 {
+    font-size: 14px;
+  }
+
+  /* No hover on touch — keep the halo on permanently but faint */
+  .events-panel::before {
+    opacity: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .events-panel,
+  .events-panel .event-card {
+    animation: none;
+  }
+
+  .dot.active .dot-fill {
+    animation: none;
+    transform: scaleX(1);
+  }
+
+  .events-panel .event-poster {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   EVENTS PANEL — out to the page edge
+   .main is capped at 1260px and centred, so `right: 24px`
+   pinned the panel to that box and it landed on top of the
+   search field. This measures from the viewport edge instead:
+   100% is .main's width, so (100% - 100vw) / 2 is the gutter
+   outside it, as a negative offset.
+========================================================= */
+
+.events-panel {
+  right: calc((100% - 100vw) / 2 + 26px);
+  top: 4px;
+  width: 320px;
+}
+
+/* Between roughly 1280 and 1440 the headline is still wide enough
+   to meet the panel, so it drops into the flow sooner than before. */
+@media (max-width: 1440px) {
+  .events-panel {
+    position: static;
+    width: min(420px, 100%);
+    margin: 30px auto 0;
+  }
+}
+
+/* Events panel — a touch larger, nudged down */
+.events-panel {
+  top: 26px;
+  width: 372px;
+  padding: 16px;
+}
+
+.events-panel .event-body h3 {
+  font-size: 16px;
+}
+
+.events-panel .event-meta,
+.events-panel .event-link {
+  font-size: 12.5px;
+}
+
+/* =========================================================
+   EVENTS PANEL — LIVE GLOW
+   A rotating rim plus a slow breathing halo, on all the time
+   rather than only on hover, so the panel draws the eye the
+   moment the page loads. Same maroon family as the search
+   box, so the two read as one system.
+========================================================= */
+
+.events-panel::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  z-index: -1;
+  border-radius: 21px;
+  opacity: 1;
+
+  background: conic-gradient(
+    from var(--glow-angle),
+    rgba(139, 21, 56, 0.12),
+    rgba(139, 21, 56, 0.95),
+    rgba(212, 87, 122, 0.85) 18%,
+    rgba(139, 21, 56, 0.12) 40%,
+    rgba(139, 21, 56, 0.12) 62%,
+    rgba(212, 87, 122, 0.6),
+    rgba(139, 21, 56, 0.12)
+  );
+
+  animation: glow-spin 7s linear infinite;
+  transition: filter 0.35s ease;
+}
+
+.events-panel::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  z-index: -2;
+  border-radius: 22px;
+  background: radial-gradient(
+    ellipse at 50% 40%,
+    rgba(139, 21, 56, 0.55),
+    rgba(212, 87, 122, 0.3) 60%,
+    transparent 75%
+  );
+  filter: blur(30px);
+  opacity: 0.3;
+  animation: panel-breathe 5.5s ease-in-out infinite;
+}
+
+@keyframes panel-breathe {
+  0%,
+  100% {
+    opacity: 0.26;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.04);
+  }
+}
+
+/* Hover lifts it rather than switching it on */
+.events-panel:hover::after,
+.events-panel:focus-within::after {
+  opacity: 0.65;
+  animation-play-state: paused;
+}
+
+.events-panel:hover::before,
+.events-panel:focus-within::before {
+  filter: brightness(1.25) saturate(1.1);
+}
+
+.events-panel {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease;
+}
+
+.events-panel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 56px rgba(60, 25, 38, 0.16);
+}
+
+/* A faint sheen travelling across the poster, so the card has
+   life even while the carousel is holding on one event. */
+.events-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: 14px;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.16) 48%,
+    transparent 62%
+  );
+  transform: translateX(-120%);
+  animation: sheen 6s ease-in-out infinite;
+}
+
+@keyframes sheen {
+  0%,
+  62% {
+    transform: translateX(-120%);
+  }
+  88%,
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+/* The label glows a little too */
+.events-title {
+  text-shadow: 0 0 14px rgba(139, 21, 56, 0.35);
+}
+
+/* ---------- dark ---------- */
+
+[data-theme="dark"] .events-panel::before {
+  background: conic-gradient(
+    from var(--glow-angle),
+    rgba(212, 87, 122, 0.1),
+    rgba(233, 110, 152, 1),
+    rgba(255, 150, 185, 0.9) 18%,
+    rgba(212, 87, 122, 0.1) 40%,
+    rgba(212, 87, 122, 0.1) 62%,
+    rgba(233, 110, 152, 0.7),
+    rgba(212, 87, 122, 0.1)
+  );
+}
+
+[data-theme="dark"] .events-panel::after {
+  background: radial-gradient(
+    ellipse at 50% 40%,
+    rgba(233, 110, 152, 0.6),
+    rgba(180, 90, 220, 0.3) 60%,
+    transparent 75%
+  );
+}
+
+[data-theme="dark"] .events-panel:hover {
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .events-title {
+  color: #e9799c;
+  text-shadow: 0 0 16px rgba(233, 110, 152, 0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .events-panel::before,
+  .events-panel::after,
+  .events-stage::after {
+    animation: none;
+  }
+
+  .events-panel:hover {
+    transform: none;
+  }
+}
+
+/* =========================================================
+   GLOW RIM — THIN
+   The panel's dark background was translucent, so the conic
+   gradient behind it showed through the whole card rather
+   than just the 2px edge. Opaque background + a tighter inset
+   leaves only the rim visible.
+========================================================= */
+
+.events-panel::before {
+  inset: -1.5px;
+  border-radius: 20.5px;
+}
+
+[data-theme="dark"] .events-panel {
+  background: #1e1a24;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+:root:not([data-theme="dark"]) .events-panel {
+  background: #fff;
+}
+
+/* Halo pulled in behind the card, and calmer */
+.events-panel::after {
+  inset: 10px;
+  filter: blur(26px);
+}
+
+@keyframes panel-breathe {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.38;
+    transform: scale(1.03);
+  }
+}
+
+.events-panel:hover::after,
+.events-panel:focus-within::after {
+  opacity: 0.5;
+}
+
+/* =========================================================
+   POSTERS — PORTRAIT
+   Club artwork arrives Instagram-shaped, with the title at the
+   top and dates at the bottom; a 16:10 crop cut both off. 3:4
+   shows the poster as designed.
+========================================================= */
+
+.events-panel .event-poster {
+  aspect-ratio: 3 / 4;
+}
+
+.events-panel .event-poster.placeholder {
+  aspect-ratio: 16 / 9;
+}
+
+/* Slightly narrower, so a tall poster doesn't run down the page */
+.events-panel {
+  width: 320px;
+}
+
+.events-panel .event-body {
+  padding-top: 12px;
+}
+
+@media (max-width: 1440px) {
+  .events-panel {
+    width: min(360px, 100%);
+  }
+}
+
+@media (max-width: 640px) {
+  .events-panel {
+    width: 100%;
+  }
+
+  .events-panel .event-poster {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+/* =========================================================
+   MAKING ROOM FOR THE EVENTS PANEL
+
+   The panel is pinned to the viewport edge, so on a wide screen
+   it reaches into .main's centred 1260px box and lands on the
+   topic cards. When an event is showing, the page content gets
+   right padding just wide enough to clear it — and none at all
+   when there is nothing published, so the normal layout is
+   untouched.
+
+   The clamp works out the actual overlap: (100vw - 1260px) / 2
+   is the gutter outside .main, so anything the panel needs
+   beyond that has to come out of the content.
+========================================================= */
+
+@media (min-width: 1441px) {
+  .main.has-events {
+    padding-right: clamp(24px, calc(396px - (100vw - 1260px) / 2), 420px);
+    transition: padding-right 0.3s ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .main.has-events {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   EVENTS PANEL — CALM TREATMENT
+
+   The rotating conic rim and the coloured halo read as neon
+   trim around the poster. The poster is already the loudest
+   thing on the page; the panel's job is to frame it, not
+   compete. What's left: a hairline border, a soft neutral
+   shadow, and a single quiet highlight along the top edge.
+========================================================= */
+
+/* Off: rim, halo, sheen */
+.events-panel::before,
+.events-panel::after,
+.events-stage::after {
+  content: none;
+  display: none;
+  animation: none;
+}
+
+.events-panel {
+  border: 1px solid rgba(90, 40, 55, 0.14);
+  border-radius: 18px;
+  box-shadow:
+    0 1px 2px rgba(60, 25, 38, 0.04),
+    0 12px 28px rgba(60, 25, 38, 0.1);
+  animation: panel-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* A single hairline of light along the top edge — the one cue
+   that says "raised surface" without adding colour. */
+.events-panel {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0) 40%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+}
+
+.events-panel:hover {
+  transform: translateY(-2px);
+  border-color: rgba(139, 21, 56, 0.28);
+  box-shadow:
+    0 1px 2px rgba(60, 25, 38, 0.05),
+    0 18px 38px rgba(60, 25, 38, 0.14);
+}
+
+/* The label goes quiet too: no glow, muted rather than brand red */
+.events-title {
+  color: #8a7c81;
+  text-shadow: none;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.events-panel:hover .events-title {
+  color: var(--maroon);
+}
+
+/* Poster keeps a crisp edge instead of a lit one */
+.events-panel .event-poster {
+  border-radius: 12px;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.events-panel a.event-card:hover .event-poster {
+  transform: scale(1.02);
+}
+
+/* Progress bars: thinner and desaturated, so they read as a
+   quiet indicator rather than a second accent. */
+.events-dots .dot {
+  height: 3px;
+  background: rgba(90, 40, 55, 0.12);
+}
+
+.events-dots .dot.active {
+  background: rgba(90, 40, 55, 0.12);
+}
+
+.dot-fill {
+  background: rgba(139, 21, 56, 0.55);
+}
+
+/* ---------- dark ---------- */
+
+[data-theme="dark"] .events-panel {
+  background-color: #1c1822;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.07),
+    rgba(255, 255, 255, 0) 40%
+  );
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    0 16px 36px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="dark"] .events-panel:hover {
+  border-color: rgba(233, 110, 152, 0.3);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    0 22px 46px rgba(0, 0, 0, 0.55);
+}
+
+[data-theme="dark"] .events-title {
+  color: #9a8e96;
+}
+
+[data-theme="dark"] .events-panel:hover .events-title {
+  color: #e9799c;
+}
+
+[data-theme="dark"] .events-dots .dot,
+[data-theme="dark"] .events-dots .dot.active {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .dot-fill {
+  background: rgba(233, 110, 152, 0.75);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .events-panel {
+    animation: none;
+    transition: none;
+  }
+
+  .events-panel:hover {
+    transform: none;
+  }
+}
+
+/* =========================================================
+   EVENTS PANEL — ARRIVAL
+
+   Attention comes from movement, not from a permanent glow:
+   the panel arrives a beat after the page settles, its parts
+   land in sequence, and one pass of light crosses it. After
+   that it holds still apart from a very slow drift on the
+   poster, so it never becomes wallpaper the eye stops seeing.
+========================================================= */
+
+.events-panel {
+  /* Starts invisible — the delay below is what creates the
+     "something just appeared" beat. */
+  opacity: 0;
+  animation: panel-arrive 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+}
+
+@keyframes panel-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(-18px) scale(0.96);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+/* Contents land after the panel, one after another */
+.events-panel-head {
+  animation: rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.85s both;
+}
+
+.events-stage {
+  animation: rise 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.95s both;
+}
+
+.events-dots {
+  animation: rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.15s both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* A single pass of light, once, as it settles — not a loop */
+.events-panel > .events-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  display: block;
+  border-radius: 12px;
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.28) 48%,
+    transparent 66%
+  );
+  transform: translateX(-130%);
+  animation: one-pass 1.1s ease-out 1.25s both;
+}
+
+@keyframes one-pass {
+  to {
+    transform: translateX(130%);
+  }
+}
+
+/* The poster drifts almost imperceptibly — enough that the card
+   is never completely static, slow enough to read as stillness.
+   40s per cycle: about 1px of movement per second. */
+.events-panel .event-poster {
+  animation: drift 40s ease-in-out 2s infinite alternate;
+}
+
+@keyframes drift {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.07);
+  }
+}
+
+/* Hover overrides the drift rather than fighting it */
+.events-panel a.event-card:hover .event-poster {
+  animation-play-state: paused;
+  transform: scale(1.03);
+}
+
+/* Each new slide re-runs the lift, so an auto-advance reads as
+   a deliberate change rather than a swap. */
+.events-panel .event-card {
+  animation: slide-lift 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes slide-lift {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .events-panel,
+  .events-panel-head,
+  .events-stage,
+  .events-dots,
+  .events-panel .event-card,
+  .events-panel .event-poster,
+  .events-panel > .events-stage::after {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  .events-panel > .events-stage::after {
+    display: none;
+  }
+}
+
+/* =========================================================
+   FACULTY DESK — portal integration
+========================================================= */
+
+/* The switch in the header. Outlined when off, filled when the desk is
+   open, so the header always says which view you are in. */
+.view-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 42px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--white);
+  color: #443c40;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.15s ease, background 0.15s ease,
+    color 0.15s ease, transform 0.15s ease;
+}
+
+.view-switch:hover {
+  border-color: rgba(139, 21, 56, 0.35);
+  color: var(--maroon);
+  transform: translateY(-1px);
+}
+
+.view-switch.on {
+  border-color: transparent;
+  background: var(--soft-maroon);
+  color: var(--maroon);
+}
+
+.view-switch:focus-visible {
+  outline: 2px solid var(--maroon);
+  outline-offset: 2px;
+}
+
+[data-theme="dark"] .view-switch {
+  background: var(--surface);
+  color: #cdc3ca;
+}
+
+[data-theme="dark"] .view-switch:hover {
+  border-color: rgba(212, 87, 122, 0.5);
+  color: var(--maroon);
+}
+
+[data-theme="dark"] .view-switch.on {
+  background: rgba(212, 87, 122, 0.16);
+  color: #e9799c;
+}
+
+/* The desk gets a plain full-height column — none of the landing
+   page's centred hero sizing applies to it. */
+.main.desk-view {
+  min-height: 0;
+  padding-top: 26px;
+  padding-bottom: 24px;
+}
+
+@media (max-width: 900px) {
+  .view-switch span {
+    display: none;
+  }
+
+  .view-switch {
+    width: 42px;
+    padding: 0;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .view-switch {
+    width: 40px;
+    height: 40px;
+  }
+
+  .main.desk-view {
+    padding-top: 16px;
+  }
+}
+/* =========================================================
+   CAMPUS ART — PINNED IN THE DESK VIEW
+
+   The same approach the chat view uses (see CHAT BACKGROUND, ~line 2135):
+   a fixed pseudo-element on the view itself. .campus-background is
+   absolute inside .main and so travels with the page as it scrolls; a
+   fixed layer does not, so the thread scrolls over it.
+
+   It reads --campus-line and --campus-strength, so it follows the theme
+   overrides already defined for both light and dark.
+========================================================= */
+
+/* The landing-page layer steps aside in the desk view. */
+.main.desk-view .campus-background {
+  display: none;
+}
+
+.main.desk-view::before {
+  content: "";
+  position: fixed;
+  left: 50%;
+  bottom: -30px;
+  transform: translateX(-50%);
+  z-index: 0;
+
+  width: min(1400px, 112vw);
+  aspect-ratio: 3582 / 1184;
+
+  background-color: var(--campus-line);
+  opacity: var(--campus-strength);
+  pointer-events: none;
+
+  -webkit-mask-image:
+    url("/campus-lines.png"),
+    linear-gradient(to top, #000 32%, transparent 94%);
+  -webkit-mask-size: contain, 100% 100%;
+  -webkit-mask-position: center bottom, center;
+  -webkit-mask-repeat: no-repeat, no-repeat;
+  -webkit-mask-composite: source-in;
+
+  mask-image:
+    url("/campus-lines.png"),
+    linear-gradient(to top, #000 32%, transparent 94%);
+  mask-size: contain, 100% 100%;
+  mask-position: center bottom, center;
+  mask-repeat: no-repeat, no-repeat;
+  mask-composite: intersect;
+}
+
+/* The desk rides above it. */
+.main.desk-view > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 600px) {
+  .main.desk-view::before {
+    width: 820px;
+    bottom: -10px;
+  }
+}

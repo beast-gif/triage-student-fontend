@@ -1,0 +1,180 @@
+/* ------------------------------------------------------------------
+   The editable slot on the booking form.
+   Imported by BookingForm.jsx; keep it in src/appointments/.
+
+   Shut, it is one line of text with a button — the common case is a
+   student who clicked Book on a time the bot just confirmed was free,
+   and making them re-pick it would add a step to the normal path.
+   Open, it is chips and two pickers.
+   ------------------------------------------------------------------ */
+
+.bf-when {
+  --bw-accent: var(--desk-accent, #e8799c);
+  --bw-line: var(--desk-line, rgba(255, 255, 255, 0.1));
+  --bw-text: var(--desk-text, #f0ecf2);
+  --bw-dim: var(--desk-dim, #a79daf);
+
+  box-sizing: border-box;
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  border: 1px solid var(--bw-line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.bf-when * { box-sizing: border-box; }
+
+.bf-when.is-open {
+  border-color: color-mix(in srgb, var(--bw-accent) 40%, transparent);
+  background: color-mix(in srgb, var(--bw-accent) 7%, transparent);
+}
+
+/* -------------------------------------------------- shut */
+
+.bf-when-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.bf-when-text { display: grid; gap: 1px; min-width: 0; }
+
+.bf-when-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--bw-dim);
+}
+
+.bf-when-text strong {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--bw-text);
+  overflow-wrap: break-word;
+}
+
+.bf-when-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--bw-line);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--bw-text);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.bf-when-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.bf-when-toggle:focus-visible {
+  outline: 2px solid var(--bw-accent);
+  outline-offset: 2px;
+}
+
+/* -------------------------------------------------- open */
+
+.bf-when-body {
+  margin-top: 14px;
+  padding-top: 13px;
+  border-top: 1px solid var(--bw-line);
+}
+
+.bf-when-sub {
+  margin: 0 0 8px;
+  font-size: 0.78rem;
+  color: var(--bw-dim);
+}
+
+.bf-when-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 14px;
+}
+
+.bf-when-chip {
+  padding: 7px 12px;
+  border: 1px solid var(--bw-line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--bw-text);
+  font: inherit;
+  font-size: 0.83rem;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.bf-when-chip:hover { background: rgba(255, 255, 255, 0.1); }
+
+.bf-when-chip.is-on {
+  border-color: color-mix(in srgb, var(--bw-accent) 60%, transparent);
+  background: color-mix(in srgb, var(--bw-accent) 16%, transparent);
+  color: var(--bw-accent);
+  font-weight: 600;
+}
+
+.bf-when-chip:focus-visible {
+  outline: 2px solid var(--bw-accent);
+  outline-offset: 2px;
+}
+
+/* Two across where there is room, stacked on a phone. The fields reuse
+   .bf-field from appointments.css, so they match the rest of the form. */
+.bf-when-fields {
+  display: grid;
+  gap: 10px;
+}
+
+@media (min-width: 420px) {
+  .bf-when-fields { grid-template-columns: 1fr 1fr; gap: 12px; }
+}
+
+.bf-when-fields .bf-field { margin-bottom: 0; }
+
+.bf-when-note {
+  margin: 12px 0 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--bw-dim);
+}
+
+/* -------------------------------------------------- light */
+
+[data-theme="light"] .bf-when {
+  --bw-line: rgba(20, 16, 24, 0.13);
+  --bw-text: #1d1a22;
+  --bw-dim: #6d6577;
+  background: rgba(20, 16, 24, 0.028);
+}
+
+[data-theme="light"] .bf-when-toggle,
+[data-theme="light"] .bf-when-chip { background: rgba(20, 16, 24, 0.04); }
+
+[data-theme="light"] .bf-when-toggle:hover,
+[data-theme="light"] .bf-when-chip:hover {
+  background: rgba(20, 16, 24, 0.08);
+  border-color: rgba(20, 16, 24, 0.2);
+}
+
+@media (max-width: 420px) {
+  .bf-when-head { flex-wrap: wrap; }
+  .bf-when-toggle { min-height: 38px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bf-when-toggle, .bf-when-chip { transition: none; }
+}

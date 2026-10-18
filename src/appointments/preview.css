@@ -1,0 +1,384 @@
+/* ------------------------------------------------------------------
+   Preview card — step 5 of the faculty desk.
+   Append to src/appointments/appointments.css
+   ------------------------------------------------------------------ */
+
+.preview-card {
+  --pv-accent: var(--desk-accent, #e8799c);
+  --pv-panel: var(--desk-panel, #1b1620);
+  --pv-line: var(--desk-line, rgba(255, 255, 255, 0.09));
+  --pv-text: var(--desk-text, #f0ecf2);
+  --pv-dim: var(--desk-dim, #a79daf);
+
+  max-width: 640px;
+  margin: 14px 0;
+  padding: 20px 20px 16px;
+  /* Scoped, so the card survives whatever reset the host page does or does
+     not have. Without it the full-width textarea overflows by its padding. */
+  box-sizing: border-box;
+  background: var(--pv-panel);
+  border: 1px solid var(--pv-line);
+  border-radius: 18px;
+  box-shadow: 0 18px 44px -28px rgba(0, 0, 0, 0.9);
+  color: var(--pv-text);
+}
+
+.preview-card *,
+.preview-card *::before,
+.preview-card *::after { box-sizing: border-box; }
+
+/* -------------------------------------------------- head */
+
+.preview-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.preview-title {
+  margin: 0 0 4px;
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.preview-sub {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--pv-dim);
+}
+
+.preview-sub strong {
+  color: var(--pv-text);
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.preview-flag {
+  flex: none;
+  padding: 4px 10px;
+  border: 1px solid color-mix(in srgb, var(--pv-accent) 40%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--pv-accent) 14%, transparent);
+  color: var(--pv-accent);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* -------------------------------------------------- to / subject */
+
+.preview-meta {
+  margin: 0 0 18px;
+  padding: 12px 14px;
+  border: 1px solid var(--pv-line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.025);
+  font-size: 0.86rem;
+}
+
+.preview-meta > div {
+  display: grid;
+  grid-template-columns: 62px 1fr;
+  gap: 10px;
+  padding: 3px 0;
+}
+
+.preview-meta dt {
+  color: var(--pv-dim);
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.preview-meta dd {
+  margin: 0;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+/* -------------------------------------------------- message */
+
+.preview-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 7px;
+  font-size: 0.84rem;
+  font-weight: 500;
+}
+
+.preview-hint {
+  color: var(--pv-dim);
+  font-size: 0.76rem;
+  font-weight: 400;
+}
+
+.preview-message {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid var(--pv-line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--pv-text);
+  font: inherit;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  resize: vertical;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.preview-message::placeholder { color: color-mix(in srgb, var(--pv-dim) 70%, transparent); }
+
+.preview-message:focus-visible {
+  outline: none;
+  border-color: color-mix(in srgb, var(--pv-accent) 55%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pv-accent) 16%, transparent);
+}
+
+.preview-message:disabled { opacity: 0.55; }
+
+.preview-meter {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 15px;
+  margin: 5px 2px 12px;
+  font-size: 0.75rem;
+  color: var(--pv-dim);
+}
+
+.preview-meter > :only-child { margin-left: auto; }
+
+.preview-edited {
+  margin-right: auto;
+  color: var(--pv-accent);
+  font-weight: 500;
+}
+
+.preview-over { color: #f08d8d; }
+
+/* -------------------------------------------------- the email itself */
+
+.preview-frame {
+  position: relative;
+  border: 1px solid var(--pv-line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* A caption bar, so the white page reads as a separate object rather than
+   as more card. It carries the whole weight of that distinction in light
+   theme, where a white panel on a white card would otherwise disappear. */
+.preview-frame::before {
+  content: "Email preview";
+  display: block;
+  padding: 7px 13px;
+  border-bottom: 1px solid rgba(20, 16, 24, 0.1);
+  background: #f2f0f4;
+  color: #6a6472;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.preview-iframe {
+  display: block;
+  width: 100%;
+  height: 240px;
+  border: 0;
+  background: #fff;
+  transition: height 0.22s ease;
+}
+
+.preview-frame.is-expanded .preview-iframe { height: min(62vh, 560px); }
+
+/* Says "there is more below" without needing to measure the document, which
+   the sandbox deliberately prevents. */
+.preview-frame::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 54px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.preview-frame.is-expanded::after { opacity: 0; }
+
+/* Sits over the bottom of the white page, so it stays legible on it. */
+.preview-expand {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 5px 11px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(6px);
+  color: #3a3a44;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.preview-expand:hover { background: #fff; color: #16161c; }
+
+.preview-expand:focus-visible {
+  outline: 2px solid var(--pv-accent);
+  outline-offset: 2px;
+}
+
+/* -------------------------------------------------- error */
+
+.preview-error {
+  margin: 14px 0 0;
+  padding: 11px 13px;
+  border: 1px solid rgba(240, 141, 141, 0.32);
+  border-radius: 11px;
+  background: rgba(240, 141, 141, 0.1);
+  color: #f3a6a6;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.preview-error:focus-visible { outline: 2px solid #f08d8d; outline-offset: 2px; }
+
+/* -------------------------------------------------- actions */
+
+.preview-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 18px;
+}
+
+.preview-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 18px;
+  border-radius: 11px;
+  border: 1px solid transparent;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.preview-btn:disabled { opacity: 0.5; cursor: default; }
+.preview-btn:not(:disabled):active { transform: translateY(1px); }
+
+.preview-btn:focus-visible {
+  outline: 2px solid var(--pv-accent);
+  outline-offset: 2px;
+}
+
+.preview-btn-quiet {
+  border-color: var(--pv-line);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--pv-text);
+}
+
+.preview-btn-quiet:not(:disabled):hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+/* Takes the remaining width so the committing action is the biggest target. */
+.preview-btn-send {
+  flex: 1 1 200px;
+  background: var(--pv-accent);
+  color: #26121a;
+  font-weight: 600;
+}
+
+.preview-btn-send:not(:disabled):hover {
+  background: color-mix(in srgb, var(--pv-accent) 86%, #fff);
+}
+
+.preview-spinner {
+  width: 13px;
+  height: 13px;
+  border: 2px solid rgba(38, 18, 26, 0.3);
+  border-top-color: #26121a;
+  border-radius: 50%;
+  animation: preview-spin 0.7s linear infinite;
+}
+
+@keyframes preview-spin { to { transform: rotate(360deg); } }
+
+.preview-foot {
+  margin: 12px 2px 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--pv-dim);
+  text-align: center;
+}
+
+/* -------------------------------------------------- light theme */
+
+[data-theme="light"] .preview-card {
+  --pv-panel: #fff;
+  --pv-line: rgba(20, 16, 24, 0.12);
+  --pv-text: #1d1a22;
+  --pv-dim: #6d6577;
+  box-shadow: 0 14px 36px -26px rgba(40, 20, 50, 0.45);
+}
+
+[data-theme="light"] .preview-meta,
+[data-theme="light"] .preview-message { background: rgba(20, 16, 24, 0.025); }
+
+/* The white page needs its own edge once the card behind it is white too. */
+[data-theme="light"] .preview-frame {
+  border-color: rgba(20, 16, 24, 0.18);
+  box-shadow: 0 2px 10px -4px rgba(40, 20, 50, 0.22);
+}
+
+[data-theme="light"] .preview-btn-quiet { background: rgba(20, 16, 24, 0.035); }
+
+[data-theme="light"] .preview-btn-quiet:not(:disabled):hover {
+  background: rgba(20, 16, 24, 0.07);
+  border-color: rgba(20, 16, 24, 0.18);
+}
+
+[data-theme="light"] .preview-error {
+  background: rgba(200, 50, 50, 0.07);
+  border-color: rgba(200, 50, 50, 0.28);
+  color: #a52c2c;
+}
+
+/* -------------------------------------------------- phone */
+
+@media (max-width: 560px) {
+  .preview-card { padding: 16px 14px 14px; border-radius: 15px; }
+  .preview-head { flex-direction: column-reverse; align-items: flex-start; gap: 9px; }
+  .preview-flag { align-self: flex-start; }
+  .preview-meta > div { grid-template-columns: 54px 1fr; gap: 8px; }
+  .preview-iframe { height: 200px; }
+  /* Reversed, so the committing action sits nearest the thumb. */
+  .preview-actions { flex-direction: column-reverse; }
+  .preview-btn { width: 100%; }
+  /* In a column, flex-basis is height: 1 1 200px would make a 200px button. */
+  .preview-btn-send { flex: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preview-iframe,
+  .preview-btn,
+  .preview-message { transition: none; }
+  .preview-spinner { animation-duration: 2s; }
+}

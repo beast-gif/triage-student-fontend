@@ -1,0 +1,291 @@
+/* ------------------------------------------------------------------
+   Booking status card — step 6 of the faculty desk.
+   Imported by StatusCard.jsx; keep it in src/appointments/.
+   ------------------------------------------------------------------ */
+
+.status-card {
+  --st-accent: var(--desk-accent, #e8799c);
+  --st-panel: var(--desk-panel, #1b1620);
+  --st-line: var(--desk-line, rgba(255, 255, 255, 0.09));
+  --st-text: var(--desk-text, #f0ecf2);
+  --st-dim: var(--desk-dim, #a79daf);
+
+  /* One hue per card, set by the tone classes below, so the status reads
+     from across the room without having to parse the sentence. */
+  --st-tone: var(--st-accent);
+
+  box-sizing: border-box;
+  max-width: 640px;
+  margin: 14px 0;
+  padding: 18px 20px 14px;
+  background: var(--st-panel);
+  border: 1px solid var(--st-line);
+  border-left: 3px solid var(--st-tone);
+  border-radius: 16px;
+  box-shadow: 0 18px 44px -30px rgba(0, 0, 0, 0.9);
+  color: var(--st-text);
+}
+
+.status-card *,
+.status-card *::before,
+.status-card *::after { box-sizing: border-box; }
+
+.status-card.tone-wait { --st-tone: #d9a441; }
+.status-card.tone-good { --st-tone: #5bbf84; }
+.status-card.tone-bad  { --st-tone: #e0736f; }
+.status-card.tone-info { --st-tone: #6ea8e8; }
+.status-card.tone-mute { --st-tone: #7d7686; }
+
+/* -------------------------------------------------- head */
+
+.status-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 11px;
+  border: 1px solid color-mix(in srgb, var(--st-tone) 42%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--st-tone) 14%, transparent);
+  color: var(--st-tone);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: status-pulse 2s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+.status-ref {
+  color: var(--st-dim);
+  font-size: 0.74rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* -------------------------------------------------- the sentence */
+
+.status-line {
+  margin: 0 0 14px;
+  font-size: 0.98rem;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+}
+
+/* -------------------------------------------------- when */
+
+.status-when {
+  margin: 0;
+  padding: 11px 14px;
+  border: 1px solid var(--st-line);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.025);
+  font-size: 0.87rem;
+}
+
+.status-when > div {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 10px;
+  padding: 2px 0;
+}
+
+.status-when dt {
+  color: var(--st-dim);
+  font-size: 0.78rem;
+  line-height: 1.65;
+}
+
+.status-when dd {
+  margin: 0;
+  line-height: 1.65;
+  overflow-wrap: break-word;
+}
+
+/* The time they asked for is still worth seeing, but it is no longer the
+   answer — so it recedes rather than disappearing. */
+.status-when .is-superseded dd {
+  color: var(--st-dim);
+  text-decoration: line-through;
+  text-decoration-color: color-mix(in srgb, var(--st-dim) 60%, transparent);
+}
+
+.status-when .is-proposed dd {
+  color: var(--st-tone);
+  font-weight: 600;
+}
+
+/* -------------------------------------------------- note */
+
+.status-note {
+  position: relative;
+  margin: 12px 0 0;
+  padding: 11px 14px;
+  border-radius: 11px;
+  border-left: 2px solid color-mix(in srgb, var(--st-tone) 50%, transparent);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  overflow-wrap: break-word;
+}
+
+.status-note-who {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--st-dim);
+  font-size: 0.74rem;
+  letter-spacing: 0.02em;
+}
+
+.status-next {
+  margin: 12px 2px 0;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--st-dim);
+}
+
+.status-problem {
+  margin: 12px 0 0;
+  padding: 10px 13px;
+  border: 1px solid rgba(240, 141, 141, 0.32);
+  border-radius: 10px;
+  background: rgba(240, 141, 141, 0.1);
+  color: #f3a6a6;
+  font-size: 0.84rem;
+}
+
+/* -------------------------------------------------- foot */
+
+.status-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--st-line);
+}
+
+.status-watch {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--st-dim);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.status-watch.is-stalled { color: #e0a06f; }
+
+.status-spinner {
+  width: 11px;
+  height: 11px;
+  border: 2px solid color-mix(in srgb, var(--st-dim) 35%, transparent);
+  border-top-color: var(--st-dim);
+  border-radius: 50%;
+  animation: status-spin 0.7s linear infinite;
+}
+
+@keyframes status-spin { to { transform: rotate(360deg); } }
+
+.status-actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.status-btn {
+  min-height: 34px;
+  padding: 0 13px;
+  border: 1px solid var(--st-line);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--st-text);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.status-btn:not(:disabled):hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.status-btn:disabled { opacity: 0.5; cursor: default; }
+
+.status-btn:focus-visible {
+  outline: 2px solid var(--st-tone);
+  outline-offset: 2px;
+}
+
+.status-btn-quiet { color: var(--st-dim); }
+
+/* -------------------------------------------------- light theme */
+
+[data-theme="light"] .status-card {
+  --st-panel: #fff;
+  --st-line: rgba(20, 16, 24, 0.12);
+  --st-text: #1d1a22;
+  --st-dim: #6d6577;
+  box-shadow: 0 14px 36px -28px rgba(40, 20, 50, 0.45);
+}
+
+[data-theme="light"] .status-card.tone-wait { --st-tone: #9a6b12; }
+[data-theme="light"] .status-card.tone-good { --st-tone: #1f7a4d; }
+[data-theme="light"] .status-card.tone-bad  { --st-tone: #b23c38; }
+[data-theme="light"] .status-card.tone-info { --st-tone: #2a66ad; }
+[data-theme="light"] .status-card.tone-mute { --st-tone: #6d6577; }
+
+[data-theme="light"] .status-when,
+[data-theme="light"] .status-note { background: rgba(20, 16, 24, 0.028); }
+
+[data-theme="light"] .status-btn { background: rgba(20, 16, 24, 0.035); }
+
+[data-theme="light"] .status-btn:not(:disabled):hover {
+  background: rgba(20, 16, 24, 0.07);
+  border-color: rgba(20, 16, 24, 0.18);
+}
+
+[data-theme="light"] .status-problem {
+  background: rgba(200, 50, 50, 0.07);
+  border-color: rgba(200, 50, 50, 0.28);
+  color: #a52c2c;
+}
+
+/* -------------------------------------------------- phone */
+
+@media (max-width: 560px) {
+  .status-card { padding: 15px 14px 12px; border-radius: 14px; }
+  .status-when > div { grid-template-columns: 84px 1fr; gap: 8px; }
+  .status-foot { flex-direction: column; align-items: stretch; }
+  .status-actions { margin-left: 0; }
+  .status-btn { flex: 1 1 auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-dot { animation: none; }
+  .status-spinner { animation-duration: 2.4s; }
+  .status-btn { transition: none; }
+}
