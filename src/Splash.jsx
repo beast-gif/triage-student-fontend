@@ -21,7 +21,7 @@ import "./splash.css";
    already uses — the header is the one place that definitely knows the
    name. If the file is missing the image fails quietly and the wordmark
    keeps its accent dot instead, so a wrong name costs nothing. */
-const MARK_SRC = "/triage-mark-dark.png";
+const MARK_SRC = "/triage-mark.png";
 
 const SEEN_KEY = "triage_splash_seen";
 
@@ -33,7 +33,7 @@ const SEEN_KEY = "triage_splash_seen";
 const SPEED = 1.7;
 
 const HOLD_MS = 3100 * SPEED;   // when the exit starts
-const EXIT_MS = 680 * SPEED;    // how long the exit takes
+const EXIT_MS = 980 * SPEED;    // how long the exit takes
 
 function alreadySeen() {
   try {
@@ -120,6 +120,7 @@ export default function Splash() {
       role="presentation"
       aria-hidden="true"
     >
+      <div className="sp-bloom" />
       <div className="sp-art" />
 
       <div className="sp-centre">

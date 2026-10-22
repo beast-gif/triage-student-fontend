@@ -24,21 +24,133 @@
   background: var(--sp-bg);
   font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   overflow: hidden;
-  animation: sp-in calc(0.5s * var(--sp-speed)) ease both;
 }
+
+/* No opacity animation on the card itself, deliberately. Any fade-in at
+   all means the portal underneath is visible through it for the length of
+   the fade — the first frames showed the app's own heading reading
+   straight through the splash. The card is opaque from frame one and the
+   entrance is carried by what is *inside* it: the light rises, the skyline
+   draws, the mark arrives. */
 
 .sp * { box-sizing: border-box; }
 
-@keyframes sp-in { from { opacity: 0; } }
-
-/* The exit: the card lifts and clears, revealing the portal under it. */
+/* The exit: the card is lifted away like a curtain, and the skyline
+   counter-moves so it appears to stay exactly where it is — the city
+   belongs to the page underneath too, so it hands over rather than
+   leaving with the title. Fade-and-zoom-out would have thrown away that
+   connection and is the move every splash screen already makes. */
 .sp.is-leaving {
-  animation: sp-out calc(0.78s * var(--sp-speed)) cubic-bezier(0.33, 0, 0.25, 1) both;
+  animation: sp-lift calc(0.82s * var(--sp-speed)) cubic-bezier(0.7, 0, 0.3, 1)
+             calc(0.16s * var(--sp-speed)) both;
   pointer-events: none;
 }
 
-@keyframes sp-out {
-  to { opacity: 0; transform: scale(1.06); filter: blur(5px); }
+@keyframes sp-lift {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-101%); }
+}
+
+/* Equal and opposite, so the art holds still while the card travels. */
+.sp.is-leaving .sp-art {
+  animation: sp-stay calc(0.82s * var(--sp-speed)) cubic-bezier(0.7, 0, 0.3, 1)
+             calc(0.16s * var(--sp-speed)) both;
+}
+
+@keyframes sp-stay {
+  from { translate: -50% 0; opacity: 0.3; }
+  to   { translate: -50% 101%; opacity: 0; }
+}
+
+/* The name leaves first and under its own steam, so the lift is not one
+   flat slab of pixels moving together. */
+.sp.is-leaving .sp-centre {
+  animation: sp-centre-out calc(0.42s * var(--sp-speed)) cubic-bezier(0.5, 0, 0.75, 0) both;
+}
+
+@keyframes sp-centre-out {
+  to { opacity: 0; transform: translateY(-26px); }
+}
+
+/* The skip hint and the glow go with the name rather than riding the
+   curtain up. Left in, the hint sat dead centre of the shrinking band on
+   its way out, which is where the eye goes, and the glow turned that band
+   into a bright slab instead of something leaving.
+
+   Both keyframes name their own `from`, and the two values differ, which
+   is why this is not one rule. Replacing an element's animation resets it
+   to the *declared* value underneath, not the value the old animation had
+   reached — and both of these declare opacity: 0 so they can fade in. An
+   implicit `from` would therefore read 0, and the glow would vanish on the
+   exit's first frame instead of going with it. */
+.sp.is-leaving .sp-bloom {
+  animation: sp-bloom-out calc(0.34s * var(--sp-speed)) ease both;
+}
+
+@keyframes sp-bloom-out {
+  from { opacity: 0.42; scale: 1; }
+  to   { opacity: 0; scale: 1; }
+}
+
+.sp.is-leaving .sp-skip {
+  animation: sp-skip-out calc(0.24s * var(--sp-speed)) ease both;
+}
+
+@keyframes sp-skip-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* The hem of the curtain, lit as it passes. */
+.sp::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--sp-ink), transparent);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sp.is-leaving::after {
+  animation: sp-hem calc(0.82s * var(--sp-speed)) ease calc(0.16s * var(--sp-speed)) both;
+}
+
+@keyframes sp-hem {
+  20%  { opacity: 0.85; }
+  100% { opacity: 0; }
+}
+
+/* -------------------------------------------------- the light
+
+   A glow climbing from behind the skyline, so the card opens by getting
+   lighter rather than by fading in. An opacity fade on the whole card is
+   the one move every loading screen makes; this gives the composition a
+   direction and a source. */
+
+.sp-bloom {
+  position: absolute;
+  left: 50%;
+  bottom: -16vh;
+  translate: -50% 0;
+  width: min(1500px, 135vw);
+  aspect-ratio: 2 / 1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 50% 100%,
+    color-mix(in srgb, var(--sp-ink) 34%, transparent),
+    transparent 62%
+  );
+  opacity: 0;
+  scale: 0.74;
+  animation: sp-bloom calc(2.6s * var(--sp-speed)) cubic-bezier(0.16, 1, 0.3, 1)
+             calc(0.05s * var(--sp-speed)) both;
+}
+
+@keyframes sp-bloom {
+  to { opacity: 0.42; scale: 1; }
 }
 
 /* -------------------------------------------------- the skyline
@@ -220,6 +332,7 @@
 @media (prefers-reduced-motion: reduce) {
   .sp,
   .sp-art,
+  .sp-bloom,
   .sp-mark,
   .sp-word,
   .sp-dot,
