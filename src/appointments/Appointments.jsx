@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { CalendarClock, Loader2, Send, AlertTriangle } from "lucide-react";
+import { Loader2, Send, AlertTriangle } from "lucide-react";
 
 import { postChat, ApiError, isMockMode } from "./api.js";
 import { AvailabilityCard, TimetableCard } from "./cards.jsx";
@@ -8,6 +8,7 @@ import PreviewCard from "./PreviewCard.jsx";
 import StatusCard from "./StatusCard.jsx";
 import MyAppointments from "./MyAppointments.jsx";
 import "./appointments.css";
+import "./desk-intro.css";
 
 /**
  * The faculty desk: a separate conversation from the admissions
@@ -23,12 +24,119 @@ import "./appointments.css";
  * readable notice rather than an empty bubble.
  */
 
-const SUGGESTIONS = [
-  "Timetable for Tuesday",
-  "Is Bhavana free Monday at 11?",
-  "Is Bhavana free Monday at 10?",
-  "Tuesday 12 Deepthi",
+/**
+ * Three examples, each a different kind of question.
+ *
+ * There were four before, but two of them were the same question an hour
+ * apart ("…at 11?" / "…at 10?"), which taught the student nothing the
+ * first one hadn't and left the fourth wrapping onto a row by itself. The
+ * queries are the ones that already work; only the duplicate is gone and
+ * each now carries the shape it demonstrates.
+ *
+ * The third looks like debug shorthand because it is — the parser takes
+ * a bare day, hour and name. That is worth advertising rather than
+ * hiding: nobody would guess it, and it is faster than a sentence.
+ */
+const EXAMPLES = [
+  { query: "Timetable for Tuesday", role: "a whole day", span: "day" },
+  { query: "Is Bhavana free Monday at 11?", role: "one person, one time", span: "slot" },
+  { query: "Tuesday 12 Deepthi", role: "the same, typed faster", span: "slot" },
 ];
+
+/**
+ * The miniature beside each example: the same week, with the part that
+ * query covers drawn as an outline — a whole column for a day, a single
+ * cell for one person at one time.
+ *
+ * Rows two and three share a glyph deliberately. They ask the same
+ * question, one as a sentence and one as shorthand, and saying so with
+ * the picture is worth more than three icons that differ only so that
+ * every row can have its own.
+ */
+function Glyph({ span }) {
+  const cells = [];
+  for (let column = 0; column < 4; column += 1) {
+    for (let row = 0; row < 3; row += 1) {
+      cells.push(
+        <rect
+          key={`${column}-${row}`}
+          className="di-g-cell"
+          x={column * 6.5}
+          y={row * 6}
+          width="4"
+          height="3.5"
+          rx="1"
+        />
+      );
+    }
+  }
+
+  return (
+    <svg className="di-glyph" viewBox="0 0 23.5 15.5" aria-hidden="true">
+      {cells}
+      {span === "day" ? (
+        <rect className="di-g-mark" x="5.8" y="-0.8" width="5.4" height="17.1" rx="1.8" />
+      ) : (
+        <rect className="di-g-mark" x="5.9" y="5.4" width="5.2" height="4.7" rx="1.5" />
+      )}
+    </svg>
+  );
+}
+
+/**
+ * The mark: a week with one slot open.
+ *
+ * A calendar glyph would sit just as happily on a reminder app or a
+ * to-do list. This is the object the desk actually reads — five days of
+ * blocks — and the free slot is drawn as an outline rather than a fill,
+ * because what the student is hunting for is a gap, not a thing.
+ */
+function WeekMark() {
+  const busy = "di-cell-busy";
+  const gap = "di-cell-gap";
+  const week = [
+    [busy, busy, gap, busy],
+    [busy, gap, busy, busy],
+    [busy, "free", busy, gap],
+    [gap, busy, busy, busy],
+    [busy, busy, gap, busy],
+  ];
+
+  return (
+    <svg
+      className="di-week"
+      viewBox="0 0 91 44"
+      role="img"
+      aria-label="A week of classes with one free slot"
+    >
+      {week.map((day, column) =>
+        day.map((cell, row) =>
+          cell === "free" ? (
+            <rect
+              key={`${column}-${row}`}
+              className="di-cell-free"
+              x={column * 20 + 0.75}
+              y={row * 12 + 0.75}
+              width="9.5"
+              height="6.5"
+              rx="1.5"
+            />
+          ) : (
+            <rect
+              key={`${column}-${row}`}
+              className={cell}
+              x={column * 20}
+              y={row * 12}
+              width="11"
+              height="8"
+              rx="1.5"
+            />
+          )
+        )
+      )}
+    </svg>
+  );
+}
 
 /**
  * Entries are addressed by a stable key rather than by array position.
@@ -49,7 +157,10 @@ export default function Appointments() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(null);
   const [lastQuery, setLastQuery] = useState(null);
-  const [showAppointments, setShowAppointments] = useState(false);
+
+  /* The panel reads its own ids out of storage and does its own polling,
+     so all this has to do is mount and unmount it. */
+  const [mineOpen, setMineOpen] = useState(false);
 
   const anchor = useRef(null);
   const inputRef = useRef(null);
@@ -148,35 +259,56 @@ export default function Appointments() {
         </p>
       )}
 
-      <div className="desk-bar">
+      {/* Outside both branches on purpose: a student who has just asked a
+          question still needs a way back to what they have already booked,
+          and tucking this inside the empty state makes it disappear the
+          moment the thread starts. Ordinary flow rather than an absolute
+          corner, so it cannot depend on `.desk` having a position. */}
+      <div className="desk-topbar">
         <button
           type="button"
           className="desk-mine"
-          onClick={() => setShowAppointments(true)}
+          onClick={() => setMineOpen(true)}
         >
           My appointments
         </button>
       </div>
 
+      {mineOpen && <MyAppointments onClose={() => setMineOpen(false)} />}
+
       {!started && (
-        <div className="desk-intro">
-          <span className="desk-icon">
-            <CalendarClock size={26} strokeWidth={1.7} />
-          </span>
-          <h2>Faculty desk</h2>
-          <p>
-            Check the class timetable, see whether a faculty member is free,
-            and request an appointment. Nothing is emailed until you review
-            it and confirm.
+        <div className="di">
+          <WeekMark />
+
+          <h2 className="di-title">Faculty desk</h2>
+          <p className="di-lede">
+            Check the timetable, find a free slot, ask for a time.
           </p>
 
-          <div className="desk-suggestions">
-            {SUGGESTIONS.map((text) => (
-              <button key={text} onClick={() => send(text)} disabled={busy}>
-                {text}
-              </button>
+          <ul className="di-examples">
+            {EXAMPLES.map((example) => (
+              <li className="di-example" key={example.query}>
+                <button
+                  className="di-try"
+                  onClick={() => send(example.query)}
+                  disabled={busy}
+                >
+                  <Glyph span={example.span} />
+                  <span className="di-text">
+                    <span className="di-query">{example.query}</span>
+                    <span className="di-role">{example.role}</span>
+                  </span>
+                </button>
+              </li>
             ))}
-          </div>
+          </ul>
+
+          {/* Split out of the opening paragraph. Up there it was the tail
+              of a third centred line; here it answers the question the
+              student actually has, directly above the box they type in. */}
+          <p className="di-promise">
+            Nothing is emailed until you&apos;ve read it and confirmed.
+          </p>
         </div>
       )}
 
@@ -257,10 +389,6 @@ export default function Appointments() {
           )}
         </button>
       </div>
-
-      {showAppointments && (
-        <MyAppointments onClose={() => setShowAppointments(false)} />
-      )}
     </section>
   );
 }

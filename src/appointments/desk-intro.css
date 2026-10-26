@@ -1,0 +1,317 @@
+/* ------------------------------------------------------------------
+   The faculty desk's empty state.
+
+   Every selector here is written as `.di .di-thing` rather than
+   `.di-thing`. One class is (0,1,0); a rule already in appointments.css
+   like `.desk button` is (0,1,1) and would quietly win on every button
+   below. Two classes is (0,2,0) and clears it. This file is self-
+   contained for the same reason: nothing in it depends on, or collides
+   with, the existing `.desk-intro` rules.
+   ------------------------------------------------------------------ */
+
+/* -------------------------------------------------- my appointments
+
+   The way back to what you have already booked. It sits in normal flow
+   at the top of the desk rather than absolutely in the corner, because
+   absolute positioning would need `.desk` to be a containing block and
+   this file has no business asserting that about a rule it does not own.
+
+   `.desk .desk-mine` for the usual reason: a bare `.desk-mine` is
+   (0,1,0) and loses to any existing `.desk button` rule. */
+
+.desk .desk-topbar {
+  display: flex;
+  justify-content: flex-end;
+  flex: none;
+  width: 100%;
+  padding: 4px 4px 0;
+  box-sizing: border-box;
+}
+
+.desk .desk-mine {
+  border: 0;
+  border-radius: 12px;
+  padding: 11px 17px;
+  background: rgba(255, 255, 255, 0.055);
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 650;
+  color: #e1dbdf;
+  cursor: pointer;
+  transition: background 140ms ease;
+}
+
+.desk .desk-mine:hover { background: rgba(233, 121, 156, 0.14); }
+
+.desk .desk-mine:focus-visible {
+  outline: 2px solid #e9799c;
+  outline-offset: 2px;
+}
+
+[data-theme="light"] .desk .desk-mine {
+  background: rgba(139, 21, 56, 0.07);
+  color: #1f1a1c;
+}
+
+[data-theme="light"] .desk .desk-mine:hover {
+  background: rgba(139, 21, 56, 0.13);
+}
+
+[data-theme="light"] .desk .desk-mine:focus-visible { outline-color: #8b1538; }
+
+@media (prefers-reduced-motion: reduce) {
+  .desk .desk-mine { transition: none; }
+}
+
+.di {
+  /* Sampled from the portal rather than invented, so this screen sits in
+     the palette the rest of the app already uses. The accent is the same
+     one the intro animation uses — the two should feel related. */
+  --di-ink: #e9799c;
+  --di-text: #e1dbdf;
+  --di-dim: #8c8190;
+  --di-line: rgba(233, 121, 156, 0.14);
+  --di-edge: rgba(255, 255, 255, 0.07);
+  --di-surface: rgba(255, 255, 255, 0.034);
+  --di-surface-hover: rgba(233, 121, 156, 0.1);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: clamp(8px, 4vh, 40px) 16px 0;
+  text-align: center;
+}
+
+/* Not inherited and not safe to assume: `width: 100%` plus side padding
+   makes this block wider than its parent without it, which on a phone
+   pushed the whole column 32px off the right edge. */
+.di,
+.di * { box-sizing: border-box; }
+
+/* -------------------------------------------------- the week
+
+   A calendar icon is a stock noun — it would sit just as happily on a
+   booking app, a reminder app or a to-do list. This is the actual object
+   the desk reads: five days of blocks, and the gap a student is looking
+   for drawn as an outline rather than a fill, because a free slot is an
+   absence. */
+
+.di .di-week {
+  display: block;
+  width: clamp(104px, 27vw, 132px);
+  height: auto;
+  margin-bottom: clamp(20px, 3.2vh, 30px);
+}
+
+.di .di-cell-busy { fill: rgba(233, 121, 156, 0.30); }
+.di .di-cell-gap  { fill: rgba(233, 121, 156, 0.08); }
+
+.di .di-cell-free {
+  fill: none;
+  stroke: var(--di-ink);
+  stroke-width: 1.5;
+}
+
+/* -------------------------------------------------- the name */
+
+/* Bigger and tighter than a heading this size usually gets. The page has
+   no image and no colour beyond one accent, so the type has to carry the
+   presence; at 1.8rem it was sitting at the same weight as the rows below
+   it and the screen had no spine. */
+.di .di-title {
+  margin: 0;
+  font-size: clamp(1.8rem, 4.6vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.028em;
+  line-height: 1.08;
+  color: var(--di-text);
+  text-wrap: balance;
+}
+
+/* No max-width of its own: the block above already caps the measure, and
+   capping it twice is what left "for a time." orphaned on a line of its
+   own — the exact fault this screen was rewritten to remove. The sentence
+   is cut to fit one line at laptop width instead. */
+.di .di-lede {
+  margin: 0.7rem 0 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--di-dim);
+  /* Splits the two lines evenly on a phone instead of leaving "time."
+     stranded on a line by itself. Ignored by browsers that don't know
+     it, which costs nothing. */
+  text-wrap: balance;
+}
+
+/* -------------------------------------------------- examples
+
+   Rows, not cards. Three cards of equal weight is the default shape for
+   any three things and says nothing about this product; a stack of rows
+   is what a timetable looks like. The left edge lights on hover and
+   focus, the way a slot does when you pick it.
+
+   Each row carries a role on the left and the real query on the right,
+   so the three teach three different things the desk understands rather
+   than showing the same question twice at different times. */
+
+/* One surface holding three rows, not three free-floating bars. As loose
+   text on the campus line art they read as disabled copy rather than the
+   main thing on the screen to click. The panel is the only element here
+   with a radius, which is what makes it read as a control surface. */
+.di .di-examples {
+  width: 100%;
+  margin: clamp(24px, 3.8vh, 36px) 0 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;              /* keeps row hovers inside the radius */
+  border: 1px solid var(--di-edge);
+  border-radius: 14px;
+  background: var(--di-surface);
+}
+
+.di .di-example + .di-example { border-top: 1px solid var(--di-line); }
+
+.di .di-try {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 58px;
+  margin: 0;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.95rem;
+  text-align: left;
+  color: var(--di-text);
+  cursor: pointer;
+  transition: background 140ms ease;
+}
+
+.di .di-try:hover:not(:disabled),
+.di .di-try:focus-visible { background: var(--di-surface-hover); }
+
+.di .di-try:focus-visible {
+  outline: 2px solid var(--di-ink);
+  outline-offset: -2px;
+}
+
+.di .di-try:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+/* -------------------------------------------------- row glyphs
+
+   Each row carries a miniature of the week showing what that query
+   covers: a whole column for a day, a single cell for one person at one
+   time. Rows two and three get the *same* glyph on purpose — they ask
+   the same thing, one in a sentence and one in shorthand, and showing
+   that is more useful than three decorative icons that differ for the
+   sake of differing. */
+
+.di .di-glyph {
+  flex: none;
+  width: 26px;
+  height: auto;
+  overflow: visible;
+}
+
+.di .di-glyph .di-g-cell { fill: rgba(233, 121, 156, 0.32); }
+
+.di .di-glyph .di-g-mark {
+  fill: none;
+  stroke: var(--di-ink);
+  stroke-width: 1.1;
+  opacity: 0.75;
+  transition: opacity 140ms ease;
+}
+
+.di .di-try:hover:not(:disabled) .di-g-mark,
+.di .di-try:focus-visible .di-g-mark { opacity: 1; }
+
+/* The query and its role share one flex box so that on a narrow screen
+   they stack together beside the glyph, instead of the role wrapping to
+   a line of its own underneath the whole row. */
+.di .di-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.di .di-query {
+  min-width: 0;
+  font-weight: 500;
+}
+
+/* Sentence case on purpose. A tracked-out capitalised label above every
+   item is the house style of every generated page and carries no
+   information that the words themselves don't. */
+.di .di-role {
+  flex: none;
+  font-size: 0.78rem;
+  color: var(--di-dim);
+}
+
+/* -------------------------------------------------- the promise
+
+   Moved out of the opening paragraph and down here, next to the box the
+   student is about to type into. Up there it was the tail of a third
+   centred line nobody finishes reading; down here it answers the
+   question they actually have, at the moment they have it. */
+
+.di .di-promise {
+  margin: clamp(18px, 2.6vh, 26px) 0 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--di-dim);
+}
+
+/* -------------------------------------------------- phones */
+
+@media (max-width: 460px) {
+  .di .di-text {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+  }
+
+  .di .di-role { order: -1; }
+  .di .di-try { padding: 12px 15px; }
+}
+
+/* -------------------------------------------------- light theme
+
+   The portal is dark by default and opts into light with
+   [data-theme="light"]. Written the other way round the whole block
+   comes up light in front of a dark page, because no attribute is set at
+   all until someone touches the toggle. */
+
+[data-theme="light"] .di {
+  --di-ink: #8b1538;
+  --di-text: #1f1a1c;
+  --di-dim: #6f6670;
+  --di-line: rgba(139, 21, 56, 0.16);
+  --di-edge: rgba(31, 26, 28, 0.1);
+  --di-surface: rgba(139, 21, 56, 0.035);
+  --di-surface-hover: rgba(139, 21, 56, 0.075);
+}
+
+[data-theme="light"] .di .di-cell-busy { fill: rgba(139, 21, 56, 0.3); }
+[data-theme="light"] .di .di-cell-gap  { fill: rgba(139, 21, 56, 0.09); }
+[data-theme="light"] .di .di-glyph .di-g-cell { fill: rgba(139, 21, 56, 0.26); }
+
+/* -------------------------------------------------- motion off */
+
+@media (prefers-reduced-motion: reduce) {
+  .di .di-try,
+  .di .di-glyph .di-g-mark { transition: none; }
+}
